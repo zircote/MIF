@@ -1,0 +1,208 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "mif": "https://mif.io/ns/",
+    "dc": "http://purl.org/dc/terms/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+
+    "Memory": "mif:Memory",
+    "Entity": "mif:Entity",
+    "Relationship": "mif:Relationship",
+    "TemporalMetadata": "mif:TemporalMetadata",
+    "EmbeddingReference": "mif:EmbeddingReference",
+    "EntityReference": "mif:EntityReference",
+    "Vector": "mif:Vector",
+
+    "Person": "mif:Person",
+    "Organization": "mif:Organization",
+    "Technology": "mif:Technology",
+    "Concept": "mif:Concept",
+    "File": "mif:File",
+
+    "id": "@id",
+    "type": "@type",
+
+    "content": {
+      "@id": "mif:content",
+      "@type": "xsd:string"
+    },
+    "memoryType": {
+      "@id": "mif:memoryType",
+      "@type": "@vocab"
+    },
+    "title": "dc:title",
+    "namespace": "mif:namespace",
+    "tags": {
+      "@id": "mif:tags",
+      "@container": "@set"
+    },
+    "aliases": {
+      "@id": "mif:aliases",
+      "@container": "@set"
+    },
+    "blocks": {
+      "@id": "mif:blocks",
+      "@container": "@index"
+    },
+
+    "created": {
+      "@id": "dc:created",
+      "@type": "xsd:dateTime"
+    },
+    "modified": {
+      "@id": "dc:modified",
+      "@type": "xsd:dateTime"
+    },
+
+    "entities": {
+      "@id": "mif:entities",
+      "@container": "@set"
+    },
+    "entity": {
+      "@id": "mif:entity",
+      "@type": "@id"
+    },
+    "entityType": "mif:entityType",
+    "name": "schema:name",
+    "role": "mif:role",
+
+    "relationships": {
+      "@id": "mif:relationships",
+      "@container": "@set"
+    },
+    "relationshipType": {
+      "@id": "mif:relationshipType",
+      "@type": "@vocab"
+    },
+    "target": {
+      "@id": "mif:target",
+      "@type": "@id"
+    },
+    "strength": {
+      "@id": "mif:strength",
+      "@type": "xsd:decimal"
+    },
+
+    "RelatesTo": "mif:RelatesTo",
+    "DerivedFrom": "mif:DerivedFrom",
+    "Supersedes": "mif:Supersedes",
+    "ConflictsWith": "mif:ConflictsWith",
+    "PartOf": "mif:PartOf",
+    "Implements": "mif:Implements",
+    "Uses": "mif:Uses",
+    "Created": "mif:Created",
+    "MentionedIn": "mif:MentionedIn",
+
+    "temporal": "mif:temporal",
+    "validFrom": {
+      "@id": "mif:validFrom",
+      "@type": "xsd:dateTime"
+    },
+    "validUntil": {
+      "@id": "mif:validUntil",
+      "@type": "xsd:dateTime"
+    },
+    "recordedAt": {
+      "@id": "mif:recordedAt",
+      "@type": "xsd:dateTime"
+    },
+    "ttl": {
+      "@id": "mif:ttl",
+      "@type": "xsd:duration"
+    },
+    "decay": "mif:decay",
+    "model": "mif:model",
+    "halfLife": {
+      "@id": "mif:halfLife",
+      "@type": "xsd:duration"
+    },
+    "currentStrength": {
+      "@id": "mif:currentStrength",
+      "@type": "xsd:decimal"
+    },
+    "lastReinforced": {
+      "@id": "mif:lastReinforced",
+      "@type": "xsd:dateTime"
+    },
+    "accessCount": {
+      "@id": "mif:accessCount",
+      "@type": "xsd:integer"
+    },
+    "lastAccessed": {
+      "@id": "mif:lastAccessed",
+      "@type": "xsd:dateTime"
+    },
+    "reinforcementHistory": {
+      "@id": "mif:reinforcementHistory",
+      "@container": "@list"
+    },
+
+    "provenance": "mif:provenance",
+    "sourceType": {
+      "@id": "mif:sourceType",
+      "@type": "@vocab"
+    },
+    "sourceRef": {
+      "@id": "mif:sourceRef",
+      "@type": "@id"
+    },
+    "agent": "mif:agent",
+    "agentVersion": "mif:agentVersion",
+    "confidence": {
+      "@id": "mif:confidence",
+      "@type": "xsd:decimal"
+    },
+    "trustLevel": {
+      "@id": "mif:trustLevel",
+      "@type": "@vocab"
+    },
+
+    "user_explicit": "mif:UserExplicit",
+    "user_implicit": "mif:UserImplicit",
+    "agent_inferred": "mif:AgentInferred",
+    "external_import": "mif:ExternalImport",
+    "system_generated": "mif:SystemGenerated",
+
+    "verified": "mif:Verified",
+    "user_stated": "mif:UserStated",
+    "high_confidence": "mif:HighConfidence",
+    "moderate_confidence": "mif:ModerateConfidence",
+    "low_confidence": "mif:LowConfidence",
+    "uncertain": "mif:Uncertain",
+
+    "embedding": "mif:embedding",
+    "modelVersion": "mif:modelVersion",
+    "dimensions": {
+      "@id": "mif:dimensions",
+      "@type": "xsd:integer"
+    },
+    "sourceText": "mif:sourceText",
+    "normalized": {
+      "@id": "mif:normalized",
+      "@type": "xsd:boolean"
+    },
+    "vectorUri": {
+      "@id": "mif:vectorUri",
+      "@type": "@id"
+    },
+    "vector": "mif:vector",
+    "encoding": "mif:encoding",
+    "data": "mif:data",
+
+    "extensions": {
+      "@id": "mif:extensions",
+      "@container": "@index"
+    },
+
+    "memory": "mif:MemoryType",
+    "decision": "mif:DecisionType",
+    "pattern": "mif:PatternType",
+    "learning": "mif:LearningType",
+    "context": "mif:ContextType",
+    "preference": "mif:PreferenceType",
+    "fact": "mif:FactType",
+    "episode": "mif:EpisodeType"
+  }
+}
