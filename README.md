@@ -1,6 +1,17 @@
 # Memory Interchange Format (MIF)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Spec Version](https://img.shields.io/badge/spec-v0.1.0-blue.svg)](./SPECIFICATION.md)
+[![JSON-LD](https://img.shields.io/badge/format-JSON--LD-orange.svg)](https://json-ld.org/)
+[![W3C PROV](https://img.shields.io/badge/provenance-W3C%20PROV-green.svg)](https://www.w3.org/TR/prov-dm/)
+
 An open standard for portable AI memory representation.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/social-preview-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset=".github/social-preview.png">
+  <img alt="MIF - Memory Interchange Format" src=".github/social-preview.png" width="100%">
+</picture>
 
 ## Overview
 
@@ -10,6 +21,8 @@ MIF is a proposed standard that aims to enable interoperability between AI memor
 - **JSON-LD** (`.memory.json`) - Machine-processable, semantically linked
 
 ## Why MIF?
+
+<img src=".github/readme-infographic.svg" alt="How MIF Works" width="100%">
 
 The AI memory ecosystem is fragmented. Mem0, Zep, Letta, LangMem, Subcog, and others all use proprietary schemas. MIF solves:
 
