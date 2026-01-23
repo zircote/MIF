@@ -7,12 +7,6 @@
 
 An open standard for portable AI memory representation.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/social-preview-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset=".github/social-preview.png">
-  <img alt="MIF - Memory Interchange Format" src=".github/social-preview.png" width="100%">
-</picture>
-
 ## Overview
 
 MIF is a proposed standard that aims to enable interoperability between AI memory providers by defining a common data model with dual representations:
