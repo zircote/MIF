@@ -127,4 +127,4 @@ These additions are backward-compatible, address enterprise requirements, and di
 
 ---
 
-*Full report: `/reports/mif-memory-interchange-format/report.md`*
+*Full report: [report.md](./report.md)*

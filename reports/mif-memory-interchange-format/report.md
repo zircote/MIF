@@ -19,6 +19,23 @@
 
 **Anti-Pattern Compliance:** This report avoids surface-level analysis. Every finding includes actionable spec guidance with priority ratings and implementation complexity.
 
+> **Note:** This document uses Mermaid diagrams including `quadrantChart`, `stateDiagram-v2`, and `gantt`. Mermaid 10.0+ is recommended for full rendering.
+
+---
+
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Market Overview](#market-overview)
+- [Market Sizing](#market-sizing)
+- [Competitive Landscape](#competitive-landscape)
+- [Trend Analysis](#trend-analysis)
+- [SWOT Analysis](#swot-analysis)
+- [Recommendations](#recommendations)
+- [Risk Assessment](#risk-assessment)
+- [Decision Support](#decision-support)
+- [Appendix](#appendix)
+
 ---
 
 ## Executive Summary

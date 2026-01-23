@@ -3,6 +3,24 @@
 **Date:** 2026-01-23
 **Research:** Memory Interchange Format (MIF)
 
+> **Note:** This document uses Mermaid diagrams including experimental features (`xychart-beta`, `sankey-beta`, `timeline`). Mermaid 10.6+ is required for full rendering. All charts include fallback data tables for compatibility.
+
+---
+
+## Table of Contents
+
+- [1. Market Growth Model](#1-market-growth-model)
+- [2. Technology Adoption Lifecycle](#2-technology-adoption-lifecycle)
+- [3. Competitive Dynamics Model](#3-competitive-dynamics-model)
+- [4. Trend Velocity Analysis](#4-trend-velocity-analysis)
+- [5. Regulatory Impact Timeline](#5-regulatory-impact-timeline)
+- [6. Competitive Response Model](#6-competitive-response-model)
+- [7. Investment & Resource Model](#7-investment--resource-model)
+- [8. Adoption Funnel Model](#8-adoption-funnel-model)
+- [9. Technology Maturity Model](#9-technology-maturity-model)
+- [10. Risk-Adjusted Forecast](#10-risk-adjusted-forecast)
+- [Summary: Key Trend Indicators](#summary-key-trend-indicators)
+
 ---
 
 ## 1. Market Growth Model
