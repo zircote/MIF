@@ -12,20 +12,19 @@ This directory contains market research reports generated using the sigint resea
 
 Each report directory contains:
 
-```
+```text
 report-name/
 ├── README.md           # Report overview and navigation
 ├── executive-brief.md  # 1-page decision summary
 ├── report.md           # Comprehensive analysis
-├── trend-models.md     # Scenario modeling (when applicable)
-└── state.json          # Raw research data and findings
+└── trend-models.md     # Scenario modeling (when applicable)
 ```
 
 ## Generating New Reports
 
 Use the sigint research commands:
 
-```
+```bash
 # Start a new research session
 /sigint:start "Your research topic"
 

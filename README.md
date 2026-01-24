@@ -63,11 +63,25 @@ User prefers dark mode for all applications.
 | **Bi-Temporal** | Track when recorded AND when facts are valid |
 | **Flexible Namespaces** | `_public`, `_shared`, `{org}/{scope}+` with reserved prefixes |
 | **Model-Agnostic Embeddings** | Store model + source text for re-embedding |
+| **Citations** | Structured references with type/role taxonomy (Level 3) |
 | **W3C PROV** | Standard provenance tracking |
+| **JSON Schema** | Automated validation for MIF documents |
 
 ## Specification
 
 See [SPECIFICATION.md](./SPECIFICATION.md) for the complete technical specification.
+
+## Validation
+
+JSON Schema files are available for automated validation:
+
+```bash
+# Validate a MIF document
+npx ajv validate -s schema/mif.schema.json -d your-memory.json
+
+# Validate citations only
+npx ajv validate -s schema/citation.schema.json -d citation.json
+```
 
 ## Examples
 
@@ -75,7 +89,7 @@ See the [examples/](./examples/) directory for:
 
 - Minimal memories (Level 1)
 - Standard memories with relationships (Level 2)
-- Full-featured memories with temporal and provenance data (Level 3)
+- Full-featured memories with temporal, provenance, and citations (Level 3)
 
 ## Conformance Levels
 
@@ -83,7 +97,7 @@ See the [examples/](./examples/) directory for:
 |-------|--------------|
 | **Level 1: Core** | id, type, content, created |
 | **Level 2: Standard** | + namespace, entities, relationships, timestamps |
-| **Level 3: Full** | + bi-temporal, decay, provenance, embeddings |
+| **Level 3: Full** | + bi-temporal, decay, provenance, embeddings, citations |
 
 ## Migration
 
