@@ -191,6 +191,9 @@ A Memory Unit is the atomic element of MIF. It contains:
 | `temporal` | OPTIONAL | Object | Temporal validity data |
 | `provenance` | OPTIONAL | Object | Source and trust data |
 | `embedding` | OPTIONAL | Object | Embedding reference |
+| `citations` | OPTIONAL | Array | Citation references (Level 3) |
+| `summary` | OPTIONAL | String | Compressed content summary (Level 3) |
+| `compressed_at` | OPTIONAL | DateTime | When compression was applied (Level 3) |
 | `extensions` | OPTIONAL | Object | Provider-specific data |
 
 ### 4.2 Memory Types
@@ -331,6 +334,192 @@ This is an important statement. ^important-point
 
 Referenced as: `[[Memory Name#^important-point]]`
 
+### 5.5 Citations (Level 3)
+
+Citations provide structured references to external sources that inform, support, or relate to the memory content. Citations are a Level 3 (Full) optional feature.
+
+#### 5.5.1 Frontmatter Schema
+
+```yaml
+# === OPTIONAL: Citations (Level 3) ===
+citations:
+  - type: article                          # REQUIRED: Source category
+    title: "Memory Systems in AI Agents"   # REQUIRED: Citation title
+    url: https://arxiv.org/abs/2024.12345  # REQUIRED: Valid URL
+    role: supports                         # REQUIRED: Relationship to memory
+    author: "@[[Jane Smith|Person]]"       # OPTIONAL: Entity ref or text
+    date: 2024-06-15                       # OPTIONAL: Publication date
+    accessed: 2026-01-20                   # OPTIONAL: Access date
+    relevance: 0.95                        # OPTIONAL: Relevance score (0-1)
+    note: "Foundational paper on semantic memory"  # OPTIONAL: Annotation
+```
+
+#### 5.5.2 Citation Fields
+
+| Field | Required | Type | Description |
+|-------|----------|------|-------------|
+| `type` | REQUIRED | Enum | Source category (see 5.5.3) |
+| `title` | REQUIRED | String | Citation title |
+| `url` | REQUIRED | URI | Valid URL or URI |
+| `role` | REQUIRED | Enum | Relationship to memory (see 5.5.4) |
+| `author` | OPTIONAL | String | Entity reference or plain text |
+| `date` | OPTIONAL | Date | Publication date (ISO 8601) |
+| `accessed` | OPTIONAL | Date | Access date (ISO 8601) |
+| `relevance` | OPTIONAL | Decimal | Relevance score (0.0-1.0) |
+| `note` | OPTIONAL | String | Free-form annotation |
+
+#### 5.5.3 Citation Types
+
+| Type | Description | Example |
+|------|-------------|---------|
+| `article` | Journal article, blog post | arXiv paper, Medium article |
+| `book` | Published book | O'Reilly book, academic text |
+| `paper` | Conference/research paper | ACM paper, IEEE publication |
+| `website` | General website | Documentation site, homepage |
+| `documentation` | Technical documentation | API docs, user guides |
+| `repository` | Code repository | GitHub repo, GitLab project |
+| `video` | Video content | YouTube tutorial, conference talk |
+| `podcast` | Podcast episode | Tech podcast, interview |
+| `specification` | Technical specification | W3C spec, RFC document |
+| `dataset` | Data source | Kaggle dataset, research data |
+| `tool` | Software tool or service | SaaS product, CLI tool |
+| `other` | Miscellaneous source | Catch-all category |
+
+Custom types MAY use namespace prefixes: `acme:internal-memo`, `research:lab-notes`
+
+#### 5.5.4 Citation Roles
+
+| Role | Description | Use Case |
+|------|-------------|----------|
+| `supports` | Provides supporting evidence | Confirming research, alignment |
+| `refutes` | Contradicts or disputes | Opposing viewpoint, correction |
+| `background` | General context/reference | Related reading, foundation |
+| `methodology` | Method or approach source | Technique borrowed, framework |
+| `contradicts` | Conflicts with claims | Disagreement, alternative view |
+| `extends` | Builds upon cited work | Evolution, expansion |
+| `derived` | Direct derivation source | Adapted from, based on |
+| `source` | Primary source material | Original data, quote |
+| `example` | Illustrative example | Case study, demo |
+| `review` | Critical review/analysis | Critique, evaluation |
+
+Custom roles MAY use namespace prefixes: `research:replicates`, `legal:cites-precedent`
+
+#### 5.5.5 Body Section Syntax
+
+An optional `## Citations` section MAY appear in the memory body for detailed annotations. When present, corresponding entries MUST exist in frontmatter.
+
+```markdown
+## Citations
+
+- [Memory Systems in AI Agents](https://arxiv.org/abs/2024.12345) by @[[Jane Smith|Person]] (2024)
+  - **Type**: article
+  - **Role**: supports
+  - **Relevance**: 0.95
+  - Foundational paper on semantic memory structures. Introduces bi-temporal
+    model that informed MIF's temporal design.
+
+- [Obsidian Help](https://help.obsidian.md/) by @[[Obsidian Team|Organization]]
+  - **Type**: documentation
+  - **Role**: background
+  - **Accessed**: 2026-01-18
+  - Reference for wiki-link syntax and block references.
+```
+
+#### 5.5.6 Author Entity References
+
+Authors MAY use wiki-link syntax to reference MIF entities:
+
+```yaml
+# Single author entity
+author: "@[[Jane Smith|Person]]"
+
+# Multiple authors (comma-separated)
+author: "@[[Jane Smith|Person]], @[[John Doe|Person]]"
+
+# Organization author
+author: "@[[Anthropic|Organization]]"
+
+# Plain text (no entity reference)
+author: "Jane Smith et al."
+```
+
+#### 5.5.7 Citation Validation
+
+Implementations SHOULD validate citations according to these rules:
+
+**Required Field Constraints:**
+
+| Field | Constraint |
+|-------|------------|
+| `type` | MUST be a value from Section 5.5.3 or a custom namespaced type (e.g., `acme:memo`) |
+| `title` | MUST be a non-empty string |
+| `url` | MUST be a valid URI (http, https, or custom schemes) |
+| `role` | MUST be a value from Section 5.5.4 or a custom namespaced role (e.g., `legal:precedent`) |
+
+**Optional Field Constraints:**
+
+| Field | Constraint |
+|-------|------------|
+| `author` | SHOULD be entity reference(s) `@[[Name\|Type]]` or plain text; multiple authors comma-separated |
+| `date` | MUST be ISO 8601 date format (`YYYY-MM-DD`) |
+| `accessed` | MUST be ISO 8601 date format (`YYYY-MM-DD`) |
+| `relevance` | MUST be decimal between 0.0 and 1.0 inclusive |
+| `note` | SHOULD be under 1000 characters; longer notes SHOULD use body section |
+
+**Validation Errors:**
+
+| Error | Severity | Action |
+|-------|----------|--------|
+| Missing required field | Error | Reject citation |
+| Invalid `type` value | Warning | Accept with `type: "other"` fallback |
+| Invalid `role` value | Warning | Accept with `role: "background"` fallback |
+| Malformed URL | Error | Reject citation |
+| `relevance` out of range | Warning | Clamp to 0.0-1.0 |
+| Invalid date format | Warning | Accept as plain text |
+
+### 5.6 Compression (Level 3)
+
+Compression allows large memories to be summarized while preserving the original content. Compression is typically applied by garbage collection processes to reduce memory footprint while retaining semantic value.
+
+#### 5.6.1 Compression Fields
+
+| Field | Required | Type | Description |
+|-------|----------|------|-------------|
+| `summary` | OPTIONAL | String | Concise 2-3 sentence summary (max 500 characters) |
+| `compressed_at` | OPTIONAL | DateTime | When compression was applied (ISO 8601) |
+
+**Frontmatter Schema:**
+
+```yaml
+# === OPTIONAL: Compression (Level 3) ===
+summary: "User prefers dark mode for reduced eye strain during extended coding sessions. Applies to IDE, terminal, and web applications."
+compressed_at: 2026-01-24T10:00:00Z
+```
+
+#### 5.6.2 Compression Criteria
+
+Implementations MAY apply compression when memories meet these criteria:
+
+| Condition | Threshold |
+|-----------|-----------|
+| Age AND Size | Age > 30 days AND content > 100 lines |
+| Decay AND Size | Strength < 0.3 AND content > 100 lines |
+
+#### 5.6.3 Compression Behavior
+
+- The `content` field SHOULD be replaced with the compressed summary
+- The original `content` MAY be preserved in `extensions.original_content`
+- The `summary` field contains the generated summary text
+- The `compressed_at` timestamp indicates when compression occurred
+- Compressed memories retain all other metadata (relationships, entities, etc.)
+
+#### 5.6.4 Compression Validation
+
+| Field | Constraint |
+|-------|------------|
+| `summary` | MUST be 500 characters or fewer |
+| `compressed_at` | MUST be ISO 8601 datetime format |
+
 ---
 
 ## 6. JSON-LD Format (.memory.json)
@@ -459,6 +648,26 @@ Referenced as: `[[Memory Name#^important-point]]`
     "vectorUri": "urn:mif:vector:550e8400-e29b-41d4-a716-446655440000"
   },
 
+  "citations": [
+    {
+      "@type": "Citation",
+      "citationType": "article",
+      "citationRole": "supports",
+      "title": "Dark Mode UI Benefits for Developer Productivity",
+      "url": "https://example.com/dark-mode-research",
+      "author": {
+        "@type": "EntityReference",
+        "entity": {"@id": "urn:mif:entity:person:jane-smith"},
+        "entityType": "Person",
+        "name": "Jane Smith"
+      },
+      "date": "2024-03-15",
+      "accessed": "2026-01-18",
+      "relevance": 0.92,
+      "note": "Research supporting dark mode preference for reduced eye strain"
+    }
+  ],
+
   "extensions": {
     "subcog:domain": "user",
     "subcog:hash": "sha256:4c04b32ddc2053b5..."
@@ -563,7 +772,7 @@ entity_types:
 }
 ```
 
-### 7.2 Entity Schema
+### 7.4 Entity Schema
 
 **Markdown (in `.mif/entities/` directory):**
 
@@ -596,7 +805,7 @@ properties:
 }
 ```
 
-### 7.3 Entity References in Memories
+### 7.5 Entity References in Memories
 
 **Markdown:**
 ```markdown
@@ -1108,6 +1317,8 @@ provenance:
 - Decay functions
 - W3C PROV provenance
 - Embedding references
+- Citations with rich metadata
+- Compression support
 - Extension support
 
 ### 13.4 Conformance Statement
@@ -1216,7 +1427,47 @@ https://mif.io/context/v1
     "modelVersion": "mif:modelVersion",
     "dimensions": "mif:dimensions",
     "sourceText": "mif:sourceText",
-    "vectorUri": "mif:vectorUri"
+    "vectorUri": "mif:vectorUri",
+
+    "citations": {
+      "@id": "mif:citations",
+      "@container": "@set"
+    },
+    "Citation": "mif:Citation",
+    "citationType": {
+      "@id": "mif:citationType",
+      "@type": "@vocab"
+    },
+    "citationRole": {
+      "@id": "mif:citationRole",
+      "@type": "@vocab"
+    },
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "author": {
+      "@id": "dc:creator"
+    },
+    "date": {
+      "@id": "dc:date",
+      "@type": "xsd:date"
+    },
+    "relevance": {
+      "@id": "mif:relevance",
+      "@type": "xsd:decimal"
+    },
+    "accessed": {
+      "@id": "schema:accessDate",
+      "@type": "xsd:date"
+    },
+    "note": "schema:description",
+
+    "summary": "mif:summary",
+    "compressedAt": {
+      "@id": "mif:compressedAt",
+      "@type": "xsd:dateTime"
+    }
   }
 }
 ```
@@ -1275,6 +1526,59 @@ User prefers dark mode
 ## Relationships
 
 - relates-to [[ui-prefs]]
+```
+
+### 15.4 Citations Conversion
+
+**Markdown to JSON-LD:**
+
+1. Parse frontmatter `citations` array
+2. For each citation:
+   - Map `type` → `citationType` vocabulary term
+   - Map `role` → `citationRole` vocabulary term
+   - Resolve `@[[Entity|Type]]` author refs → entity URIs
+   - For multiple authors (comma-separated), convert to array of author objects
+   - Convert dates to ISO 8601 format
+3. If `## Citations` body section exists:
+   - Parse markdown links for title/url
+   - Extract metadata from `**Key**: value` patterns
+   - Merge with frontmatter (frontmatter takes precedence)
+4. Build `Citation` objects array
+
+**JSON-LD to Markdown:**
+
+1. Generate frontmatter `citations` array from JSON-LD
+2. Convert entity URIs to wiki-link syntax
+3. If any citation has `note` exceeding 100 characters:
+   - Create `## Citations` body section
+   - Format as markdown list with metadata
+
+**Example:**
+
+```yaml
+# Frontmatter
+citations:
+  - type: article
+    title: "Research Paper"
+    url: https://example.com/paper
+    role: supports
+    author: "@[[Jane Smith|Person]]"
+```
+
+Converts to:
+
+```json
+"citations": [{
+  "@type": "Citation",
+  "citationType": "article",
+  "citationRole": "supports",
+  "title": "Research Paper",
+  "url": "https://example.com/paper",
+  "author": {
+    "@type": "EntityReference",
+    "entity": {"@id": "urn:mif:entity:person:jane-smith"}
+  }
+}]
 ```
 
 ---
@@ -1592,6 +1896,69 @@ extensions:
 | `@[[Name\|Person]]` | Reference with explicit type |
 | `@[[Name\|uses]]` | Reference with relationship |
 | `@[[Name\|Technology\|uses]]` | Type and relationship |
+
+---
+
+## Appendix D: Citations Quick Reference
+
+### Citation Types
+
+| Type | Description |
+|------|-------------|
+| `article` | Journal article, blog post |
+| `book` | Published book |
+| `paper` | Conference/research paper |
+| `website` | General website |
+| `documentation` | Technical documentation |
+| `repository` | Code repository |
+| `video` | Video content |
+| `podcast` | Podcast episode |
+| `specification` | Technical specification |
+| `dataset` | Data source |
+| `tool` | Software tool or service |
+| `other` | Miscellaneous source |
+
+### Citation Roles
+
+| Role | Description |
+|------|-------------|
+| `supports` | Provides supporting evidence |
+| `refutes` | Contradicts or disputes |
+| `background` | General context/reference |
+| `methodology` | Method or approach source |
+| `contradicts` | Conflicts with claims |
+| `extends` | Builds upon cited work |
+| `derived` | Direct derivation source |
+| `source` | Primary source material |
+| `example` | Illustrative example |
+| `review` | Critical review/analysis |
+
+### Frontmatter Syntax
+
+```yaml
+citations:
+  - type: article              # REQUIRED
+    title: "Citation Title"    # REQUIRED
+    url: https://example.com   # REQUIRED
+    role: supports             # REQUIRED
+    author: "@[[Name|Person]]" # OPTIONAL
+    date: 2024-06-15           # OPTIONAL
+    accessed: 2026-01-20       # OPTIONAL
+    relevance: 0.95            # OPTIONAL (0-1)
+    note: "Annotation"         # OPTIONAL
+```
+
+### Body Section Syntax
+
+```markdown
+## Citations
+
+- [Title](url) by @[[Author|Person]] (date)
+  - **Type**: article
+  - **Role**: supports
+  - **Relevance**: 0.95
+  - Long-form annotation here.
+```
 
 ---
 
