@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MIF Version Constants",
+  "description": "Canonical version numbers for MIF specification and components",
+  "specification": "0.1.0",
+  "schemas": {
+    "mif": "1.0.0",
+    "citation": "1.0.0",
+    "ontology": "1.0.0",
+    "entity-reference": "1.0.0"
+  },
+  "ontologies": {
+    "mif-base": "1.0.0",
+    "shared-traits": "1.0.0"
+  },
+  "context": {
+    "jsonld": "1.1"
+  }
+}

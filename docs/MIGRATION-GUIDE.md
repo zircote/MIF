@@ -1,0 +1,696 @@
+# MIF Migration Guide
+
+This guide provides detailed instructions for migrating memories from other AI memory providers to MIF format.
+
+## Overview
+
+MIF supports migration from:
+
+| Provider | Difficulty | Data Loss |
+|----------|------------|-----------|
+| [Mem0](#mem0) | Low | Minimal |
+| [Zep](#zep) | Low | None |
+| [Letta (Agent File)](#letta-agent-file) | Medium | Minimal |
+| [Subcog](#subcog) | Low | None |
+| [Basic Memory](#basic-memory) | Low | Minimal |
+| [LangMem](#langmem) | Medium | Minimal |
+
+## Memory Type Mapping (Cognitive Triad)
+
+MIF uses three base memory types. When migrating, map provider-specific categories to the cognitive triad:
+
+| Cognitive Type | Use For | Provider Category Examples |
+|----------------|---------|---------------------------|
+| `semantic` | Facts, decisions, preferences, knowledge | `preference`, `fact`, `decision`, `context`, `learning` |
+| `episodic` | Events, sessions, incidents, conversations | `episode`, `event`, `session`, `conversation` |
+| `procedural` | Processes, runbooks, patterns, how-to | `pattern`, `procedure`, `workflow`, `template` |
+
+**Key Principle:** The `memoryType` field uses the cognitive triad base type, while specific categorization is expressed through the `namespace` field:
+
+```json
+{
+  "memoryType": "semantic",
+  "namespace": "semantic/decisions"
+}
+```
+
+This preserves the original provider category in the namespace hierarchy while maintaining MIF compatibility.
+
+---
+
+## Mem0
+
+### Source Format
+
+Mem0 stores memories as JSON objects:
+
+```json
+{
+  "id": "mem0_123abc",
+  "memory": "User prefers dark mode for all applications",
+  "user_id": "user_456",
+  "metadata": {
+    "category": "preference",
+    "created_at": "2026-01-15T10:30:00Z",
+    "custom_field": "value"
+  },
+  "hash": "abc123..."
+}
+```
+
+### Mapping
+
+| Mem0 Field | MIF Field | Notes |
+|------------|-----------|-------|
+| `id` | `@id` | Prefix with `urn:mif:` |
+| `memory` | `content` | Direct mapping |
+| `user_id` | `namespace` | Use cognitive triad prefix (e.g., `semantic/preferences`) |
+| `metadata.category` | `memoryType` | Map to cognitive triad (`semantic`, `episodic`, `procedural`) |
+| `metadata.category` | `namespace` (second part) | Preserve as namespace suffix (e.g., `semantic/{category}`) |
+| `metadata.created_at` | `created` | Direct mapping |
+| `metadata.*` | `extensions.mem0.*` | Preserve in extensions |
+| `hash` | `extensions.mem0.hash` | Preserve hash |
+
+### Conversion Script
+
+```python
+import json
+from datetime import datetime
+import uuid
+
+def mem0_to_mif(mem0_data: dict) -> dict:
+    """Convert Mem0 memory to MIF format."""
+
+    # Map category to memoryType
+    type_map = {
+        "preference": "preference",
+        "fact": "fact",
+        "context": "context",
+        "conversation": "episode",
+        None: "memory"
+    }
+
+    category = mem0_data.get("metadata", {}).get("category")
+    memory_type = type_map.get(category, "memory")
+
+    # Build MIF document
+    mif = {
+        "@context": "https://mif.io/context/v1",
+        "@type": "Memory",
+        "@id": f"urn:mif:{mem0_data['id']}",
+        "memoryType": memory_type,
+        "content": mem0_data["memory"],
+        "created": mem0_data.get("metadata", {}).get(
+            "created_at",
+            datetime.utcnow().isoformat() + "Z"
+        ),
+        "namespace": f"mem0/{mem0_data.get('user_id', 'default')}",
+    }
+
+    # Preserve original data in extensions
+    mif["extensions"] = {
+        "mem0": {
+            "original_id": mem0_data["id"],
+            "hash": mem0_data.get("hash"),
+            "metadata": {
+                k: v for k, v in mem0_data.get("metadata", {}).items()
+                if k not in ["category", "created_at"]
+            }
+        }
+    }
+
+    return mif
+
+
+# Example usage
+mem0_memory = {
+    "id": "mem0_123abc",
+    "memory": "User prefers dark mode",
+    "user_id": "user_456",
+    "metadata": {
+        "category": "preference",
+        "created_at": "2026-01-15T10:30:00Z"
+    }
+}
+
+mif_memory = mem0_to_mif(mem0_memory)
+print(json.dumps(mif_memory, indent=2))
+```
+
+### Batch Migration
+
+```python
+import json
+from pathlib import Path
+
+def migrate_mem0_export(input_file: str, output_dir: str):
+    """Migrate a Mem0 export file to MIF memories."""
+
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    with open(input_file) as f:
+        mem0_memories = json.load(f)
+
+    for mem in mem0_memories:
+        mif = mem0_to_mif(mem)
+
+        # Write to file
+        memory_id = mif["@id"].split(":")[-1]
+        output_file = output_path / f"{memory_id}.memory.json"
+
+        with open(output_file, "w") as f:
+            json.dump(mif, f, indent=2)
+
+    print(f"Migrated {len(mem0_memories)} memories to {output_dir}")
+```
+
+---
+
+## Zep
+
+### Source Format
+
+Zep uses a temporal knowledge graph structure:
+
+```json
+{
+  "uuid": "zep_789xyz",
+  "content": "User prefers dark mode for all applications",
+  "created_at": "2026-01-15T10:30:00Z",
+  "metadata": {
+    "source": "conversation"
+  },
+  "temporal": {
+    "t_valid": "2026-01-15T00:00:00Z",
+    "t_invalid": null
+  },
+  "entity_edges": [
+    {
+      "source": "user:jane",
+      "target": "concept:dark-mode",
+      "relation": "prefers"
+    }
+  ],
+  "embedding": [0.1, 0.2, ...]
+}
+```
+
+### Mapping
+
+| Zep Field | MIF Field | Notes |
+|-----------|-----------|-------|
+| `uuid` | `@id` | Prefix with `urn:mif:` |
+| `content` | `content` | Direct mapping |
+| `created_at` | `created`, `temporal.recordedAt` | Both fields |
+| `temporal.t_valid` | `temporal.validFrom` | Direct mapping |
+| `temporal.t_invalid` | `temporal.validUntil` | Direct mapping |
+| `entity_edges` | `relationships` | Transform to MIF format |
+| `embedding` | `embedding.vectorUri` | Store externally |
+
+### Conversion Script
+
+```python
+def zep_to_mif(zep_data: dict) -> dict:
+    """Convert Zep memory to MIF format."""
+
+    mif = {
+        "@context": "https://mif.io/context/v1",
+        "@type": "Memory",
+        "@id": f"urn:mif:{zep_data['uuid']}",
+        "memoryType": "semantic",  # Default to semantic for factual memories
+        "content": zep_data["content"],
+        "created": zep_data["created_at"],
+        "namespace": "semantic/knowledge",  # Categorize via namespace
+    }
+
+    # Map temporal data
+    if "temporal" in zep_data:
+        mif["temporal"] = {
+            "@type": "TemporalMetadata",
+            "validFrom": zep_data["temporal"].get("t_valid"),
+            "validUntil": zep_data["temporal"].get("t_invalid"),
+            "recordedAt": zep_data["created_at"]
+        }
+
+    # Map entity edges to relationships
+    if "entity_edges" in zep_data:
+        mif["relationships"] = []
+        for edge in zep_data["entity_edges"]:
+            mif["relationships"].append({
+                "@type": "Relationship",
+                "relationshipType": map_zep_relation(edge["relation"]),
+                "target": {
+                    "@id": f"urn:mif:entity:{edge['target'].replace(':', ':')}"
+                },
+                "metadata": {
+                    "source": edge["source"],
+                    "original_relation": edge["relation"]
+                }
+            })
+
+    # Reference embedding (store vectors separately)
+    if "embedding" in zep_data:
+        mif["embedding"] = {
+            "@type": "EmbeddingReference",
+            "model": "zep-default",
+            "sourceText": zep_data["content"],
+            "vectorUri": f"urn:mif:vector:{zep_data['uuid']}"
+        }
+
+    return mif
+
+
+def map_zep_relation(relation: str) -> str:
+    """Map Zep relation types to MIF relationship types."""
+    mapping = {
+        "prefers": "RelatesTo",
+        "uses": "Uses",
+        "knows": "RelatesTo",
+        "created": "Created",
+        "part_of": "PartOf",
+    }
+    return mapping.get(relation, "RelatesTo")
+```
+
+---
+
+## Letta (Agent File)
+
+### Source Format
+
+Letta uses memory blocks within agent files:
+
+```json
+{
+  "agent_state": {
+    "memory": {
+      "human": {
+        "label": "human",
+        "value": "Name: Alice Johnson. Age: 32. Occupation: Software Engineer. Prefers dark mode. Uses Python and TypeScript.",
+        "limit": 5000
+      },
+      "persona": {
+        "label": "persona",
+        "value": "I am a helpful coding assistant...",
+        "limit": 3000
+      }
+    }
+  }
+}
+```
+
+### Mapping Strategy
+
+Letta stores concatenated facts in a single block. Migration requires:
+
+1. Parse the block content into discrete facts
+2. Create individual MIF memories for each fact
+3. Link related memories together
+
+### Conversion Script
+
+```python
+import re
+
+def letta_to_mif(letta_data: dict) -> list:
+    """Convert Letta agent memory to MIF memories."""
+
+    memories = []
+    memory_blocks = letta_data.get("agent_state", {}).get("memory", {})
+
+    for block_name, block in memory_blocks.items():
+        # Skip persona blocks (those are prompts, not memories)
+        if block_name == "persona":
+            continue
+
+        # Parse the block value into facts
+        facts = parse_letta_block(block["value"])
+
+        for i, fact in enumerate(facts):
+            mif = {
+                "@context": "https://mif.io/context/v1",
+                "@type": "Memory",
+                "@id": f"urn:mif:letta-{block_name}-{i}",
+                "memoryType": classify_fact(fact),
+                "content": fact,
+                "created": datetime.utcnow().isoformat() + "Z",
+                "namespace": f"letta/agent/{block_name}",
+                "provenance": {
+                    "sourceType": "external_import",
+                    "confidence": 0.8,
+                    "trustLevel": "moderate_confidence"
+                },
+                "extensions": {
+                    "letta": {
+                        "block": block_name,
+                        "original_limit": block.get("limit")
+                    }
+                }
+            }
+            memories.append(mif)
+
+    return memories
+
+
+def parse_letta_block(value: str) -> list:
+    """Parse a Letta block into individual facts."""
+
+    # Split by sentence-ending punctuation
+    sentences = re.split(r'(?<=[.!?])\s+', value)
+
+    facts = []
+    for sentence in sentences:
+        sentence = sentence.strip()
+        if sentence and len(sentence) > 10:  # Skip very short fragments
+            facts.append(sentence)
+
+    return facts
+
+
+def classify_fact(fact: str) -> str:
+    """Classify a fact into a MIF memory type."""
+
+    fact_lower = fact.lower()
+
+    if "prefer" in fact_lower or "like" in fact_lower:
+        return "preference"
+    elif "name:" in fact_lower or "age:" in fact_lower:
+        return "fact"
+    elif "decided" in fact_lower or "chose" in fact_lower:
+        return "decision"
+    else:
+        return "memory"
+```
+
+---
+
+## Subcog
+
+### Source Format
+
+Subcog format is closest to MIF (MIF was partially inspired by Subcog):
+
+```json
+{
+  "id": "subcog_abc123",
+  "content": "Decision: Use PostgreSQL for data storage",
+  "namespace": "decisions",
+  "domain": "project",
+  "tags": ["database", "architecture"],
+  "created_at": "2026-01-15T10:30:00Z",
+  "metadata": {
+    "confidence": 0.95,
+    "source": "conversation"
+  }
+}
+```
+
+### Mapping
+
+| Subcog Field | MIF Field | Notes |
+|--------------|-----------|-------|
+| `id` | `@id` | Prefix with `urn:mif:` |
+| `content` | `content` | Direct mapping |
+| `namespace` | `memoryType` | Map to MIF types |
+| `domain` | `namespace` | Prefix with `subcog/` |
+| `tags` | `tags` | Direct mapping |
+| `created_at` | `created` | Direct mapping |
+| `metadata.confidence` | `provenance.confidence` | Direct mapping |
+
+### Conversion Script
+
+```python
+def subcog_to_mif(subcog_data: dict) -> dict:
+    """Convert Subcog memory to MIF format."""
+
+    # Map Subcog namespace to MIF memoryType
+    type_map = {
+        "decisions": "decision",
+        "patterns": "pattern",
+        "learnings": "learning",
+        "preferences": "preference",
+        "facts": "fact",
+        "context": "context",
+    }
+
+    memory_type = type_map.get(
+        subcog_data.get("namespace", ""),
+        "memory"
+    )
+
+    mif = {
+        "@context": "https://mif.io/context/v1",
+        "@type": "Memory",
+        "@id": f"urn:mif:{subcog_data['id']}",
+        "memoryType": memory_type,
+        "content": subcog_data["content"],
+        "created": subcog_data.get("created_at", datetime.utcnow().isoformat() + "Z"),
+        "namespace": f"subcog/{subcog_data.get('domain', 'default')}",
+        "tags": subcog_data.get("tags", []),
+    }
+
+    # Map metadata to provenance
+    if "metadata" in subcog_data:
+        mif["provenance"] = {
+            "sourceType": "external_import",
+            "confidence": subcog_data["metadata"].get("confidence", 0.8),
+        }
+
+    # Preserve extensions
+    mif["extensions"] = {
+        "subcog": {
+            "original_id": subcog_data["id"],
+            "original_namespace": subcog_data.get("namespace"),
+            "domain": subcog_data.get("domain")
+        }
+    }
+
+    return mif
+```
+
+---
+
+## Basic Memory
+
+### Source Format
+
+Basic text files or simple JSON:
+
+```
+# preferences.txt
+dark mode: enabled
+editor: vim
+language: python
+```
+
+Or JSON:
+
+```json
+{
+  "preferences": {
+    "dark_mode": true,
+    "editor": "vim",
+    "language": "python"
+  }
+}
+```
+
+### Conversion Script
+
+```python
+def text_to_mif(text_file: str) -> list:
+    """Convert a plain text file to MIF memories."""
+
+    memories = []
+
+    with open(text_file) as f:
+        lines = f.readlines()
+
+    for i, line in enumerate(lines):
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+
+        # Parse key: value format
+        if ":" in line:
+            key, value = line.split(":", 1)
+            content = f"{key.strip()}: {value.strip()}"
+        else:
+            content = line
+
+        mif = {
+            "@context": "https://mif.io/context/v1",
+            "@type": "Memory",
+            "@id": f"urn:mif:import-{uuid.uuid4()}",
+            "memoryType": "semantic",  # Cognitive triad base type
+            "namespace": "semantic/preferences" if ":" in line else "semantic/knowledge",
+            "content": content,
+            "created": datetime.utcnow().isoformat() + "Z",
+            "provenance": {
+                "sourceType": "external_import",
+                "confidence": 0.7
+            }
+        }
+        memories.append(mif)
+
+    return memories
+```
+
+---
+
+## LangMem
+
+### Source Format
+
+LangMem uses a graph-based structure:
+
+```json
+{
+  "memories": [
+    {
+      "id": "mem_123",
+      "text": "User prefers dark mode",
+      "embedding": [...],
+      "metadata": {
+        "timestamp": "2026-01-15T10:30:00Z",
+        "type": "semantic"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "source": "mem_123",
+      "target": "mem_456",
+      "type": "related"
+    }
+  ]
+}
+```
+
+### Conversion Script
+
+```python
+def langmem_to_mif(langmem_data: dict) -> list:
+    """Convert LangMem export to MIF memories."""
+
+    # Build relationship lookup
+    relationships = {}
+    for rel in langmem_data.get("relationships", []):
+        source = rel["source"]
+        if source not in relationships:
+            relationships[source] = []
+        relationships[source].append({
+            "target": rel["target"],
+            "type": rel["type"]
+        })
+
+    # Convert memories
+    mif_memories = []
+
+    for mem in langmem_data.get("memories", []):
+        mif = {
+            "@context": "https://mif.io/context/v1",
+            "@type": "Memory",
+            "@id": f"urn:mif:{mem['id']}",
+            "memoryType": map_langmem_type(mem.get("metadata", {}).get("type")),
+            "content": mem["text"],
+            "created": mem.get("metadata", {}).get(
+                "timestamp",
+                datetime.utcnow().isoformat() + "Z"
+            ),
+        }
+
+        # Add relationships
+        if mem["id"] in relationships:
+            mif["relationships"] = [
+                {
+                    "@type": "Relationship",
+                    "relationshipType": map_langmem_relation(rel["type"]),
+                    "target": {"@id": f"urn:mif:{rel['target']}"}
+                }
+                for rel in relationships[mem["id"]]
+            ]
+
+        mif_memories.append(mif)
+
+    return mif_memories
+
+
+def map_langmem_type(langmem_type: str) -> str:
+    """Map LangMem memory type to MIF type."""
+    mapping = {
+        "semantic": "fact",
+        "episodic": "episode",
+        "procedural": "pattern",
+    }
+    return mapping.get(langmem_type, "memory")
+
+
+def map_langmem_relation(relation: str) -> str:
+    """Map LangMem relation to MIF relationship type."""
+    mapping = {
+        "related": "RelatesTo",
+        "derived": "DerivedFrom",
+        "supersedes": "Supersedes",
+        "conflicts": "ConflictsWith",
+    }
+    return mapping.get(relation, "RelatesTo")
+```
+
+---
+
+## Validation After Migration
+
+After migrating, validate your MIF documents:
+
+```bash
+# Validate all migrated memories
+for f in memories/*.json; do
+  npx ajv validate -s schema/mif.schema.json -d "$f" || echo "FAILED: $f"
+done
+```
+
+## Common Issues
+
+### Missing Required Fields
+
+If validation fails for missing fields, ensure:
+- `@context` is set to `"https://mif.io/context/v1"`
+- `@type` is `"Memory"`
+- `@id` starts with `urn:mif:`
+- `created` is a valid ISO 8601 datetime
+
+### Invalid Memory Types
+
+Map provider-specific types to MIF types:
+- `semantic` → `fact`
+- `episodic` → `episode`
+- `procedural` → `pattern`
+- Unknown → `memory`
+
+### Relationship Mapping
+
+When relationship types don't map directly:
+1. Use `RelatesTo` as fallback
+2. Store original type in `metadata`
+3. Document custom mappings
+
+### Embedding Preservation
+
+Store embeddings externally and reference via `vectorUri`:
+```json
+"embedding": {
+  "model": "original-model",
+  "sourceText": "...",
+  "vectorUri": "file://vectors/memory-id.bin"
+}
+```
+
+---
+
+## Need Help?
+
+- [GitHub Issues](https://github.com/zircote/MIF/issues)
+- [Specification](../SPECIFICATION.md)
+- [Schema Reference](./SCHEMA-REFERENCE.md)
