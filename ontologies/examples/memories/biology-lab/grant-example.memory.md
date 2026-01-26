@@ -26,9 +26,12 @@ citations:
     accessed: 2026-01-05T11:00:00Z
     relevance: 1.0
 ontology:
+  id: biology-research-lab
+  version: "1.0.0"
+entity:
   entity_type: grant
   entity_id: grant-nih-r01-ca999999
-entity:
+  name: "NIH R01 CA-999999 - Metabolic Reprogramming in Cancer"
   title: "Metabolic Reprogramming in Pancreatic Cancer"
   agency: nih
   grant_number: "R01 CA999999"

@@ -18,8 +18,12 @@ provenance:
   agent: claude-opus-4
   confidence: 0.95
 ontology:
+  id: k12-educational-publishing
+  version: "1.0.0"
+entity:
   entity_type: editorial-milestone
   entity_id: workflow-k8-math-development
+  name: "K-8 Mathematics Title Development Workflow"
 ---
 
 # K-8 Mathematics Title Development Workflow

@@ -1,9 +1,9 @@
 ---
 id: a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d
-type: decision
+type: semantic
 created: 2026-01-20T10:00:00Z
 modified: 2026-01-22T15:30:00Z
-namespace: acme-corp/engineering/architecture
+namespace: semantic/decisions
 title: "Adopt MIF for AI Memory Interchange"
 tags:
   - architecture

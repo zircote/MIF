@@ -1,9 +1,9 @@
 ---
 id: decision-react-frontend
-type: decision
+type: semantic
 created: 2026-01-10T09:00:00Z
 modified: 2026-01-12T14:30:00Z
-namespace: acme-corp/project-x
+namespace: semantic/decisions
 title: "Use React for Dashboard Frontend"
 tags:
   - frontend

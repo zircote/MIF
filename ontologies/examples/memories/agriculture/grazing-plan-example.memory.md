@@ -19,9 +19,11 @@ provenance:
   agent: claude-opus-4
   confidence: 0.95
 ontology:
+  id: regenerative-agriculture
+  version: "1.0.0"
+entity:
   entity_type: grazing-plan
   entity_id: grazing-plan-beef-2026-spring
-entity:
   name: "2026 Spring-Fall Beef Grazing Rotation"
   herd_id: herd-beef-main
   stock_density: 250000

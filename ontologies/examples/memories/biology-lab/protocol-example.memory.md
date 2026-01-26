@@ -18,9 +18,11 @@ provenance:
   agent: claude-opus-4
   confidence: 0.95
 ontology:
+  id: biology-research-lab
+  version: "1.0.0"
+entity:
   entity_type: protocol
   entity_id: protocol-western-blot-v2.1
-entity:
   name: "Standard Western Blot Protocol"
   protocol_type: molecular_biology
   version: "2.1"

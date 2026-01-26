@@ -10,14 +10,14 @@
   "@type": ["Memory", "prov:Entity"],
   "@id": "urn:mif:7f3a8b2c-1d4e-5f6a-9b0c-2d3e4f5a6b7c",
 
-  "memoryType": "preference",
+  "memoryType": "semantic",
   "title": "Dark Mode UI Preference",
   "content": "# Dark Mode UI Preference\n\nUser strongly prefers dark mode for all applications.\n\n## Details\n\nThis preference applies to:\n\n- **IDE/Editor**: VS Code, JetBrains IDEs\n- **Terminal**: iTerm2, built-in terminal\n- **Web applications**: GitHub, documentation sites\n- **Mobile apps**: When available\n\n## Context\n\nUser mentioned eye strain with light themes during extended coding sessions. Dark mode reduces eye fatigue and is preferred for:\n\n- Late-night coding sessions\n- Low-light environments\n- General aesthetic preference\n\n## Reinforcement History\n\nThis preference has been confirmed multiple times:\n\n1. 2026-01-15: Initial statement during onboarding\n2. 2026-01-16: Confirmed when setting up VS Code\n3. 2026-01-18: Applied to terminal configuration\n4. 2026-01-20: Extended to web application preferences",
 
-  "dc:created": "2026-01-15T10:30:00Z",
-  "dc:modified": "2026-01-20T14:22:00Z",
+  "created": "2026-01-15T10:30:00Z",
+  "modified": "2026-01-20T14:22:00Z",
 
-  "namespace": "acme-corp/jane-doe/project-x",
+  "namespace": "semantic/preferences",
   "tags": ["preference", "ui", "accessibility"],
   "aliases": ["Dark Mode Preference", "UI Theme Choice"],
 

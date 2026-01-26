@@ -22,16 +22,13 @@ citations:
     url: https://wardlab.com/reports/2026-01-15-NF001
     accessed: 2026-01-15T10:30:00Z
     relevance: 1.0
-# Ontology Reference - declares which ontology schema this memory applies
 ontology:
   id: regenerative-agriculture
   version: "1.0.0"
-  uri: https://github.com/zircote/MIF/ontologies/examples/regenerative-agriculture.ontology.yaml
-# Entity metadata from the ontology
 entity:
   entity_type: soil-profile
   entity_id: soil-profile-north-field-2026-01
-entity:
+  name: "North Field Soil Profile - January 2026"
   field_id: field-north-40
   sample_date: "2026-01-15"
   sample_depth_inches: 6

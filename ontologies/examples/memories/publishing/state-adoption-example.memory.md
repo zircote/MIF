@@ -25,9 +25,12 @@ citations:
     accessed: 2026-01-20T14:00:00Z
     relevance: 1.0
 ontology:
+  id: k12-educational-publishing
+  version: "1.0.0"
+entity:
   entity_type: state-adoption
   entity_id: adoption-tx-math-2027
-entity:
+  name: "Texas 2027 Mathematics Adoption - Into Math Submission"
   state: "TX"
   subject: mathematics
   adoption_year: 2027
