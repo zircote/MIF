@@ -9,6 +9,86 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **[Schema]**: EntityData field for ontology-typed memories
+  - New `entity` property with `name` (required), `entity_type`, and `entity_id` fields
+  - Supports additional properties defined by ontology entity_type schemas
+  - Links structured data to ontology definitions
+
+- **[Schema]**: Block references field
+  - New `blocks` object for named block references (`^block-id`)
+  - Maps block identifiers to their text content for granular linking
+
+- **[Schema]**: Shared EntityReference definition
+  - Extracted to `schema/definitions/entity-reference.schema.json`
+  - Reused by both MIF schema and Citation schema
+  - Prevents definition divergence across schemas
+
+- **[Schema]**: Ontology `extends` field for inheritance
+  - Ontologies can declare parent ontologies to inherit from
+  - Enables trait inheritance model: `mif-base → shared-traits → domain`
+  - Added to ontology.schema.json and all domain ontologies
+
+- **[Project]**: VERSION.json for centralized version constants
+  - Specification version, schema versions, ontology versions
+  - Single source of truth for all version numbers
+
+### Changed
+
+- **[Schema]**: Standardized all schema URIs to `https://mif.io/schema/v1/`
+  - Updated ontology.schema.json `$id`
+  - Updated all domain ontology `schema_url` fields
+
+- **[Schema]**: Discovery patterns structure updated
+  - Split single `patterns[]` into `content_patterns[]` and `file_patterns[]`
+  - Each pattern type has specialized fields for its use case
+  - Aligns schema with actual mif-base ontology usage
+
+- **[Examples]**: Updated JSON-LD context property names
+  - Changed `dc:created` to `created`, `dc:modified` to `modified`
+  - Consistent with unprefixed field names in specification
+
+- **[Examples]**: Clarified Level 1 conformance requirements
+  - `namespace` is recommended but optional at Level 1
+  - Level 1 only requires: `id`, `type`, `created`, and content body
+
+### Fixed
+
+- **[Examples]**: Fixed ontology reference format in example memories
+  - Changed from incorrect `ontology.entity_type` to proper `ontology.id` + `entity` block
+  - Updated 6 example memory files across agriculture, publishing, biology-lab directories
+
+- **[Documentation]**: Added trait inheritance documentation to ontologies/README.md
+  - Documents the three-tier trait system
+  - Explains how domain ontologies inherit from shared-traits
+
+### Changed
+
+- **[Schema]**: Memory types now use cognitive triad
+  - Replaced ad-hoc types (`memory`, `decision`, `preference`, `fact`, `episode`, `pattern`, `learning`, `context`)
+  - New base types: `semantic` (facts/knowledge), `episodic` (events/experiences), `procedural` (processes/how-to)
+  - Specific categorization expressed through namespace hierarchy (e.g., `semantic/decisions`, `episodic/incidents`)
+  - Ontologies can extend types via entity_types with `base` field
+  - **BREAKING**: Existing memories using old type values need migration
+
+### Added
+
+- **[Schema]**: OntologyReference field in MIF schema
+  - New `ontology` property for declaring which ontology a memory applies
+  - Fields: `id` (required), `version` (optional), `uri` (optional)
+  - Enables validation that memories conform to declared ontology
+  - Links MIF documents to ontology definitions
+
+- **[Ontology]**: Industry-specific ontology examples
+  - `regenerative-agriculture.ontology.yaml` - Farm operations, carbon credits, certifications
+  - `k12-educational-publishing.ontology.yaml` - K-12 curriculum, state adoptions
+  - `biology-research-lab.ontology.yaml` - Academic research, grants, compliance
+  - `backstage.ontology.yaml` - Developer portal entity catalog
+  - `shared-traits.ontology.yaml` - Reusable trait mixins
+
+- **[Backstage]**: Backstage.io catalog integration examples
+  - Example catalog-info.yaml files for each industry ontology
+  - MIF-to-Backstage entity mapping via annotations
+
 - **[Ontology]**: Cognitive triad namespace hierarchy
   - Base ontology with semantic/episodic/procedural top-level namespaces
   - Nine sub-namespaces: decisions, knowledge, entities, incidents, sessions, blockers, runbooks, patterns, migrations

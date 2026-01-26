@@ -32,8 +32,9 @@ The AI memory ecosystem is fragmented. Mem0, Zep, Letta, LangMem, Subcog, and ot
 ```markdown
 ---
 id: 550e8400-e29b-41d4-a716-446655440000
-type: preference
+type: semantic
 created: 2026-01-15T10:30:00Z
+namespace: semantic/preferences
 ---
 
 User prefers dark mode for all applications.
@@ -46,7 +47,8 @@ User prefers dark mode for all applications.
   "@context": "https://mif.io/context/v1",
   "@type": "Memory",
   "@id": "urn:mif:550e8400-e29b-41d4-a716-446655440000",
-  "memoryType": "preference",
+  "memoryType": "semantic",
+  "namespace": "semantic/preferences",
   "content": "User prefers dark mode for all applications.",
   "created": "2026-01-15T10:30:00Z"
 }

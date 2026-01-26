@@ -25,6 +25,61 @@ procedural/            # Step-by-step processes
 └── migrations/        # Migration steps, upgrades
 ```
 
+## Trait Inheritance
+
+Ontologies can inherit traits from other ontologies using the `extends` field:
+
+```yaml
+ontology:
+  id: my-domain
+  version: "1.0.0"
+  extends:
+    - mif-base        # Core traits (timestamped, confidence, provenance)
+    - shared-traits   # Cross-domain traits (lifecycle, auditable, located, etc.)
+```
+
+### Core Traits (mif-base)
+
+The base ontology defines foundational traits:
+
+| Trait | Description | Fields |
+|-------|-------------|--------|
+| `timestamped` | Creation/update timestamps | `created_at`, `updated_at` |
+| `confidence` | Memory decay score | `confidence` (0.0-1.0) |
+| `provenance` | Source tracking | `source`, `author` |
+
+### Shared Traits (shared-traits)
+
+Cross-domain reusable traits for industry ontologies:
+
+| Category | Traits |
+|----------|--------|
+| Lifecycle | `lifecycle`, `renewable` |
+| Compliance | `auditable`, `certified`, `regulated` |
+| Geographic | `located`, `bounded` |
+| Stakeholder | `owned`, `contactable` |
+| Financial | `budgeted`, `transactional` |
+| Temporal | `scheduled`, `seasonal` |
+| Measurement | `measured`, `scored` |
+| Classification | `categorized`, `tagged` |
+| Asset | `inventoried`, `maintainable` |
+| Quality | `reviewed`, `quality_controlled` |
+
+Domain ontologies compose these traits into entity types:
+
+```yaml
+entity_types:
+  - name: soil-profile
+    base: semantic
+    traits:
+      - measured      # From shared-traits
+      - located       # From shared-traits
+      - provenance    # From mif-base
+    schema:
+      properties:
+        organic_matter_percent: { type: number }
+```
+
 ## Using Ontologies
 
 ### Path Format
@@ -59,11 +114,61 @@ Choose namespaces based on memory type:
 | Code conventions | `procedural/patterns` | How we write X |
 | Upgrade steps | `procedural/migrations` | How to migrate to X |
 
+## Declaring Ontology in Memories
+
+MIF memories can explicitly declare which ontology they conform to using the `ontology` field:
+
+### YAML Frontmatter (Markdown)
+
+```yaml
+---
+id: 550e8400-e29b-41d4-a716-446655440000
+type: semantic
+created: 2026-01-26T10:00:00Z
+ontology:
+  id: regenerative-agriculture
+  version: "1.0.0"
+  uri: https://github.com/zircote/MIF/ontologies/examples/regenerative-agriculture.ontology.yaml
+namespace: semantic/livestock
+---
+```
+
+### JSON-LD
+
+```json
+{
+  "@context": "https://mif.io/context/v1",
+  "@type": "Memory",
+  "@id": "urn:mif:550e8400",
+  "ontology": {
+    "@type": "OntologyReference",
+    "id": "regenerative-agriculture",
+    "version": "1.0.0",
+    "uri": "https://github.com/zircote/MIF/ontologies/examples/regenerative-agriculture.ontology.yaml"
+  },
+  "namespace": "semantic/livestock",
+  "content": "..."
+}
+```
+
+### OntologyReference Fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `id` | Yes | Ontology identifier (must match `ontology.id` in definition) |
+| `version` | No | Semantic version (e.g., "1.0.0") |
+| `uri` | No | URL to the ontology definition file |
+
 ## Examples
 
 The `examples/` directory contains domain-specific ontologies:
 
 - `software-engineering.ontology.yaml` - Software development entities
+- `regenerative-agriculture.ontology.yaml` - Farm operations and carbon markets
+- `k12-educational-publishing.ontology.yaml` - Educational content publishing
+- `biology-research-lab.ontology.yaml` - Academic research lab operations
+- `backstage.ontology.yaml` - Backstage.io developer portal entities
+- `shared-traits.ontology.yaml` - Reusable trait mixins
 
 ## Creating Custom Ontologies
 

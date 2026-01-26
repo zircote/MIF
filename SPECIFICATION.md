@@ -2,7 +2,7 @@
 
 **Version**: 0.1.0-draft
 **Status**: Draft
-**Last Updated**: 2026-01-23
+**Last Updated**: 2026-01-26
 **Authors**: Robert Allen (zircote)
 **Repository**: https://github.com/zircote/subcog
 **Issue**: https://github.com/zircote/subcog/issues/82
@@ -184,6 +184,7 @@ A Memory Unit is the atomic element of MIF. It contains:
 | `type` | REQUIRED | Enum | Memory classification (see 4.2) |
 | `created` | REQUIRED | DateTime | When the memory was created |
 | `modified` | RECOMMENDED | DateTime | When last modified |
+| `ontology` | RECOMMENDED | Object | Reference to applied ontology (see 4.3) |
 | `namespace` | RECOMMENDED | String | Hierarchical scope |
 | `tags` | OPTIONAL | Array | Classification tags |
 | `entities` | OPTIONAL | Array | Referenced entities |
@@ -196,18 +197,78 @@ A Memory Unit is the atomic element of MIF. It contains:
 | `compressed_at` | OPTIONAL | DateTime | When compression was applied (Level 3) |
 | `extensions` | OPTIONAL | Object | Provider-specific data |
 
-### 4.2 Memory Types
+### 4.2 Memory Types (Cognitive Triad)
 
-| Type | Description |
-|------|-------------|
-| `memory` | General memory (default) |
-| `decision` | Architectural or design decision |
-| `pattern` | Recurring pattern or convention |
-| `learning` | Insight or discovery |
-| `context` | Background information |
-| `preference` | User preference |
-| `fact` | Factual statement |
-| `episode` | Conversation or event record |
+MIF uses the **cognitive triad** as base memory types, reflecting how human memory systems organize information:
+
+| Type | Description | Namespace Hint |
+|------|-------------|----------------|
+| `semantic` | Facts, concepts, relationships, and knowledge | `semantic/*` |
+| `episodic` | Events, experiences, sessions, and timelines | `episodic/*` |
+| `procedural` | Step-by-step processes, runbooks, and patterns | `procedural/*` |
+
+**Base Type Descriptions:**
+
+- **Semantic**: Declarative knowledge about the world—facts, concepts, decisions, preferences, and relationships between entities. Examples: architectural decisions, technology choices, user preferences, domain knowledge.
+
+- **Episodic**: Time-bound experiences and events—incidents, conversations, sessions, and blockers. These memories have strong temporal context and represent "what happened."
+
+- **Procedural**: How-to knowledge—runbooks, migration guides, code patterns, and step-by-step processes. These memories describe "how to do" something.
+
+#### 4.2.1 Ontology-Extended Types
+
+Ontologies MAY define extended types using namespace prefixes:
+
+```yaml
+# In ontology definition
+entity_types:
+  - name: decision
+    base: semantic
+    description: "Architectural or design decision"
+  - name: runbook
+    base: procedural
+    description: "Step-by-step operational guide"
+  - name: incident
+    base: episodic
+    description: "Production incident record"
+```
+
+When using ontology-extended types, the `type` field uses the base cognitive type, while specific categorization is expressed through the namespace:
+
+```yaml
+---
+type: semantic
+namespace: semantic/decisions
+ontology:
+  id: mif-base
+---
+```
+
+This allows ontologies to define rich taxonomies while maintaining interoperability through the cognitive triad foundation.
+
+### 4.3 Ontology Reference
+
+A Memory Unit MAY declare which ontology it conforms to using the `ontology` field:
+
+| Property | Required | Type | Description |
+|----------|----------|------|-------------|
+| `id` | REQUIRED | String | Ontology identifier (matches `ontology.id` in ontology definition) |
+| `version` | OPTIONAL | String | Semantic version (e.g., "1.0.0") |
+| `uri` | OPTIONAL | URI | URL to the ontology definition file |
+
+**Example:**
+
+```yaml
+ontology:
+  id: regenerative-agriculture
+  version: "1.0.0"
+  uri: https://github.com/zircote/MIF/ontologies/examples/regenerative-agriculture.ontology.yaml
+```
+
+The `ontology.id` MUST match the `ontology.id` field in the referenced ontology definition file. This enables:
+- Validation that namespace paths conform to the ontology's defined namespaces
+- Discovery pattern matching for entity type suggestions
+- Schema validation for entity-specific fields
 
 ---
 
@@ -219,7 +280,7 @@ A Memory Unit is the atomic element of MIF. It contains:
 ---
 # YAML Frontmatter (required)
 id: uuid-here
-type: memory
+type: semantic
 created: 2026-01-15T10:30:00Z
 ---
 
@@ -244,11 +305,15 @@ Memory content in Markdown format.
 ---
 # === REQUIRED ===
 id: 550e8400-e29b-41d4-a716-446655440000  # UUID v4
-type: memory                                # Memory type enum
+type: semantic                              # Cognitive triad: semantic|episodic|procedural
 created: 2026-01-15T10:30:00Z              # ISO 8601 datetime
 
 # === RECOMMENDED ===
 modified: 2026-01-20T14:22:00Z             # Last modification
+ontology:                                   # Applied ontology reference
+  id: mif-base                             # Ontology identifier
+  version: "1.0.0"                         # Ontology version
+  uri: https://mif.io/ontologies/mif-base  # Ontology definition URL
 namespace: org/user/project                 # Hierarchical scope
 title: "Human-readable title"               # Display title
 tags:                                       # Classification
@@ -533,13 +598,13 @@ Implementations MAY apply compression when memories meet these criteria:
   "@id": "urn:mif:550e8400-e29b-41d4-a716-446655440000",
 
   "content": "User prefers dark mode for all applications",
-  "memoryType": "preference",
+  "memoryType": "semantic",
   "title": "Dark Mode Preference",
 
   "created": "2026-01-15T10:30:00Z",
   "modified": "2026-01-20T14:22:00Z",
 
-  "namespace": "org/user/project",
+  "namespace": "semantic/preferences",
   "tags": ["preference", "ui", "accessibility"],
 
   "entities": [...],
@@ -567,13 +632,19 @@ Implementations MAY apply compression when memories meet these criteria:
   "@id": "urn:mif:550e8400-e29b-41d4-a716-446655440000",
 
   "content": "User prefers dark mode for all applications. This applies to:\n- IDE themes\n- Terminal colors\n- Web applications\n- Mobile apps",
-  "memoryType": "preference",
+  "memoryType": "semantic",
   "title": "Dark Mode Preference",
 
   "dc:created": "2026-01-15T10:30:00Z",
   "dc:modified": "2026-01-20T14:22:00Z",
 
-  "namespace": "acme-corp/jane-doe/project-x",
+  "ontology": {
+    "@type": "OntologyReference",
+    "id": "mif-base",
+    "version": "1.0.0"
+  },
+
+  "namespace": "semantic/preferences",
   "tags": ["preference", "ui", "accessibility"],
   "aliases": ["Dark Mode Preference", "UI Theme Choice"],
 
@@ -1448,6 +1519,7 @@ https://mif.io/context/v1
     "TemporalMetadata": "mif:TemporalMetadata",
     "EmbeddingReference": "mif:EmbeddingReference",
     "EntityReference": "mif:EntityReference",
+    "OntologyReference": "mif:OntologyReference",
 
     "Person": "mif:Person",
     "Organization": "mif:Organization",
@@ -1473,6 +1545,7 @@ https://mif.io/context/v1
       "@type": "xsd:dateTime"
     },
 
+    "ontology": "mif:ontology",
     "entities": "mif:entities",
     "relationships": "mif:relationships",
     "temporal": "mif:temporal",
@@ -1602,7 +1675,7 @@ https://mif.io/context/v1
 ```markdown
 ---
 id: 550e8400
-type: memory
+type: semantic
 title: Dark Mode
 ---
 
@@ -1678,7 +1751,7 @@ Converts to:
 ```markdown
 ---
 id: 550e8400-e29b-41d4-a716-446655440000
-type: memory
+type: semantic
 created: 2026-01-15T10:30:00Z
 ---
 
@@ -1691,7 +1764,7 @@ User prefers dark mode for all applications.
   "@context": "https://mif.io/context/v1",
   "@type": "Memory",
   "@id": "urn:mif:550e8400-e29b-41d4-a716-446655440000",
-  "memoryType": "memory",
+  "memoryType": "semantic",
   "content": "User prefers dark mode for all applications.",
   "created": "2026-01-15T10:30:00Z"
 }
@@ -1703,10 +1776,10 @@ User prefers dark mode for all applications.
 ```markdown
 ---
 id: decision-react-over-vue
-type: decision
+type: semantic
 created: 2026-01-10T09:00:00Z
 modified: 2026-01-12T14:30:00Z
-namespace: acme-corp/project-x
+namespace: semantic/decisions
 tags:
   - frontend
   - architecture
@@ -1768,11 +1841,11 @@ See Section 6.2 for a complete Level 3 example.
     "@context": "https://mif.io/context/v1",
     "@id": "urn:mif:mem0_123",                    # id → @id
     "content": "User prefers dark mode",          # memory → content
-    "memoryType": "preference",                   # metadata.category → memoryType
-    "namespace": "mem0/user_456",                 # user_id → namespace
+    "memoryType": "semantic",                     # preferences are semantic knowledge
+    "namespace": "semantic/preferences",          # categorize by cognitive triad + type
     "created": "2026-01-15T10:30:00Z",           # created_at → created
     "extensions": {
-        "mem0": {"original_id": "mem0_123"}
+        "mem0": {"original_id": "mem0_123", "category": "preference"}
     }
 }
 ```
@@ -1823,15 +1896,15 @@ See Section 6.2 for a complete Level 3 example.
 # MIF mapping (multiple memories)
 {
     "@id": "urn:mif:letta-human-name",
-    "memoryType": "fact",
+    "memoryType": "semantic",
     "content": "Name: Alice",
-    "namespace": "letta/agent/human"
+    "namespace": "semantic/entities"
 },
 {
     "@id": "urn:mif:letta-human-pref",
-    "memoryType": "preference",
+    "memoryType": "semantic",
     "content": "Prefers dark mode",
-    "namespace": "letta/agent/human"
+    "namespace": "semantic/preferences"
 }
 ```
 
@@ -1852,8 +1925,8 @@ See Section 6.2 for a complete Level 3 example.
 {
     "@id": "urn:mif:subcog_abc",
     "content": "Decision: Use React",
-    "memoryType": "decision",                     # namespace → memoryType
-    "namespace": "subcog/project",                # domain → namespace prefix
+    "memoryType": "semantic",                     # decisions are semantic knowledge
+    "namespace": "semantic/decisions",            # cognitive triad prefix + category
     "tags": ["frontend"],
     "created": "2026-01-15T10:30:00Z"
 }
@@ -1914,11 +1987,15 @@ mif://{authority}/{namespace}/{memory-id}
 ---
 # Required
 id: uuid-v4
-type: memory|decision|pattern|learning|context|preference|fact|episode
+type: semantic|episodic|procedural
 created: ISO-8601-datetime
 
 # Recommended
 modified: ISO-8601-datetime
+ontology:
+  id: ontology-identifier        # Matches ontology.id in definition
+  version: "1.0.0"               # Semantic version (optional)
+  uri: https://example.com/ont   # Ontology URL (optional)
 namespace: hierarchical/path
 title: "Human Title"
 tags: [tag1, tag2]
@@ -2050,6 +2127,16 @@ citations:
 ---
 
 ## Changelog
+
+### 0.1.0-draft (2026-01-26)
+- **BREAKING**: Replaced ad-hoc memory types with cognitive triad (Section 4.2)
+  - New base types: `semantic`, `episodic`, `procedural`
+  - Removed: `memory`, `decision`, `preference`, `fact`, `episode`, `pattern`, `learning`, `context`
+  - Specific categorization via namespace hierarchy (e.g., `semantic/decisions`)
+- Added `ontology` field for declaring applied ontology (Section 4.3)
+- Added `OntologyReference` type to JSON-LD context
+- Updated frontmatter schema with ontology reference
+- Updated JSON-LD example with ontology field
 
 ### 0.1.0-draft (2026-01-23)
 - Initial draft specification
