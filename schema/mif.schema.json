@@ -59,6 +59,10 @@
       "format": "date-time",
       "description": "Last modification timestamp (ISO 8601)"
     },
+    "ontology": {
+      "$ref": "#/$defs/OntologyReference",
+      "description": "Reference to the ontology this memory applies"
+    },
     "namespace": {
       "type": "string",
       "pattern": "^[a-zA-Z0-9_-]+(/[a-zA-Z0-9_-]+)*$",
@@ -412,6 +416,32 @@
         },
         "normalized": {
           "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OntologyReference": {
+      "type": "object",
+      "description": "Reference to the ontology this memory applies",
+      "required": ["id"],
+      "properties": {
+        "@type": {
+          "const": "OntologyReference"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Ontology identifier (must match ontology.id in ontology definition)"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+.*$",
+          "description": "Semantic version of the ontology"
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI to the ontology definition"
         }
       },
       "additionalProperties": false
