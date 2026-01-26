@@ -118,35 +118,7 @@
   "additionalProperties": false,
   "$defs": {
     "EntityReference": {
-      "type": "object",
-      "required": ["@type", "entity"],
-      "properties": {
-        "@type": {
-          "const": "EntityReference"
-        },
-        "entity": {
-          "type": "object",
-          "required": ["@id"],
-          "properties": {
-            "@id": {
-              "type": "string",
-              "pattern": "^urn:mif:entity:",
-              "description": "Entity URN identifier"
-            }
-          },
-          "additionalProperties": false
-        },
-        "entityType": {
-          "type": "string",
-          "enum": ["Person", "Organization", "Technology", "Concept", "File"],
-          "description": "Entity type classification"
-        },
-        "name": {
-          "type": "string",
-          "description": "Display name for the entity"
-        }
-      },
-      "additionalProperties": false
+      "$ref": "./definitions/entity-reference.schema.json"
     }
   },
   "examples": [

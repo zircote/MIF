@@ -196,13 +196,8 @@
       "@container": "@index"
     },
 
-    "memory": "mif:MemoryType",
-    "decision": "mif:DecisionType",
-    "pattern": "mif:PatternType",
-    "learning": "mif:LearningType",
-    "context": "mif:ContextType",
-    "preference": "mif:PreferenceType",
-    "fact": "mif:FactType",
-    "episode": "mif:EpisodeType"
+    "semantic": "mif:SemanticType",
+    "episodic": "mif:EpisodicType",
+    "procedural": "mif:ProceduralType"
   }
 }

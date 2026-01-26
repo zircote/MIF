@@ -28,17 +28,8 @@
     },
     "memoryType": {
       "type": "string",
-      "enum": [
-        "memory",
-        "decision",
-        "pattern",
-        "learning",
-        "context",
-        "preference",
-        "fact",
-        "episode"
-      ],
-      "description": "Memory classification type"
+      "enum": ["semantic", "episodic", "procedural"],
+      "description": "Memory classification using cognitive triad: semantic (facts/knowledge), episodic (events/experiences), procedural (processes/how-to)"
     },
     "content": {
       "type": "string",
@@ -61,7 +52,11 @@
     },
     "ontology": {
       "$ref": "#/$defs/OntologyReference",
-      "description": "Reference to the ontology this memory applies"
+      "description": "Reference to the ontology this memory conforms to"
+    },
+    "entity": {
+      "$ref": "#/$defs/EntityData",
+      "description": "Structured entity data for ontology-typed memories"
     },
     "namespace": {
       "type": "string",
@@ -114,6 +109,11 @@
       "type": "string",
       "format": "date-time",
       "description": "When compression was applied (Level 3)"
+    },
+    "blocks": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Named block references (^block-id) with their text content for granular linking"
     },
     "extensions": {
       "type": "object",
@@ -227,37 +227,7 @@
       "additionalProperties": false
     },
     "EntityReference": {
-      "type": "object",
-      "required": ["@type", "entity"],
-      "properties": {
-        "@type": {
-          "const": "EntityReference"
-        },
-        "entity": {
-          "type": "object",
-          "required": ["@id"],
-          "properties": {
-            "@id": {
-              "type": "string",
-              "pattern": "^urn:mif:entity:"
-            }
-          }
-        },
-        "entityType": {
-          "type": "string",
-          "enum": ["Person", "Organization", "Technology", "Concept", "File"],
-          "description": "Entity type classification"
-        },
-        "name": {
-          "type": "string",
-          "description": "Display name"
-        },
-        "role": {
-          "type": "string",
-          "description": "Role in the memory context"
-        }
-      },
-      "additionalProperties": false
+      "$ref": "./definitions/entity-reference.schema.json"
     },
     "Relationship": {
       "type": "object",
@@ -422,7 +392,7 @@
     },
     "OntologyReference": {
       "type": "object",
-      "description": "Reference to the ontology this memory applies",
+      "description": "Reference to the ontology this memory conforms to",
       "required": ["id"],
       "properties": {
         "@type": {
@@ -445,6 +415,27 @@
         }
       },
       "additionalProperties": false
+    },
+    "EntityData": {
+      "type": "object",
+      "description": "Structured entity data for ontology-typed memories. Fields are defined by the entity_type schema in the referenced ontology.",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Human-readable name for the entity"
+        },
+        "entity_type": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Entity type from ontology (e.g., grazing-plan, soil-profile)"
+        },
+        "entity_id": {
+          "type": "string",
+          "description": "Unique identifier for this entity instance"
+        }
+      },
+      "additionalProperties": true
     }
   }
 }

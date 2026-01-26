@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/zircote/MIF/schema/ontology/v2",
+  "$id": "https://mif.io/schema/v1/ontology.schema.json",
   "title": "MIF Ontology Schema",
   "description": "JSON Schema for validating ontology definition files with cognitive triad namespace hierarchy",
   "type": "object",
@@ -28,6 +28,14 @@
           "type": "string",
           "description": "URL to external schema definition",
           "format": "uri"
+        },
+        "extends": {
+          "type": "array",
+          "description": "List of ontology IDs this ontology extends (inherits traits and relationships)",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          }
         }
       }
     },
@@ -68,19 +76,26 @@
           "description": "Whether discovery is enabled",
           "default": false
         },
-        "patterns": {
-          "type": "array",
-          "description": "Discovery patterns",
-          "items": {
-            "$ref": "#/$defs/discoveryPattern"
-          }
-        },
         "confidence_threshold": {
           "type": "number",
           "description": "Minimum confidence for suggestions",
           "minimum": 0,
           "maximum": 1,
           "default": 0.8
+        },
+        "content_patterns": {
+          "type": "array",
+          "description": "Patterns matched against user prompts and memory content",
+          "items": {
+            "$ref": "#/$defs/contentPattern"
+          }
+        },
+        "file_patterns": {
+          "type": "array",
+          "description": "Patterns matched against file paths being edited",
+          "items": {
+            "$ref": "#/$defs/filePattern"
+          }
         }
       }
     }
@@ -209,26 +224,48 @@
         }
       }
     },
-    "discoveryPattern": {
+    "contentPattern": {
       "type": "object",
-      "description": "Pattern for discovering entities",
-      "required": ["suggest_entity"],
+      "description": "Pattern matched against user prompts and memory content",
+      "required": ["pattern", "namespace"],
       "properties": {
-        "content_pattern": {
+        "pattern": {
           "type": "string",
           "description": "Regex pattern to match in content"
         },
-        "file_pattern": {
+        "namespace": {
           "type": "string",
-          "description": "Glob pattern to match file paths"
+          "description": "Namespace to suggest (hierarchical path like semantic/decisions)"
         },
         "suggest_entity": {
           "type": "string",
           "description": "Entity type to suggest when pattern matches"
-        },
-        "suggest_namespace": {
+        }
+      }
+    },
+    "filePattern": {
+      "type": "object",
+      "description": "Pattern matched against file paths being edited",
+      "required": ["pattern"],
+      "properties": {
+        "pattern": {
           "type": "string",
-          "description": "Namespace to suggest (hierarchical path like semantic/decisions)"
+          "description": "Regex pattern to match in file paths"
+        },
+        "namespaces": {
+          "type": "array",
+          "description": "Namespaces to suggest (hierarchical paths)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "context": {
+          "type": "string",
+          "description": "Human-readable context hint for this pattern"
+        },
+        "suggest_entity": {
+          "type": "string",
+          "description": "Entity type to suggest when pattern matches"
         }
       }
     },
