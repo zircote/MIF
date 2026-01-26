@@ -25,7 +25,10 @@ ontology:
   id: backstage
   version: "1.0.0"
   description: "Backstage.io software catalog ontology"
-  schema_url: "https://github.com/zircote/MIF/schema/ontology/v2"
+  schema_url: "https://mif.io/schema/v1/ontology.schema.json"
+  extends:
+    - mif-base
+    - shared-traits
 
 # ===========================================================================
 # CUSTOM NAMESPACES

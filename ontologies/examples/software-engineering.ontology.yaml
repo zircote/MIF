@@ -13,6 +13,9 @@ ontology:
   id: software-engineering
   version: "1.0.0"
   description: "Software engineering domain ontology"
+  extends:
+    - mif-base
+    - shared-traits
 
 # Custom Namespaces
 # These extend the base cognitive triad hierarchy.

@@ -19,6 +19,8 @@ ontology:
   id: shared-traits
   version: "1.0.0"
   description: "Cross-domain reusable traits for industry ontologies"
+  extends:
+    - mif-base
 
 # ==============================================================================
 # SHARED TRAITS (MIXINS)

@@ -28,7 +28,10 @@ ontology:
   id: regenerative-agriculture
   version: "1.0.0"
   description: "Regenerative agriculture ontology with ecosystem coverage"
-  schema_url: "https://github.com/zircote/MIF/schema/ontology/v2"
+  schema_url: "https://mif.io/schema/v1/ontology.schema.json"
+  extends:
+    - mif-base
+    - shared-traits
 
 # ==============================================================================
 # CUSTOM NAMESPACES
