@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **[Ontology]**: Cognitive triad namespace hierarchy
+  - Base ontology with semantic/episodic/procedural top-level namespaces
+  - Nine sub-namespaces: decisions, knowledge, entities, incidents, sessions, blockers, runbooks, patterns, migrations
+  - Entity type definitions with traits and schemas
+  - Relationship types with cardinality constraints
+  - Discovery patterns for content and file-based detection
+
+- **[Ontology]**: JSON-LD semantic web support
+  - `ontology.context.jsonld` for semantic vocabulary mapping
+  - `yaml2jsonld.py` converter script
+  - Alignment with Schema.org and SKOS vocabularies
+
+- **[Schema]**: Ontology validation schema
+  - `schema/ontology/ontology.schema.json` for YAML validation
+  - Supports hierarchical namespace children
+  - Entity type and relationship validation
+
 - **[Specification]**: Initial MIF (Memory Interchange Format) specification
   - JSON-LD based format for AI memory interoperability
   - Bi-temporal model with valid time and transaction time

@@ -66,6 +66,38 @@ User prefers dark mode for all applications.
 | **Citations** | Structured references with type/role taxonomy (Level 3) |
 | **W3C PROV** | Standard provenance tracking |
 | **JSON Schema** | Automated validation for MIF documents |
+| **Ontology System** | Cognitive triad hierarchy with domain extensions |
+
+## Ontology System
+
+MIF includes an ontology system for organizing memories into a cognitive triad hierarchy:
+
+```
+semantic/              # Facts, concepts, relationships
+├── decisions/         # Architectural choices, rationale
+├── knowledge/         # APIs, context, learnings, security
+└── entities/          # Entity definitions
+
+episodic/              # Events, experiences, timelines
+├── incidents/         # Production issues, postmortems
+├── sessions/          # Debug sessions, work sessions
+└── blockers/          # Impediments, issues
+
+procedural/            # Step-by-step processes
+├── runbooks/          # Operational procedures
+├── patterns/          # Code conventions, testing
+└── migrations/        # Migration steps, upgrades
+```
+
+### Features
+
+- **Hierarchical namespaces** - Cognitive memory types with sub-namespaces
+- **Entity types** - Define custom entities with traits and schemas
+- **Discovery patterns** - Auto-detect capture opportunities from content
+- **JSON-LD export** - Semantic web compatibility via `yaml2jsonld.py`
+- **Extensible** - Domain-specific ontologies extend the base
+
+See [ontologies/](./ontologies/) for base ontology and examples.
 
 ## Specification
 
@@ -81,6 +113,18 @@ npx ajv validate -s schema/mif.schema.json -d your-memory.json
 
 # Validate citations only
 npx ajv validate -s schema/citation.schema.json -d citation.json
+
+# Validate ontology definitions
+npx ajv validate -s schema/ontology/ontology.schema.json -d ontology.yaml
+```
+
+### Ontology Conversion
+
+Convert YAML ontologies to JSON-LD for semantic web compatibility:
+
+```bash
+python scripts/yaml2jsonld.py ontologies/mif-base.ontology.yaml
+python scripts/yaml2jsonld.py --all  # Convert all ontologies
 ```
 
 ## Examples
@@ -120,6 +164,7 @@ This specification is open source. Contributions welcome:
 ## Related
 
 - [Subcog](https://github.com/zircote/subcog) - AI memory system implementing MIF
+- [Mnemonic](https://github.com/zircote/mnemonic) - Claude Code plugin using MIF ontologies
 - [Issue #82](https://github.com/zircote/subcog/issues/82) - Original proposal
 
 ## License

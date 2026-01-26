@@ -1,0 +1,470 @@
+---
+# Backstage Software Catalog - Biology Research Lab Example
+#
+# This demonstrates how MIF biology-research-lab ontology entities
+# map to Backstage catalog entities.
+#
+# Modeled after an academic research lab with NIH funding.
+
+# ===========================================================================
+# DOMAIN: Grant / Funding Source
+# ===========================================================================
+# MIF entity_type: grant -> Backstage Kind: Domain
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: nih-r01-ca999999
+  title: "R01 CA999999: Metabolic Reprogramming in Cancer"
+  description: |
+    Five-year NIH R01 grant studying metabolic vulnerabilities
+    in pancreatic ductal adenocarcinoma for therapeutic targeting.
+    PI: Dr. Jane Smith. Budget: $2.5M.
+  annotations:
+    mif.zircote.com/ontology: biology-research-lab
+    mif.zircote.com/entity-type: grant
+    mif.zircote.com/entity-id: grant-r01-ca999999
+    mif.zircote.com/agency: nih
+    mif.zircote.com/mechanism: R01
+    mif.zircote.com/grant-number: R01 CA999999
+    mif.zircote.com/total-budget: "2500000"
+    mif.zircote.com/project-start: "2025-07-01"
+    mif.zircote.com/project-end: "2030-06-30"
+    mif.zircote.com/status: active
+  tags:
+    - nih
+    - r01
+    - cancer
+    - metabolism
+  links:
+    - url: https://reporter.nih.gov/project-details/CA999999
+      title: NIH Reporter
+spec:
+  owner: group:smith-lab
+
+---
+# ===========================================================================
+# SYSTEMS: Research Projects / Specific Aims
+# ===========================================================================
+# MIF entity_type: project -> Backstage Kind: System
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: aim-1-metabolic-profiling
+  title: "Aim 1: Metabolic Profiling of PDAC"
+  description: |
+    Characterize metabolic dependencies in KRAS-mutant PDAC cells
+    using metabolomics and genome-wide CRISPR screening.
+  annotations:
+    mif.zircote.com/entity-type: project
+    mif.zircote.com/entity-id: project-aim1
+    mif.zircote.com/status: active
+    mif.zircote.com/hypothesis: |
+      KRAS-mutant PDAC cells exhibit unique metabolic dependencies
+      that can be therapeutically exploited.
+  tags:
+    - specific-aim
+    - metabolomics
+    - crispr-screen
+spec:
+  owner: group:smith-lab
+  domain: nih-r01-ca999999
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: aim-2-target-validation
+  title: "Aim 2: Therapeutic Target Validation"
+  description: |
+    Validate top metabolic vulnerabilities as druggable targets
+    using genetic and pharmacological approaches.
+  annotations:
+    mif.zircote.com/entity-type: project
+    mif.zircote.com/entity-id: project-aim2
+    mif.zircote.com/status: active
+  tags:
+    - specific-aim
+    - drug-targets
+    - validation
+spec:
+  owner: group:smith-lab
+  domain: nih-r01-ca999999
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: aim-3-preclinical
+  title: "Aim 3: Preclinical Validation in PDX Models"
+  description: |
+    Test lead compounds in patient-derived xenograft (PDX)
+    mouse models of pancreatic cancer.
+  annotations:
+    mif.zircote.com/entity-type: project
+    mif.zircote.com/entity-id: project-aim3
+    mif.zircote.com/status: planning
+  tags:
+    - specific-aim
+    - pdx-models
+    - preclinical
+spec:
+  owner: group:smith-lab
+  domain: nih-r01-ca999999
+
+---
+# ===========================================================================
+# COMPONENTS: Protocols, Experiments, Publications
+# ===========================================================================
+# MIF entity_type: protocol -> Backstage Kind: Component (type: procedure)
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: western-blot-protocol-v2
+  title: Western Blot Protocol v2.1
+  description: |
+    Standard operating procedure for Western blot analysis.
+    Optimized for phospho-protein detection.
+  annotations:
+    mif.zircote.com/entity-type: protocol
+    mif.zircote.com/entity-id: protocol-wb-v2
+    mif.zircote.com/protocol-type: molecular_biology
+    mif.zircote.com/version: "2.1"
+    mif.zircote.com/author: Raj Patel
+  tags:
+    - protocol
+    - western-blot
+    - molecular-biology
+spec:
+  type: procedure
+  lifecycle: production
+  owner: group:smith-lab
+  system: aim-1-metabolic-profiling
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: crispr-screen-protocol
+  title: Genome-Wide CRISPR Screen Protocol
+  description: |
+    Protocol for pooled CRISPR knockout screening
+    using Brunello library and MAGeCK analysis.
+  annotations:
+    mif.zircote.com/entity-type: protocol
+    mif.zircote.com/entity-id: protocol-crispr-screen
+    mif.zircote.com/protocol-type: molecular_biology
+    mif.zircote.com/version: "1.0"
+  tags:
+    - protocol
+    - crispr
+    - screening
+spec:
+  type: procedure
+  lifecycle: production
+  owner: group:smith-lab
+  system: aim-1-metabolic-profiling
+
+---
+# MIF entity_type: publication -> Backstage Kind: Component
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: smith-2025-nature-cancer
+  title: "Smith et al. (2025) Nature Cancer"
+  description: |
+    Metabolic vulnerabilities in KRAS-driven pancreatic cancer.
+    PMID: 12345678. DOI: 10.1038/s43018-025-00001-x
+  annotations:
+    mif.zircote.com/entity-type: publication
+    mif.zircote.com/entity-id: pub-smith-2025-nc
+    mif.zircote.com/publication-type: journal_article
+    mif.zircote.com/journal: Nature Cancer
+    mif.zircote.com/pmid: "12345678"
+    mif.zircote.com/doi: "10.1038/s43018-025-00001-x"
+    mif.zircote.com/status: published
+    mif.zircote.com/open-access: "true"
+  tags:
+    - publication
+    - nature-cancer
+    - "2025"
+  links:
+    - url: https://doi.org/10.1038/s43018-025-00001-x
+      title: Full Text
+    - url: https://pubmed.ncbi.nlm.nih.gov/12345678
+      title: PubMed
+spec:
+  type: documentation
+  lifecycle: production
+  owner: group:smith-lab
+  system: aim-1-metabolic-profiling
+
+---
+# MIF entity_type: irb-protocol -> Backstage Kind: Component
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: irb-2024-0123
+  title: "IRB Protocol 2024-0123: PDAC Tissue Collection"
+  description: |
+    Approved protocol for collecting de-identified pancreatic
+    tumor tissue from surgical resections.
+  annotations:
+    mif.zircote.com/entity-type: irb-protocol
+    mif.zircote.com/entity-id: irb-2024-0123
+    mif.zircote.com/protocol-number: "2024-0123"
+    mif.zircote.com/review-type: expedited
+    mif.zircote.com/status: approved
+    mif.zircote.com/approval-date: "2024-03-15"
+    mif.zircote.com/expiration-date: "2025-03-14"
+    mif.zircote.com/risk-level: minimal
+  tags:
+    - compliance
+    - irb
+    - human-subjects
+spec:
+  type: compliance
+  lifecycle: production
+  owner: group:smith-lab
+  system: aim-1-metabolic-profiling
+
+---
+# MIF entity_type: iacuc-protocol -> Backstage Kind: Component
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: iacuc-2024-0456
+  title: "IACUC Protocol 2024-0456: PDX Mouse Studies"
+  description: |
+    Approved protocol for patient-derived xenograft studies
+    in immunocompromised mice.
+  annotations:
+    mif.zircote.com/entity-type: iacuc-protocol
+    mif.zircote.com/entity-id: iacuc-2024-0456
+    mif.zircote.com/protocol-number: "2024-0456"
+    mif.zircote.com/species: "mouse"
+    mif.zircote.com/animal-count: "200"
+    mif.zircote.com/status: approved
+    mif.zircote.com/pain-category: D
+  tags:
+    - compliance
+    - iacuc
+    - animal-research
+spec:
+  type: compliance
+  lifecycle: production
+  owner: group:smith-lab
+  system: aim-3-preclinical
+
+---
+# ===========================================================================
+# RESOURCES: Samples, Equipment, Datasets
+# ===========================================================================
+# MIF entity_type: sample -> Backstage Kind: Resource
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: pdac-cell-line-panc1
+  title: PANC-1 Cell Line
+  description: |
+    Human pancreatic carcinoma cell line. KRAS G12D mutant.
+    Passage 15-25 recommended.
+  annotations:
+    mif.zircote.com/entity-type: sample
+    mif.zircote.com/entity-id: sample-panc1
+    mif.zircote.com/sample-type: cell_line
+    mif.zircote.com/organism: "Homo sapiens"
+    mif.zircote.com/source: ATCC
+    mif.zircote.com/storage-temp: liquid_nitrogen
+    mif.zircote.com/status: available
+  tags:
+    - cell-line
+    - pdac
+    - kras-mutant
+spec:
+  type: sample
+  owner: group:smith-lab
+  system: aim-1-metabolic-profiling
+
+---
+# MIF entity_type: equipment -> Backstage Kind: Resource
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: thermofisher-qexactive
+  title: Thermo Q Exactive HF Mass Spectrometer
+  description: |
+    High-resolution mass spectrometer for metabolomics and
+    proteomics analysis. Core facility instrument.
+  annotations:
+    mif.zircote.com/entity-type: equipment
+    mif.zircote.com/entity-id: equip-qexactive
+    mif.zircote.com/equipment-type: mass_spec
+    mif.zircote.com/manufacturer: Thermo Fisher
+    mif.zircote.com/model: Q Exactive HF
+    mif.zircote.com/core-facility: "true"
+    mif.zircote.com/hourly-rate: "75"
+    mif.zircote.com/training-required: "true"
+  tags:
+    - equipment
+    - mass-spec
+    - core-facility
+spec:
+  type: instrument
+  owner: group:proteomics-core
+  system: aim-1-metabolic-profiling
+
+---
+# MIF entity_type: dataset -> Backstage Kind: Resource
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: metabolomics-dataset-2025
+  title: PDAC Metabolomics Dataset (2025)
+  description: |
+    Untargeted metabolomics data from 50 PDAC cell lines.
+    LC-MS/MS analysis. Deposited in Metabolomics Workbench.
+  annotations:
+    mif.zircote.com/entity-type: dataset
+    mif.zircote.com/entity-id: data-metab-2025
+    mif.zircote.com/data-type: metabolomics
+    mif.zircote.com/format: mzML
+    mif.zircote.com/size-gb: "125"
+    mif.zircote.com/repository: metabolomics_workbench
+    mif.zircote.com/accession: ST002500
+    mif.zircote.com/fair-compliant: "true"
+  tags:
+    - dataset
+    - metabolomics
+    - public
+  links:
+    - url: https://metabolomicsworkbench.org/data/ST002500
+      title: Metabolomics Workbench
+spec:
+  type: dataset
+  owner: group:smith-lab
+  system: aim-1-metabolic-profiling
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: crispr-screen-dataset-2025
+  title: CRISPR Screen Results (2025)
+  description: |
+    Genome-wide CRISPR knockout screen data from metabolic
+    stress conditions. MAGeCK analysis results.
+  annotations:
+    mif.zircote.com/entity-type: dataset
+    mif.zircote.com/entity-id: data-crispr-2025
+    mif.zircote.com/data-type: computational
+    mif.zircote.com/repository: geo
+    mif.zircote.com/accession: GSE999999
+    mif.zircote.com/fair-compliant: "true"
+  tags:
+    - dataset
+    - crispr-screen
+    - geo
+  links:
+    - url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE999999
+      title: GEO
+spec:
+  type: dataset
+  owner: group:smith-lab
+  system: aim-1-metabolic-profiling
+
+---
+# ===========================================================================
+# GROUPS: Lab & Core Facilities
+# ===========================================================================
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: smith-lab
+  title: Smith Laboratory
+  description: |
+    Cancer metabolism research lab focused on identifying
+    therapeutic vulnerabilities in pancreatic cancer.
+spec:
+  type: lab
+  children: []
+  members:
+    - user:jane-smith-pi
+    - user:raj-patel-postdoc
+    - user:maria-garcia-grad
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: proteomics-core
+  title: Proteomics & Metabolomics Core Facility
+  description: |
+    Institutional core facility providing mass spectrometry
+    services for proteomics and metabolomics.
+spec:
+  type: core-facility
+  children: []
+
+---
+# ===========================================================================
+# USERS: Lab Personnel
+# ===========================================================================
+# MIF entity_type: principal-investigator -> Backstage Kind: User
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: jane-smith-pi
+  title: Dr. Jane Smith
+  description: |
+    Associate Professor, Department of Cancer Biology.
+    Principal Investigator, Smith Laboratory.
+  annotations:
+    mif.zircote.com/entity-type: principal-investigator
+    mif.zircote.com/entity-id: pi-jane-smith
+    mif.zircote.com/title: associate_professor
+    mif.zircote.com/orcid: 0000-0001-2345-6789
+    mif.zircote.com/era-commons-id: JSMITH01
+  links:
+    - url: https://orcid.org/0000-0001-2345-6789
+      title: ORCID
+spec:
+  memberOf:
+    - smith-lab
+
+---
+# MIF entity_type: lab-member -> Backstage Kind: User
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: raj-patel-postdoc
+  title: Dr. Raj Patel
+  description: |
+    Postdoctoral Fellow studying metabolic dependencies
+    in pancreatic cancer.
+  annotations:
+    mif.zircote.com/entity-type: lab-member
+    mif.zircote.com/entity-id: member-raj-patel
+    mif.zircote.com/role: postdoc
+    mif.zircote.com/orcid: 0000-0002-3456-7890
+    mif.zircote.com/funding-source: R01 CA999999
+spec:
+  memberOf:
+    - smith-lab
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: maria-garcia-grad
+  title: Maria Garcia
+  description: |
+    PhD Candidate, 4th year. Thesis focus on CRISPR screening
+    for metabolic vulnerabilities.
+  annotations:
+    mif.zircote.com/entity-type: lab-member
+    mif.zircote.com/entity-id: member-maria-garcia
+    mif.zircote.com/role: graduate_student
+    mif.zircote.com/funding-source: T32 Training Grant
+spec:
+  memberOf:
+    - smith-lab

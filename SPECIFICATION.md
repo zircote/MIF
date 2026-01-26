@@ -1201,6 +1201,93 @@ default_tags: [project-x]
 # Inherits default_ttl and default_visibility from parent
 ```
 
+### 10.8 Ontology Definition
+
+Ontologies define namespace hierarchies, entity types, and discovery patterns.
+They enable domain-specific customization while maintaining MIF compatibility.
+
+#### 10.8.1 Ontology Files
+
+Ontologies are defined in YAML files with optional JSON-LD export:
+
+```
+.mif/ontologies/
+├── mif-base.ontology.yaml       # Base ontology (cognitive triad)
+├── mif-base.ontology.jsonld     # JSON-LD export for semantic web
+└── domain/
+    └── software-engineering.ontology.yaml
+```
+
+#### 10.8.2 Cognitive Triad Hierarchy
+
+The base ontology uses a three-tier hierarchy based on cognitive memory types:
+
+```yaml
+namespaces:
+  semantic:                    # Facts, concepts, relationships
+    type_hint: semantic
+    children:
+      decisions: {}
+      knowledge: {}
+      entities: {}
+  episodic:                    # Events, experiences, timelines
+    type_hint: episodic
+    children:
+      incidents: {}
+      sessions: {}
+      blockers: {}
+  procedural:                  # Step-by-step processes
+    type_hint: procedural
+    children:
+      runbooks: {}
+      patterns: {}
+      migrations: {}
+```
+
+#### 10.8.3 Entity Type Definition
+
+Entity types define structured data with traits and JSON Schema:
+
+```yaml
+entity_types:
+  - name: component
+    base: semantic
+    traits: [versioned, documented]
+    schema:
+      required: [name, responsibility]
+      properties:
+        name: { type: string }
+        responsibility: { type: string }
+        dependencies: { type: array, items: { type: string } }
+```
+
+#### 10.8.4 Discovery Patterns
+
+Ontologies can define patterns for suggesting entity types:
+
+```yaml
+discovery:
+  enabled: true
+  confidence_threshold: 0.8
+  patterns:
+    - content_pattern: "\\b(PostgreSQL|MySQL|MongoDB)\\b"
+      suggest_entity: technology
+      suggest_namespace: semantic/entities
+    - file_pattern: "**/services/**/*.py"
+      suggest_entity: component
+      suggest_namespace: semantic/components
+```
+
+#### 10.8.5 Ontology Resolution
+
+Ontologies are loaded from multiple sources with precedence:
+
+1. MIF base ontology (built-in)
+2. User ontology (`~/.claude/mnemonic/ontology.yaml`)
+3. Project ontology (`./.claude/mnemonic/ontology.yaml`)
+
+Later sources can extend or override earlier definitions.
+
 ---
 
 ## 11. Embedding References

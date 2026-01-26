@@ -1,6 +1,7 @@
 # Claude Code tool files
 .claude/mnemonic/
 .claude/*.local.md
+.fastembed_cache/
 
 # OS files
 .DS_Store

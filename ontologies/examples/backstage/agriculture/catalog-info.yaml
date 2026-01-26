@@ -1,0 +1,344 @@
+---
+# Backstage Software Catalog - Regenerative Agriculture Example
+#
+# This demonstrates how MIF regenerative-agriculture ontology entities
+# map to Backstage catalog entities.
+#
+# Usage: Place in your repository root or reference via catalog locations.
+
+# ===========================================================================
+# DOMAIN: Farm Operation
+# ===========================================================================
+# MIF entity_type: farm -> Backstage Kind: Domain
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: sunrise-regenerative-farm
+  title: Sunrise Regenerative Farm
+  description: |
+    120-acre regenerative farm operation focused on soil health,
+    carbon sequestration, and sustainable livestock management.
+  annotations:
+    # MIF ontology mapping
+    mif.zircote.com/ontology: regenerative-agriculture
+    mif.zircote.com/entity-type: farm
+    mif.zircote.com/entity-id: farm-sunrise
+    # Certifications
+    mif.zircote.com/certification: roc_silver
+    mif.zircote.com/certification-status: active
+    # Metrics
+    mif.zircote.com/total-acres: "120"
+    mif.zircote.com/regenerative-since: "2021"
+  tags:
+    - regenerative
+    - certified-organic
+    - carbon-positive
+  links:
+    - url: https://example.com/sunrise-farm
+      title: Farm Website
+    - url: https://rodaleinstitute.org/roc
+      title: ROC Certification Info
+spec:
+  owner: group:farm-operations-team
+
+---
+# ===========================================================================
+# SYSTEM: Field / Pasture Units
+# ===========================================================================
+# MIF entity_type: field -> Backstage Kind: System
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: north-pasture-system
+  title: North Pasture (40 acres)
+  description: |
+    40-acre rotational grazing system with improved pasture mix.
+    Primary grazing area for beef cattle herd.
+  annotations:
+    mif.zircote.com/entity-type: field
+    mif.zircote.com/entity-id: field-north-pasture
+    mif.zircote.com/acres: "40"
+    mif.zircote.com/field-type: pasture
+    mif.zircote.com/soil-carbon-tons: "38.5"
+  tags:
+    - pasture
+    - grazing
+    - carbon-sequestration
+spec:
+  owner: group:farm-operations-team
+  domain: sunrise-regenerative-farm
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: south-cropland-system
+  title: South Cropland (60 acres)
+  description: |
+    60-acre no-till cropland with diverse cover crop rotation.
+    Cash crops: corn, soybeans, small grains.
+  annotations:
+    mif.zircote.com/entity-type: field
+    mif.zircote.com/entity-id: field-south-cropland
+    mif.zircote.com/acres: "60"
+    mif.zircote.com/field-type: cropland
+    mif.zircote.com/irrigation: dryland
+  tags:
+    - cropland
+    - no-till
+    - cover-crops
+spec:
+  owner: group:farm-operations-team
+  domain: sunrise-regenerative-farm
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: beef-cattle-herd
+  title: Beef Cattle Herd
+  description: |
+    85-head grass-fed beef cattle herd managed with adaptive
+    multi-paddock (AMP) rotational grazing.
+  annotations:
+    mif.zircote.com/entity-type: herd
+    mif.zircote.com/entity-id: herd-beef-main
+    mif.zircote.com/species: cattle
+    mif.zircote.com/breed: angus-cross
+    mif.zircote.com/head-count: "85"
+    mif.zircote.com/purpose: beef
+  tags:
+    - livestock
+    - grass-fed
+    - rotational-grazing
+spec:
+  owner: group:farm-operations-team
+  domain: sunrise-regenerative-farm
+
+---
+# ===========================================================================
+# COMPONENTS: Procedures & Plans
+# ===========================================================================
+# MIF entity_type: grazing-plan -> Backstage Kind: Component (type: procedure)
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: 2026-grazing-rotation-plan
+  title: 2026 Grazing Rotation Plan
+  description: |
+    Annual adaptive multi-paddock grazing plan for beef herd.
+    45-day recovery periods, high stock density moves.
+  annotations:
+    mif.zircote.com/entity-type: grazing-plan
+    mif.zircote.com/entity-id: grazing-plan-2026
+    mif.zircote.com/stock-density: "250000"
+    mif.zircote.com/rest-period-days: "45"
+  tags:
+    - procedure
+    - grazing
+    - "2026"
+spec:
+  type: procedure
+  lifecycle: production
+  owner: group:farm-operations-team
+  system: beef-cattle-herd
+
+---
+# MIF entity_type: crop-rotation -> Backstage Kind: Component (type: procedure)
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: 5-year-crop-rotation
+  title: 5-Year Crop Rotation Plan
+  description: |
+    Five-year rotation: Corn -> Soybeans -> Small Grain + Cover ->
+    Cover Crop Mix -> Corn. Designed for soil health and nitrogen cycling.
+  annotations:
+    mif.zircote.com/entity-type: crop-rotation
+    mif.zircote.com/entity-id: rotation-south-5yr
+    mif.zircote.com/rotation-years: "5"
+  tags:
+    - procedure
+    - rotation
+    - cover-crops
+spec:
+  type: procedure
+  lifecycle: production
+  owner: group:farm-operations-team
+  system: south-cropland-system
+
+---
+# ===========================================================================
+# RESOURCES: Physical Assets & Data
+# ===========================================================================
+# MIF entity_type: soil-profile -> Backstage Kind: Resource (type: dataset)
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: north-pasture-soil-profile-2026
+  title: North Pasture Soil Profile (Jan 2026)
+  description: |
+    Annual soil health assessment showing 4.2% organic matter,
+    38.5 tons CO2e/acre soil carbon.
+  annotations:
+    mif.zircote.com/entity-type: soil-profile
+    mif.zircote.com/entity-id: soil-north-2026-01
+    mif.zircote.com/organic-matter: "4.2"
+    mif.zircote.com/soil-carbon: "38.5"
+    mif.zircote.com/ph: "6.8"
+    mif.zircote.com/lab: "Ward Laboratories"
+  tags:
+    - soil-health
+    - carbon
+    - lab-results
+spec:
+  type: dataset
+  owner: group:farm-operations-team
+  system: north-pasture-system
+
+---
+# MIF entity_type: carbon-baseline -> Backstage Kind: Resource
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: carbon-baseline-2023
+  title: Carbon Baseline (2023)
+  description: |
+    Baseline carbon measurement for carbon credit program enrollment.
+    Verified by SCI under Tier 1 protocol.
+  annotations:
+    mif.zircote.com/entity-type: carbon-baseline
+    mif.zircote.com/entity-id: carbon-baseline-2023
+    mif.zircote.com/baseline-tons: "28.2"
+    mif.zircote.com/protocol: "SCI Tier 1"
+    mif.zircote.com/verifier: "Soil & Climate Initiative"
+  tags:
+    - carbon
+    - baseline
+    - verified
+spec:
+  type: dataset
+  owner: group:farm-operations-team
+  system: north-pasture-system
+
+---
+# MIF entity_type: equipment -> Backstage Kind: Resource (type: infrastructure)
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: john-deere-6130r
+  title: John Deere 6130R Tractor
+  description: |
+    Primary field tractor for planting, cultivation, and hay operations.
+    130 HP, purchased 2022.
+  annotations:
+    mif.zircote.com/entity-type: equipment
+    mif.zircote.com/entity-id: equip-tractor-6130r
+    mif.zircote.com/equipment-type: tractor
+    mif.zircote.com/make: "John Deere"
+    mif.zircote.com/model: "6130R"
+    mif.zircote.com/year: "2022"
+    mif.zircote.com/hours: "1250"
+  tags:
+    - equipment
+    - tractor
+spec:
+  type: infrastructure
+  owner: group:farm-operations-team
+  system: south-cropland-system
+
+---
+# MIF entity_type: carbon-credit -> Backstage Kind: Resource (type: asset)
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: carbon-credits-2025
+  title: 2025 Verified Carbon Credits
+  description: |
+    150 verified carbon credits from soil carbon sequestration.
+    Registered with Nori marketplace.
+  annotations:
+    mif.zircote.com/entity-type: carbon-credit
+    mif.zircote.com/entity-id: credits-2025-nori
+    mif.zircote.com/vintage-year: "2025"
+    mif.zircote.com/quantity-tons: "150"
+    mif.zircote.com/registry: "nori"
+    mif.zircote.com/status: "verified"
+  tags:
+    - carbon-credits
+    - verified
+    - nori
+spec:
+  type: asset
+  owner: group:farm-operations-team
+  system: north-pasture-system
+
+---
+# ===========================================================================
+# GROUPS & USERS
+# ===========================================================================
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: farm-operations-team
+  title: Farm Operations Team
+  description: Core team managing daily farm operations
+spec:
+  type: team
+  children: []
+  members:
+    - user:john-farmer
+    - user:jane-agronomist
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: john-farmer
+  title: John Smith
+  description: Farm owner and primary operator
+  annotations:
+    mif.zircote.com/role: owner
+spec:
+  memberOf:
+    - farm-operations-team
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: jane-agronomist
+  title: Jane Doe
+  description: Agronomist and soil health specialist
+  annotations:
+    mif.zircote.com/role: agronomist
+spec:
+  memberOf:
+    - farm-operations-team
+
+---
+# ===========================================================================
+# API: External Integrations
+# ===========================================================================
+# MIF entity_type: contract -> Backstage Kind: API
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: buyer-contract-api
+  title: Buyer Contract Interface
+  description: |
+    Contract terms and delivery schedules with primary buyer
+    (Local Foods Cooperative).
+  annotations:
+    mif.zircote.com/entity-type: contract
+    mif.zircote.com/entity-id: contract-lfc-2026
+    mif.zircote.com/buyer: "Local Foods Cooperative"
+    mif.zircote.com/product: "grass-fed beef"
+spec:
+  type: contract
+  lifecycle: production
+  owner: group:farm-operations-team
+  system: beef-cattle-herd
+  definition: |
+    Contract for 50 head annually at $3.50/lb hanging weight.
+    Delivery: Monthly, October-March.

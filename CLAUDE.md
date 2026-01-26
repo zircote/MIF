@@ -20,11 +20,11 @@ rg -l "MIF" ~/.claude/mnemonic/zircote/ --glob "*.memory.md" | head -10
 
 ### Project-Specific Capture
 
-For MIF-specific decisions and learnings:
-- **Architecture decisions** → `./.claude/mnemonic/decisions/project/`
-- **API patterns** → `./.claude/mnemonic/apis/project/`
-- **Testing strategies** → `./.claude/mnemonic/testing/project/`
-- **Security considerations** → `./.claude/mnemonic/security/project/`
+For MIF-specific decisions and learnings (cognitive triad namespaces):
+- **Architecture decisions** → `./.claude/mnemonic/semantic/decisions/`
+- **API/technical knowledge** → `./.claude/mnemonic/semantic/knowledge/`
+- **Code patterns/testing** → `./.claude/mnemonic/procedural/patterns/`
+- **Incidents/blockers** → `./.claude/mnemonic/episodic/blockers/`
 
 ### Blackboard
 
