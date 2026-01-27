@@ -74,7 +74,7 @@ Format                     |
 ### Immediate (Next 30 Days)
 
 1. **Add hash/lineage fields to spec** - Enables enterprise compliance use cases
-2. **Register mif.io domain** - Establish canonical context URL
+2. **Use GitHub raw URLs** - Establish canonical context URL
 3. **Begin mif-tools Python package** - Tooling must ship with spec
 
 ### Short-term (90 Days)
@@ -97,7 +97,7 @@ Format                     |
 |------------|--------|--------|----------|
 | mif-tools package | Medium | High | **1** |
 | Hash/lineage spec | Low | High | **2** |
-| mif.io domain | Low | Medium | **3** |
+| GitHub hosting | Low | Medium | **3** |
 | Zep partnership | Low | High | **4** |
 | Obsidian plugin | Medium | Medium | **5** |
 

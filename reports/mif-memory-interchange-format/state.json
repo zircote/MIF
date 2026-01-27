@@ -31,7 +31,7 @@
         ]
       },
       "draft_schema": {
-        "@context": "https://subcog.dev/mif/v1",
+        "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
         "format_version": "1.0",
         "key_fields": [
           "memories",
@@ -91,7 +91,7 @@
         ],
         "mif_alignment": "EXCELLENT - MIF already uses JSON-LD correctly",
         "recommendations": [
-          "Register mif.io context URL for production",
+          "Use GitHub raw URLs for context",
           "Include schema.org types where applicable for broader tool compatibility",
           "Consider JSON-LD framing for different consumer needs"
         ]
@@ -518,7 +518,7 @@
     },
     "adoption_actions": {
       "immediate": [
-        "Create mif.io domain and host context file",
+        "Host context file on GitHub",
         "Build Python mif-tools package with validation",
         "Create Obsidian plugin for MIF vault management",
         "Write migration scripts for Mem0 and Letta (lowest complexity)"

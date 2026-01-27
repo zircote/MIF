@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://mif.io/schema/v1/mif.schema.json",
+  "$id": "https://raw.githubusercontent.com/zircote/MIF/main/schema/mif.schema.json",
   "title": "Memory Interchange Format (MIF)",
   "description": "JSON Schema for validating MIF memory documents",
   "type": "object",

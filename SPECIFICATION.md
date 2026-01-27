@@ -124,7 +124,7 @@ MIF is designed for local-first storage:
 | Extension | Format | MIME Type |
 |-----------|--------|-----------|
 | `.memory.md` | Markdown | `text/markdown; variant=mif` |
-| `.memory.json` | JSON-LD | `application/ld+json; profile="https://mif.io/v1"` |
+| `.memory.json` | JSON-LD | `application/ld+json; profile="https://raw.githubusercontent.com/zircote/MIF/main"` |
 
 ### 3.2 File Naming
 
@@ -313,7 +313,7 @@ modified: 2026-01-20T14:22:00Z             # Last modification
 ontology:                                   # Applied ontology reference
   id: mif-base                             # Ontology identifier
   version: "1.0.0"                         # Ontology version
-  uri: https://mif.io/ontologies/mif-base  # Ontology definition URL
+  uri: https://raw.githubusercontent.com/zircote/MIF/main/ontologies/mif-base  # Ontology identifier (not a resolvable URL)
 namespace: org/user/project                 # Hierarchical scope
 title: "Human-readable title"               # Display title
 tags:                                       # Classification
@@ -593,7 +593,7 @@ Implementations MAY apply compression when memories meet these criteria:
 
 ```json
 {
-  "@context": "https://mif.io/context/v1",
+  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
   "@type": "Memory",
   "@id": "urn:mif:550e8400-e29b-41d4-a716-446655440000",
 
@@ -621,11 +621,11 @@ Implementations MAY apply compression when memories meet these criteria:
 ```json
 {
   "@context": [
-    "https://mif.io/context/v1",
+    "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
     {
       "prov": "http://www.w3.org/ns/prov#",
       "dc": "http://purl.org/dc/terms/",
-      "subcog": "https://subcog.io/ns/"
+      "subcog": "https://github.com/zircote/subcog/ns/"
     }
   ],
   "@type": ["Memory", "prov:Entity"],
@@ -832,7 +832,7 @@ entity_types:
 ```json
 {
   "@context": [
-    "https://mif.io/context/v1",
+    "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
     {"farm": "https://example.org/farm/"}
   ],
   "@type": "farm:Animal",
@@ -864,7 +864,7 @@ properties:
 
 ```json
 {
-  "@context": "https://mif.io/context/v1",
+  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
   "@type": "Person",
   "@id": "urn:mif:entity:person:jane-doe",
   "name": "Jane Doe",
@@ -1012,7 +1012,7 @@ relationship_types:
 ```json
 {
   "@context": [
-    "https://mif.io/context/v1",
+    "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
     {"farm": "https://example.org/farm/"}
   ],
   "relationships": [
@@ -1103,7 +1103,48 @@ MIF uses a bi-temporal model distinguishing between:
 | `exponential` | strength = e^(-t/halfLife) | Natural forgetting curve |
 | `step` | strength = 1 if t < ttl else 0 | Hard expiration |
 
-### 9.3 Example
+### 9.3 Decay Rationale
+
+MIF's decay model values (P7D, P14D, P30D half-lives) are **pragmatic defaults** for AI memory systems, inspired by but not directly derived from cognitive psychology research. They represent reasonable approximations for memory management in agentic contexts.
+
+#### Scientific Background
+
+The exponential decay model `strength = e^(-t/halfLife)` is inspired by Hermann Ebbinghaus's forgetting curve (1885), which demonstrates that memory retention follows an exponential decline:
+
+| Time Elapsed | Approximate Retention |
+|--------------|----------------------|
+| 1 hour       | ~50% |
+| 24 hours     | ~30-35% |
+| 7 days       | ~25% |
+| 30 days      | ~10% |
+
+The mathematical form `R = e^(-t/S)` where R is retrievability, t is time elapsed, and S is memory strength, has been validated by modern replication studies.
+
+#### Why These Specific Values?
+
+| Half-Life | Use Case | Rationale |
+|-----------|----------|-----------|
+| **P7D** | Short-term context | Aligns with weekly work cycles and episodic memory consolidation windows |
+| **P14D** | Medium-term projects | Spans typical sprint/iteration boundaries |
+| **P30D** | Long-term knowledge | Corresponds to monthly review cycles and hippocampal consolidation periods (~30 days in animal studies) |
+| **P90D** | Default TTL | Quarterly relevance for most organizational knowledge |
+
+These values are **not** prescriptive—implementations SHOULD tune them based on:
+- Memory type (episodic decays faster than semantic)
+- Organizational context (high-velocity vs. stable environments)
+- Access patterns (frequently accessed memories reinforce slower decay)
+
+#### Memory Consolidation Considerations
+
+Research on memory consolidation suggests memories transition from hippocampus-dependent (recent) to cortex-dependent (remote) storage over time. MIF's `lastAccessed` and `accessCount` fields enable implementations to model reinforcement—each access can reset or slow decay, analogous to spaced repetition strengthening memory traces.
+
+**References:**
+- Ebbinghaus, H. (1885). *Memory: A Contribution to Experimental Psychology*
+- Murre & Dros (2015). [Replication and Analysis of Ebbinghaus' Forgetting Curve](https://pmc.ncbi.nlm.nih.gov/articles/PMC4492928/)
+- Squire & Bayley (2007). [The neuroscience of remote memory](https://pmc.ncbi.nlm.nih.gov/articles/PMC2791502/)
+- Wickelgren (1972). [Trace resistance and the decay of long-term memory](https://psycnet.apa.org/record/1973-08477-007)
+
+### 9.4 Example
 
 ```yaml
 temporal:
@@ -1250,8 +1291,8 @@ mif://{domain}/{namespace}/{memory-id}
 ```
 
 Examples:
-- `mif://subcog.io/acme-corp/project-x/550e8400...`
-- `mif://registry.mif.io/_public/python/async-patterns/abc123...`
+- `mif://github.com/zircote/acme-corp/project-x/550e8400...`
+- `mif://registry/_public/python/async-patterns/abc123...`
 - `mif://local/_local/scratch/memory-123`
 
 ### 10.7 Namespace Inheritance
@@ -1499,7 +1540,7 @@ extensions:
 ### 14.1 Context URL
 
 ```
-https://mif.io/context/v1
+https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld
 ```
 
 ### 14.2 Context Definition
@@ -1508,7 +1549,7 @@ https://mif.io/context/v1
 {
   "@context": {
     "@version": 1.1,
-    "mif": "https://mif.io/ns/",
+    "mif": "https://raw.githubusercontent.com/zircote/MIF/main/ns/",
     "dc": "http://purl.org/dc/terms/",
     "prov": "http://www.w3.org/ns/prov#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
@@ -1660,7 +1701,7 @@ https://mif.io/context/v1
 **Input (JSON-LD):**
 ```json
 {
-  "@context": "https://mif.io/context/v1",
+  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
   "@type": "Memory",
   "@id": "urn:mif:550e8400",
   "title": "Dark Mode",
@@ -1761,7 +1802,7 @@ User prefers dark mode for all applications.
 **JSON-LD:**
 ```json
 {
-  "@context": "https://mif.io/context/v1",
+  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
   "@type": "Memory",
   "@id": "urn:mif:550e8400-e29b-41d4-a716-446655440000",
   "memoryType": "semantic",
@@ -1838,7 +1879,7 @@ See Section 6.2 for a complete Level 3 example.
 
 # MIF mapping
 {
-    "@context": "https://mif.io/context/v1",
+    "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
     "@id": "urn:mif:mem0_123",                    # id → @id
     "content": "User prefers dark mode",          # memory → content
     "memoryType": "semantic",                     # preferences are semantic knowledge
@@ -1970,7 +2011,7 @@ See Section 6.2 for a complete Level 3 example.
 **JSON-LD Format:**
 - Type name: application
 - Subtype name: ld+json
-- Required parameters: profile="https://mif.io/v1"
+- Required parameters: profile="https://raw.githubusercontent.com/zircote/MIF/main"
 
 ### 19.2 URI Scheme
 

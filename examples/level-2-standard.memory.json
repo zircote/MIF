@@ -1,5 +1,5 @@
 {
-  "@context": "https://mif.io/context/v1",
+  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
   "@type": "Memory",
   "@id": "urn:mif:decision-react-frontend",
 

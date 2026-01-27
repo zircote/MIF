@@ -173,6 +173,8 @@ citations:
 ---
 ```
 
+> **Decay Values:** The `half_life: P30D` means memory strength halves every 30 days. Common values: P7D (short-term), P14D (medium-term), P30D (long-term). These are pragmatic defaults inspired by Ebbinghaus's forgetting curve research. See [SPECIFICATION.md Section 9.3](../SPECIFICATION.md#93-decay-rationale) for details.
+
 ## Directory Structure
 
 Organize your MIF vault using the cognitive triad:
@@ -251,7 +253,7 @@ For machine processing, use JSON-LD:
 
 ```json
 {
-  "@context": "https://mif.io/context/v1",
+  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
   "@type": "Memory",
   "@id": "urn:mif:a1b2c3d4-5678-90ab-cdef-1234567890ab",
   "memoryType": "semantic",

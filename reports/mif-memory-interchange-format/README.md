@@ -49,7 +49,7 @@ This research investigates the market opportunity and technical landscape for MI
 - Define canonical embedding model identifiers (ONNX + HuggingFace)
 
 ### Adoption Strategy
-1. **Immediate:** Create mif.io domain, build Python mif-tools package
+1. **Immediate:** Build Python mif-tools package
 2. **Short-term:** Ship Obsidian plugin, build Mem0/Letta converters
 3. **Medium-term:** Submit W3C Community Group, partner with governance vendors
 

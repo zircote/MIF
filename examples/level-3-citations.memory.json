@@ -1,6 +1,6 @@
 {
   "@context": [
-    "https://mif.io/context/v1",
+    "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
     {
       "prov": "http://www.w3.org/ns/prov#",
       "dc": "http://purl.org/dc/terms/",

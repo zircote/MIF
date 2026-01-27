@@ -25,7 +25,7 @@ ontology:
   id: backstage
   version: "1.0.0"
   description: "Backstage.io software catalog ontology"
-  schema_url: "https://mif.io/schema/v1/ontology.schema.json"
+  schema_url: "https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology.schema.json"
   extends:
     - mif-base
     - shared-traits

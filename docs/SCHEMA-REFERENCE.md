@@ -19,7 +19,7 @@ All schemas use JSON Schema Draft 2020-12.
 ## MIF Document Schema
 
 **File:** `schema/mif.schema.json`
-**ID:** `https://mif.io/schema/v1/mif.schema.json`
+**ID:** `https://raw.githubusercontent.com/zircote/MIF/main/schema/mif.schema.json`
 
 ### Required Fields
 
@@ -172,6 +172,16 @@ Ontologies can define extended types that map to these base types via namespace 
 | `accessCount` | integer | Times accessed |
 | `lastAccessed` | date-time | Last access time |
 
+**Recommended Half-Life Values:**
+
+| Duration | Use Case |
+|----------|----------|
+| `P7D` | Short-term context, episodic memories |
+| `P14D` | Medium-term project context |
+| `P30D` | Long-term knowledge, semantic memories |
+
+These values are pragmatic defaults inspired by Ebbinghaus's forgetting curve research, adapted for AI memory systems. See [SPECIFICATION.md Section 9.3](../SPECIFICATION.md#93-decay-rationale) for detailed rationale and scientific background.
+
 #### Provenance
 
 ```json
@@ -250,7 +260,7 @@ See [Citation Schema](#citation-schema) for full details.
 ## Citation Schema
 
 **File:** `schema/citation.schema.json`
-**ID:** `https://mif.io/schema/v1/citation.schema.json`
+**ID:** `https://raw.githubusercontent.com/zircote/MIF/main/schema/citation.schema.json`
 
 ### Required Fields
 
@@ -492,8 +502,8 @@ jsonschema.validate(document, schema)
 
 Production schemas will be available at:
 
-- `https://mif.io/schema/v1/mif.schema.json`
-- `https://mif.io/schema/v1/citation.schema.json`
-- `https://mif.io/context/v1` (JSON-LD context)
+- `https://raw.githubusercontent.com/zircote/MIF/main/schema/mif.schema.json`
+- `https://raw.githubusercontent.com/zircote/MIF/main/schema/citation.schema.json`
+- `https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld` (JSON-LD context)
 
 During development, reference local files or GitHub raw URLs.

@@ -329,7 +329,7 @@ quadrantChart
 | Weakness | Risk | Mitigation |
 |----------|------|------------|
 | **No Production Tooling** | Spec without tools = vaporware | Prioritize Python mif-tools, CLI |
-| **Unknown Brand** | No awareness outside subcog users | mif.io domain, conference presence |
+| **Unknown Brand** | No awareness outside subcog users | conference presence |
 | **Single Maintainer Risk** | Bus factor = 1 | Governance model, W3C submission |
 | **Unproven at Scale** | No enterprise deployments | Partner with early adopter for case study |
 
@@ -466,7 +466,7 @@ quadrantChart
 | Week | Action | Owner | Deliverable |
 |------|--------|-------|-------------|
 | 1 | Finalize hash/lineage spec additions | Spec Lead | Updated spec draft |
-| 1 | Register mif.io domain | Ops | Domain + placeholder site |
+| 1 | Use GitHub raw URLs | Ops | Domain + placeholder site |
 | 2 | Begin mif-tools Python package | Eng | GitHub repo, basic structure |
 | 2 | Draft W3C Community Group proposal | Governance | Submission document |
 | 3 | Build Mem0 converter (lowest complexity) | Eng | Working converter script |
@@ -547,7 +547,7 @@ Based on this research, the following decisions are recommended:
 |------------|--------|--------|----------|
 | mif-tools Python package | MEDIUM | HIGH | 1 |
 | Hash/lineage spec additions | LOW | HIGH | 2 |
-| mif.io domain + context file | LOW | MEDIUM | 3 |
+| GitHub raw URLs file | LOW | MEDIUM | 3 |
 | Mem0 converter | LOW | MEDIUM | 4 |
 | Obsidian plugin | MEDIUM | MEDIUM | 5 |
 | Zep partnership outreach | LOW | HIGH | 6 |
@@ -656,7 +656,7 @@ gantt
     title MIF Adoption Roadmap
     dateFormat  YYYY-MM
     section Phase 1: Foundation
-    mif.io domain + context     :2026-02, 2026-02
+    GitHub raw URLs     :2026-02, 2026-02
     mif-tools Python package    :2026-02, 2026-04
     Obsidian plugin beta        :2026-03, 2026-05
     Mem0/Letta converters       :2026-03, 2026-05

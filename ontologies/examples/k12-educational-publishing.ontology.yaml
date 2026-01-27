@@ -27,7 +27,7 @@ ontology:
   id: k12-educational-publishing
   version: "1.0.0"
   description: "K-12 educational publishing ontology"
-  schema_url: "https://mif.io/schema/v1/ontology.schema.json"
+  schema_url: "https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology.schema.json"
   extends:
     - mif-base
     - shared-traits

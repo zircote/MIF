@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "mif": "https://mif.io/ns/",
+    "mif": "https://raw.githubusercontent.com/zircote/MIF/main/ns/",
     "dc": "http://purl.org/dc/terms/",
     "prov": "http://www.w3.org/ns/prov#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",

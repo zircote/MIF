@@ -34,9 +34,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **[Schema]**: Standardized all schema URIs to `https://mif.io/schema/v1/`
+- **[Schema]**: Standardized schema identifiers to `https://raw.githubusercontent.com/zircote/MIF/main/schema/` namespace
   - Updated ontology.schema.json `$id`
   - Updated all domain ontology `schema_url` fields
+  - Note: These are identifiers, not resolvable URLs
 
 - **[Schema]**: Discovery patterns structure updated
   - Split single `patterns[]` into `content_patterns[]` and `file_patterns[]`
@@ -60,6 +61,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **[Documentation]**: Added trait inheritance documentation to ontologies/README.md
   - Documents the three-tier trait system
   - Explains how domain ontologies inherit from shared-traits
+
+- **[Documentation]**: Added decay model rationale (Section 9.3)
+  - Explains P7D/P14D/P30D half-life values as pragmatic defaults
+  - Documents scientific background from Ebbinghaus forgetting curve
+  - Cites Murre & Dros (2015), Squire & Bayley (2007), Wickelgren (1972)
+  - Provides guidance for tuning values per memory type
 
 ### Changed
 

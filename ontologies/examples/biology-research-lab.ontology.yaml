@@ -28,7 +28,7 @@ ontology:
   id: biology-research-lab
   version: "1.0.0"
   description: "Biology research lab ontology with full lifecycle"
-  schema_url: "https://mif.io/schema/v1/ontology.schema.json"
+  schema_url: "https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology.schema.json"
   extends:
     - mif-base
     - shared-traits
