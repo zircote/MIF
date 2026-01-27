@@ -17,7 +17,7 @@
   "created": "2026-01-20T10:00:00Z",
   "modified": "2026-01-22T15:30:00Z",
 
-  "namespace": "semantic/decisions",
+  "namespace": "__semantic/decisions",
   "tags": ["architecture", "memory-systems", "integration", "ai"],
   "aliases": ["MIF Adoption Decision", "Memory Format Choice"],
 

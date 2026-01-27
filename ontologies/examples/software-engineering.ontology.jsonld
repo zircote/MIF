@@ -784,105 +784,105 @@
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(PostgreSQL|MySQL|MongoDB|Redis)\\b",
         "suggest_entity": "mif:entityType/technology",
-        "suggest_namespace": "semantic/entities"
+        "suggest_namespace": "_semantic/entities"
       },
       {
         "@id": "mif:pattern/1",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(React|Vue|Angular|Next\\.js|Django)\\b",
         "suggest_entity": "mif:entityType/technology",
-        "suggest_namespace": "semantic/entities"
+        "suggest_namespace": "_semantic/entities"
       },
       {
         "@id": "mif:pattern/2",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(FastAPI|Express|Flask|Spring)\\b",
         "suggest_entity": "mif:entityType/technology",
-        "suggest_namespace": "semantic/entities"
+        "suggest_namespace": "_semantic/entities"
       },
       {
         "@id": "mif:pattern/3",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(Docker|Kubernetes|Terraform|AWS)\\b",
         "suggest_entity": "mif:entityType/technology",
-        "suggest_namespace": "semantic/entities"
+        "suggest_namespace": "_semantic/entities"
       },
       {
         "@id": "mif:pattern/4",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(Factory|Singleton|Observer)\\s+Pattern\\b",
         "suggest_entity": "mif:entityType/design-pattern",
-        "suggest_namespace": "procedural/patterns"
+        "suggest_namespace": "_procedural/patterns"
       },
       {
         "@id": "mif:pattern/5",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(Repository|Strategy|Decorator)\\s+Pattern\\b",
         "suggest_entity": "mif:entityType/design-pattern",
-        "suggest_namespace": "procedural/patterns"
+        "suggest_namespace": "_procedural/patterns"
       },
       {
         "@id": "mif:pattern/6",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(CQRS|Event\\s+Sourcing|Saga)\\b",
         "suggest_entity": "mif:entityType/design-pattern",
-        "suggest_namespace": "procedural/patterns"
+        "suggest_namespace": "_procedural/patterns"
       },
       {
         "@id": "mif:pattern/7",
         "@type": "mif:DiscoveryPattern",
         "file_pattern": "**/services/**/*.py",
         "suggest_entity": "mif:entityType/component",
-        "suggest_namespace": "semantic/components"
+        "suggest_namespace": "_semantic/components"
       },
       {
         "@id": "mif:pattern/8",
         "@type": "mif:DiscoveryPattern",
         "file_pattern": "**/components/**/*.tsx",
         "suggest_entity": "mif:entityType/component",
-        "suggest_namespace": "semantic/components"
+        "suggest_namespace": "_semantic/components"
       },
       {
         "@id": "mif:pattern/9",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(outage|incident|postmortem|RCA)\\b",
         "suggest_entity": "mif:entityType/incident-report",
-        "suggest_namespace": "episodic/incidents"
+        "suggest_namespace": "_episodic/incidents"
       },
       {
         "@id": "mif:pattern/10",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(runbook|playbook|SOP|procedure)\\b",
         "suggest_entity": "mif:entityType/runbook",
-        "suggest_namespace": "procedural/runbooks"
+        "suggest_namespace": "_procedural/runbooks"
       },
       {
         "@id": "mif:pattern/11",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(deploy|release|rollout)\\s+(steps|procedure)\\b",
         "suggest_entity": "mif:entityType/deployment-procedure",
-        "suggest_namespace": "procedural/deployments"
+        "suggest_namespace": "_procedural/deployments"
       },
       {
         "@id": "mif:pattern/12",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(migration|migrate|upgrade)\\s+(guide|plan)\\b",
         "suggest_entity": "mif:entityType/migration-guide",
-        "suggest_namespace": "procedural/migrations"
+        "suggest_namespace": "_procedural/migrations"
       },
       {
         "@id": "mif:pattern/13",
         "@type": "mif:DiscoveryPattern",
         "file_pattern": "**/runbooks/**/*.md",
         "suggest_entity": "mif:entityType/runbook",
-        "suggest_namespace": "procedural/runbooks"
+        "suggest_namespace": "_procedural/runbooks"
       },
       {
         "@id": "mif:pattern/14",
         "@type": "mif:DiscoveryPattern",
         "file_pattern": "**/docs/procedures/**/*.md",
         "suggest_entity": "mif:entityType/deployment-procedure",
-        "suggest_namespace": "procedural/deployments"
+        "suggest_namespace": "_procedural/deployments"
       }
     ]
   }

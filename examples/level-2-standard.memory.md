@@ -3,7 +3,7 @@ id: decision-react-frontend
 type: semantic
 created: 2026-01-10T09:00:00Z
 modified: 2026-01-12T14:30:00Z
-namespace: semantic/decisions
+namespace: _semantic/decisions
 title: "Use React for Dashboard Frontend"
 tags:
   - frontend

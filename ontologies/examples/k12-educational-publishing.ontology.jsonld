@@ -1328,77 +1328,77 @@
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(ISBN|textbook|workbook|edition)\\b",
         "suggest_entity": "mif:entityType/title",
-        "suggest_namespace": "semantic/titles"
+        "suggest_namespace": "_semantic/titles"
       },
       {
         "@id": "mif:pattern/1",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(curriculum|program|series)\\b",
         "suggest_entity": "mif:entityType/program",
-        "suggest_namespace": "semantic/programs"
+        "suggest_namespace": "_semantic/programs"
       },
       {
         "@id": "mif:pattern/2",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(CCSS|Common Core|NGSS|C3)\\b",
         "suggest_entity": "mif:entityType/standard",
-        "suggest_namespace": "semantic/standards"
+        "suggest_namespace": "_semantic/standards"
       },
       {
         "@id": "mif:pattern/3",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(standard|learning objective|alignment)\\b",
         "suggest_entity": "mif:entityType/alignment",
-        "suggest_namespace": "semantic/alignments"
+        "suggest_namespace": "_semantic/alignments"
       },
       {
         "@id": "mif:pattern/4",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(adoption|state review|submission)\\b",
         "suggest_entity": "mif:entityType/state-adoption",
-        "suggest_namespace": "semantic/adoptions"
+        "suggest_namespace": "_semantic/adoptions"
       },
       {
         "@id": "mif:pattern/5",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(district|school|enrollment)\\b",
         "suggest_entity": "mif:entityType/district-sale",
-        "suggest_namespace": "episodic/adoption-cycles"
+        "suggest_namespace": "_episodic/adoption-cycles"
       },
       {
         "@id": "mif:pattern/6",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(manuscript|draft|revision)\\b",
         "suggest_entity": "mif:entityType/manuscript",
-        "suggest_namespace": "semantic/content"
+        "suggest_namespace": "_semantic/content"
       },
       {
         "@id": "mif:pattern/7",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(milestone|deadline|due date)\\b",
         "suggest_entity": "mif:entityType/editorial-milestone",
-        "suggest_namespace": "episodic/editorial"
+        "suggest_namespace": "_episodic/editorial"
       },
       {
         "@id": "mif:pattern/8",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(author|contributor|editor)\\b",
         "suggest_entity": "mif:entityType/author",
-        "suggest_namespace": "semantic/contributors"
+        "suggest_namespace": "_semantic/contributors"
       },
       {
         "@id": "mif:pattern/9",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(LMS|interactive|digital resource)\\b",
         "suggest_entity": "mif:entityType/digital-resource",
-        "suggest_namespace": "semantic/content"
+        "suggest_namespace": "_semantic/content"
       },
       {
         "@id": "mif:pattern/10",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(WCAG|accessibility|508)\\b",
         "suggest_entity": "mif:entityType/accessibility-spec",
-        "suggest_namespace": "procedural/production"
+        "suggest_namespace": "_procedural/production"
       }
     ]
   }

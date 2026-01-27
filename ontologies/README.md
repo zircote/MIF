@@ -95,8 +95,8 @@ Memories are stored using hierarchical namespace paths:
 ```
 
 Examples:
-- `~/.claude/mnemonic/zircote/mif/semantic/decisions/`
-- `./.claude/mnemonic/procedural/patterns/`
+- `~/.claude/mnemonic/zircote/mif/_semantic/decisions/`
+- `./.claude/mnemonic/_procedural/patterns/`
 
 ### Namespace Selection
 
@@ -104,15 +104,15 @@ Choose namespaces based on memory type:
 
 | Memory Type | Namespace | Description |
 |-------------|-----------|-------------|
-| Architectural choices | `semantic/decisions` | Why we chose X over Y |
-| API/technical facts | `semantic/knowledge` | How X works |
-| Component definitions | `semantic/entities` | What X is |
-| Production issues | `episodic/incidents` | When X broke |
-| Debug sessions | `episodic/sessions` | Work session notes |
-| Blockers/impediments | `episodic/blockers` | What's blocking progress |
-| Operational procedures | `procedural/runbooks` | How to deploy X |
-| Code conventions | `procedural/patterns` | How we write X |
-| Upgrade steps | `procedural/migrations` | How to migrate to X |
+| Architectural choices | `_semantic/decisions` | Why we chose X over Y |
+| API/technical facts | `_semantic/knowledge` | How X works |
+| Component definitions | `_semantic/entities` | What X is |
+| Production issues | `_episodic/incidents` | When X broke |
+| Debug sessions | `_episodic/sessions` | Work session notes |
+| Blockers/impediments | `_episodic/blockers` | What's blocking progress |
+| Operational procedures | `_procedural/runbooks` | How to deploy X |
+| Code conventions | `_procedural/patterns` | How we write X |
+| Upgrade steps | `_procedural/migrations` | How to migrate to X |
 
 ## Declaring Ontology in Memories
 
@@ -146,7 +146,7 @@ namespace: semantic/livestock
     "version": "1.0.0",
     "uri": "https://github.com/zircote/MIF/ontologies/examples/regenerative-agriculture.ontology.yaml"
   },
-  "namespace": "semantic/livestock",
+  "namespace": "_semantic/livestock",
   "content": "..."
 }
 ```

@@ -1772,105 +1772,105 @@
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(R01|R21|R03|K99|F31|T32|U01)\\b",
         "suggest_entity": "mif:entityType/grant",
-        "suggest_namespace": "semantic/grants"
+        "suggest_namespace": "_semantic/grants"
       },
       {
         "@id": "mif:pattern/1",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(NIH|NSF|grant|funding|award)\\b",
         "suggest_entity": "mif:entityType/grant",
-        "suggest_namespace": "semantic/grants"
+        "suggest_namespace": "_semantic/grants"
       },
       {
         "@id": "mif:pattern/2",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(specific aim|proposal|study section)\\b",
         "suggest_entity": "mif:entityType/grant-submission",
-        "suggest_namespace": "episodic/grant-events"
+        "suggest_namespace": "_episodic/grant-events"
       },
       {
         "@id": "mif:pattern/3",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(postdoc|graduate student|lab manager)\\b",
         "suggest_entity": "mif:entityType/lab-member",
-        "suggest_namespace": "semantic/personnel"
+        "suggest_namespace": "_semantic/personnel"
       },
       {
         "@id": "mif:pattern/4",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(PI|principal investigator|ORCID)\\b",
         "suggest_entity": "mif:entityType/principal-investigator",
-        "suggest_namespace": "semantic/personnel"
+        "suggest_namespace": "_semantic/personnel"
       },
       {
         "@id": "mif:pattern/5",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(protocol|SOP|procedure)\\b",
         "suggest_entity": "mif:entityType/protocol",
-        "suggest_namespace": "procedural/lab-protocols"
+        "suggest_namespace": "_procedural/lab-protocols"
       },
       {
         "@id": "mif:pattern/6",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(experiment|assay|Western|PCR|qPCR)\\b",
         "suggest_entity": "mif:entityType/experiment",
-        "suggest_namespace": "episodic/experiments"
+        "suggest_namespace": "_episodic/experiments"
       },
       {
         "@id": "mif:pattern/7",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(sample|specimen|cell line|tissue)\\b",
         "suggest_entity": "mif:entityType/sample",
-        "suggest_namespace": "semantic/samples"
+        "suggest_namespace": "_semantic/samples"
       },
       {
         "@id": "mif:pattern/8",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(reagent|antibody|primer|enzyme)\\b",
         "suggest_entity": "mif:entityType/reagent",
-        "suggest_namespace": "semantic/reagents"
+        "suggest_namespace": "_semantic/reagents"
       },
       {
         "@id": "mif:pattern/9",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(manuscript|paper|publication|preprint)\\b",
         "suggest_entity": "mif:entityType/publication",
-        "suggest_namespace": "semantic/publications"
+        "suggest_namespace": "_semantic/publications"
       },
       {
         "@id": "mif:pattern/10",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(DOI|PMID|journal|submitted)\\b",
         "suggest_entity": "mif:entityType/manuscript-submission",
-        "suggest_namespace": "episodic/pub-events"
+        "suggest_namespace": "_episodic/pub-events"
       },
       {
         "@id": "mif:pattern/11",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(IRB|human subjects|consent)\\b",
         "suggest_entity": "mif:entityType/irb-protocol",
-        "suggest_namespace": "semantic/compliance"
+        "suggest_namespace": "_semantic/compliance"
       },
       {
         "@id": "mif:pattern/12",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(IACUC|animal protocol|animal use)\\b",
         "suggest_entity": "mif:entityType/iacuc-protocol",
-        "suggest_namespace": "semantic/compliance"
+        "suggest_namespace": "_semantic/compliance"
       },
       {
         "@id": "mif:pattern/13",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(IBC|biosafety|BSL)\\b",
         "suggest_entity": "mif:entityType/ibc-protocol",
-        "suggest_namespace": "semantic/compliance"
+        "suggest_namespace": "_semantic/compliance"
       },
       {
         "@id": "mif:pattern/14",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(dataset|GEO|SRA|repository)\\b",
         "suggest_entity": "mif:entityType/dataset",
-        "suggest_namespace": "semantic/datasets"
+        "suggest_namespace": "_semantic/datasets"
       }
     ]
   }

@@ -30,7 +30,7 @@ MIF uses three base memory types. When migrating, map provider-specific categori
 ```json
 {
   "memoryType": "semantic",
-  "namespace": "semantic/decisions"
+  "namespace": "_semantic/decisions"
 }
 ```
 
@@ -221,7 +221,7 @@ def zep_to_mif(zep_data: dict) -> dict:
         "memoryType": "semantic",  # Default to semantic for factual memories
         "content": zep_data["content"],
         "created": zep_data["created_at"],
-        "namespace": "semantic/knowledge",  # Categorize via namespace
+        "namespace": "_semantic/knowledge",  # Categorize via namespace
     }
 
     # Map temporal data
@@ -524,7 +524,7 @@ def text_to_mif(text_file: str) -> list:
             "@type": "Memory",
             "@id": f"urn:mif:import-{uuid.uuid4()}",
             "memoryType": "semantic",  # Cognitive triad base type
-            "namespace": "semantic/preferences" if ":" in line else "semantic/knowledge",
+            "namespace": "_semantic/preferences" if ":" in line else "_semantic/knowledge",
             "content": content,
             "created": datetime.utcnow().isoformat() + "Z",
             "provenance": {

@@ -238,7 +238,7 @@ When using ontology-extended types, the `type` field uses the base cognitive typ
 ```yaml
 ---
 type: semantic
-namespace: semantic/decisions
+namespace: _semantic/decisions
 ontology:
   id: mif-base
 ---
@@ -604,7 +604,7 @@ Implementations MAY apply compression when memories meet these criteria:
   "created": "2026-01-15T10:30:00Z",
   "modified": "2026-01-20T14:22:00Z",
 
-  "namespace": "semantic/preferences",
+  "namespace": "_semantic/preferences",
   "tags": ["preference", "ui", "accessibility"],
 
   "entities": [...],
@@ -644,7 +644,7 @@ Implementations MAY apply compression when memories meet these criteria:
     "version": "1.0.0"
   },
 
-  "namespace": "semantic/preferences",
+  "namespace": "_semantic/preferences",
   "tags": ["preference", "ui", "accessibility"],
   "aliases": ["Dark Mode Preference", "UI Theme Choice"],
 
@@ -1343,7 +1343,7 @@ discovery:
   patterns:
     - content_pattern: "\\b(PostgreSQL|MySQL|MongoDB)\\b"
       suggest_entity: technology
-      suggest_namespace: semantic/entities
+      suggest_namespace: _semantic/entities
     - file_pattern: "**/services/**/*.py"
       suggest_entity: component
       suggest_namespace: semantic/components
@@ -1779,7 +1779,7 @@ id: decision-react-over-vue
 type: semantic
 created: 2026-01-10T09:00:00Z
 modified: 2026-01-12T14:30:00Z
-namespace: semantic/decisions
+namespace: _semantic/decisions
 tags:
   - frontend
   - architecture
@@ -1842,7 +1842,7 @@ See Section 6.2 for a complete Level 3 example.
     "@id": "urn:mif:mem0_123",                    # id → @id
     "content": "User prefers dark mode",          # memory → content
     "memoryType": "semantic",                     # preferences are semantic knowledge
-    "namespace": "semantic/preferences",          # categorize by cognitive triad + type
+    "namespace": "_semantic/preferences",          # categorize by cognitive triad + type
     "created": "2026-01-15T10:30:00Z",           # created_at → created
     "extensions": {
         "mem0": {"original_id": "mem0_123", "category": "preference"}
@@ -1898,13 +1898,13 @@ See Section 6.2 for a complete Level 3 example.
     "@id": "urn:mif:letta-human-name",
     "memoryType": "semantic",
     "content": "Name: Alice",
-    "namespace": "semantic/entities"
+    "namespace": "_semantic/entities"
 },
 {
     "@id": "urn:mif:letta-human-pref",
     "memoryType": "semantic",
     "content": "Prefers dark mode",
-    "namespace": "semantic/preferences"
+    "namespace": "_semantic/preferences"
 }
 ```
 
@@ -1926,7 +1926,7 @@ See Section 6.2 for a complete Level 3 example.
     "@id": "urn:mif:subcog_abc",
     "content": "Decision: Use React",
     "memoryType": "semantic",                     # decisions are semantic knowledge
-    "namespace": "semantic/decisions",            # cognitive triad prefix + category
+    "namespace": "_semantic/decisions",            # cognitive triad prefix + category
     "tags": ["frontend"],
     "created": "2026-01-15T10:30:00Z"
 }
@@ -2132,7 +2132,7 @@ citations:
 - **BREAKING**: Replaced ad-hoc memory types with cognitive triad (Section 4.2)
   - New base types: `semantic`, `episodic`, `procedural`
   - Removed: `memory`, `decision`, `preference`, `fact`, `episode`, `pattern`, `learning`, `context`
-  - Specific categorization via namespace hierarchy (e.g., `semantic/decisions`)
+  - Specific categorization via namespace hierarchy (e.g., `_semantic/decisions`)
 - Added `ontology` field for declaring applied ontology (Section 4.3)
 - Added `OntologyReference` type to JSON-LD context
 - Updated frontmatter schema with ontology reference

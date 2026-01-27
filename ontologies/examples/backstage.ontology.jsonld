@@ -215,7 +215,7 @@
           "type_hint": "episodic"
         },
         "incidents": {
-          "@id": "mif:namespace/episodic/incidents",
+          "@id": "mif:namespace/_episodic/incidents",
           "@type": "mif:Namespace",
           "name": "incidents",
           "description": "Service incidents and outages",
@@ -1094,133 +1094,133 @@
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(service|microservice|backend|frontend)\\b",
         "suggest_entity": "mif:entityType/component",
-        "suggest_namespace": "semantic/components"
+        "suggest_namespace": "_semantic/components"
       },
       {
         "@id": "mif:pattern/1",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(library|package|module|sdk)\\b",
         "suggest_entity": "mif:entityType/component",
-        "suggest_namespace": "semantic/components"
+        "suggest_namespace": "_semantic/components"
       },
       {
         "@id": "mif:pattern/2",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(website|web app|portal|dashboard)\\b",
         "suggest_entity": "mif:entityType/component",
-        "suggest_namespace": "semantic/components"
+        "suggest_namespace": "_semantic/components"
       },
       {
         "@id": "mif:pattern/3",
         "@type": "mif:DiscoveryPattern",
         "file_pattern": "**/catalog-info.yaml",
         "suggest_entity": "mif:entityType/component",
-        "suggest_namespace": "semantic/components"
+        "suggest_namespace": "_semantic/components"
       },
       {
         "@id": "mif:pattern/4",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(openapi|swagger|graphql|grpc|rest api)\\b",
         "suggest_entity": "mif:entityType/api",
-        "suggest_namespace": "semantic/apis"
+        "suggest_namespace": "_semantic/apis"
       },
       {
         "@id": "mif:pattern/5",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(asyncapi|websocket|event-driven)\\b",
         "suggest_entity": "mif:entityType/api",
-        "suggest_namespace": "semantic/apis"
+        "suggest_namespace": "_semantic/apis"
       },
       {
         "@id": "mif:pattern/6",
         "@type": "mif:DiscoveryPattern",
         "file_pattern": "**/openapi.yaml",
         "suggest_entity": "mif:entityType/api",
-        "suggest_namespace": "semantic/apis"
+        "suggest_namespace": "_semantic/apis"
       },
       {
         "@id": "mif:pattern/7",
         "@type": "mif:DiscoveryPattern",
         "file_pattern": "**/schema.graphql",
         "suggest_entity": "mif:entityType/api",
-        "suggest_namespace": "semantic/apis"
+        "suggest_namespace": "_semantic/apis"
       },
       {
         "@id": "mif:pattern/8",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(database|postgres|mysql|mongodb|redis)\\b",
         "suggest_entity": "mif:entityType/resource",
-        "suggest_namespace": "semantic/resources"
+        "suggest_namespace": "_semantic/resources"
       },
       {
         "@id": "mif:pattern/9",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(s3|bucket|storage|cdn|cloudfront)\\b",
         "suggest_entity": "mif:entityType/resource",
-        "suggest_namespace": "semantic/resources"
+        "suggest_namespace": "_semantic/resources"
       },
       {
         "@id": "mif:pattern/10",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(kafka|rabbitmq|sqs|queue|pubsub)\\b",
         "suggest_entity": "mif:entityType/resource",
-        "suggest_namespace": "semantic/resources"
+        "suggest_namespace": "_semantic/resources"
       },
       {
         "@id": "mif:pattern/11",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(kubernetes|k8s|cluster|namespace)\\b",
         "suggest_entity": "mif:entityType/resource",
-        "suggest_namespace": "semantic/resources"
+        "suggest_namespace": "_semantic/resources"
       },
       {
         "@id": "mif:pattern/12",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(system|platform|product)\\b",
         "suggest_entity": "mif:entityType/system",
-        "suggest_namespace": "semantic/systems"
+        "suggest_namespace": "_semantic/systems"
       },
       {
         "@id": "mif:pattern/13",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(domain|business unit|capability)\\b",
         "suggest_entity": "mif:entityType/domain",
-        "suggest_namespace": "semantic/domains"
+        "suggest_namespace": "_semantic/domains"
       },
       {
         "@id": "mif:pattern/14",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(team|squad|tribe|guild)\\b",
         "suggest_entity": "mif:entityType/group",
-        "suggest_namespace": "semantic/groups"
+        "suggest_namespace": "_semantic/groups"
       },
       {
         "@id": "mif:pattern/15",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(template|scaffold|cookiecutter)\\b",
         "suggest_entity": "mif:entityType/template",
-        "suggest_namespace": "semantic/templates"
+        "suggest_namespace": "_semantic/templates"
       },
       {
         "@id": "mif:pattern/16",
         "@type": "mif:DiscoveryPattern",
         "file_pattern": "**/template.yaml",
         "suggest_entity": "mif:entityType/template",
-        "suggest_namespace": "semantic/templates"
+        "suggest_namespace": "_semantic/templates"
       },
       {
         "@id": "mif:pattern/17",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(techdocs|mkdocs|documentation site)\\b",
         "suggest_entity": "mif:entityType/techdocs-build",
-        "suggest_namespace": "episodic/catalog-events"
+        "suggest_namespace": "_episodic/catalog-events"
       },
       {
         "@id": "mif:pattern/18",
         "@type": "mif:DiscoveryPattern",
         "file_pattern": "**/mkdocs.yml",
         "suggest_entity": "mif:entityType/component",
-        "suggest_namespace": "semantic/components"
+        "suggest_namespace": "_semantic/components"
       }
     ]
   }

@@ -52,7 +52,7 @@ MIF uses the cognitive triad as base memory types:
 | `episodic` | Time-bound experiences | Incidents, sessions, conversations |
 | `procedural` | How-to knowledge | Runbooks, patterns, migration guides |
 
-Ontologies can define extended types that map to these base types via namespace conventions (e.g., `semantic/decisions`, `episodic/incidents`).
+Ontologies can define extended types that map to these base types via namespace conventions (e.g., `_semantic/decisions`, `_episodic/incidents`).
 
 ### Optional Fields
 
@@ -382,7 +382,7 @@ discovery:
   patterns:
     - content_pattern: "\\b(PostgreSQL|MySQL)\\b"
       suggest_entity: technology
-      suggest_namespace: semantic/entities
+      suggest_namespace: _semantic/entities
 ```
 
 ### Ontology Metadata

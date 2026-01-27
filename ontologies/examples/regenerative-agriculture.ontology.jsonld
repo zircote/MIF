@@ -1484,91 +1484,91 @@
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(soil|organic matter|carbon|SOM|SOC)\\b",
         "suggest_entity": "mif:entityType/soil-profile",
-        "suggest_namespace": "semantic/land"
+        "suggest_namespace": "_semantic/land"
       },
       {
         "@id": "mif:pattern/1",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(field|parcel|paddock|pasture|acreage)\\b",
         "suggest_entity": "mif:entityType/field",
-        "suggest_namespace": "semantic/land"
+        "suggest_namespace": "_semantic/land"
       },
       {
         "@id": "mif:pattern/2",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(cover crop|rotation|cash crop|planting)\\b",
         "suggest_entity": "mif:entityType/crop-rotation",
-        "suggest_namespace": "procedural/soil-health"
+        "suggest_namespace": "_procedural/soil-health"
       },
       {
         "@id": "mif:pattern/3",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(no-till|no till|minimum till|tillage)\\b",
         "suggest_entity": "mif:entityType/crop-rotation",
-        "suggest_namespace": "procedural/soil-health"
+        "suggest_namespace": "_procedural/soil-health"
       },
       {
         "@id": "mif:pattern/4",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(herd|cattle|sheep|goats|livestock)\\b",
         "suggest_entity": "mif:entityType/herd",
-        "suggest_namespace": "semantic/livestock"
+        "suggest_namespace": "_semantic/livestock"
       },
       {
         "@id": "mif:pattern/5",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(rotational grazing|mob grazing|AMP)\\b",
         "suggest_entity": "mif:entityType/grazing-plan",
-        "suggest_namespace": "procedural/animal-welfare"
+        "suggest_namespace": "_procedural/animal-welfare"
       },
       {
         "@id": "mif:pattern/6",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(organic|ROC|regenerative organic|certified)\\b",
         "suggest_entity": "mif:entityType/certification",
-        "suggest_namespace": "semantic/certifications"
+        "suggest_namespace": "_semantic/certifications"
       },
       {
         "@id": "mif:pattern/7",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(audit|inspection|certifier|compliance)\\b",
         "suggest_entity": "mif:entityType/inspection",
-        "suggest_namespace": "episodic/inspections"
+        "suggest_namespace": "_episodic/inspections"
       },
       {
         "@id": "mif:pattern/8",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(carbon credit|carbon offset|sequestration|CO2e)\\b",
         "suggest_entity": "mif:entityType/carbon-credit",
-        "suggest_namespace": "semantic/carbon"
+        "suggest_namespace": "_semantic/carbon"
       },
       {
         "@id": "mif:pattern/9",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(baseline|soil carbon measurement|MRV)\\b",
         "suggest_entity": "mif:entityType/carbon-baseline",
-        "suggest_namespace": "semantic/carbon"
+        "suggest_namespace": "_semantic/carbon"
       },
       {
         "@id": "mif:pattern/10",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(buyer|customer|market|contract|sale)\\b",
         "suggest_entity": "mif:entityType/buyer",
-        "suggest_namespace": "semantic/supply-chain"
+        "suggest_namespace": "_semantic/supply-chain"
       },
       {
         "@id": "mif:pattern/11",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(harvest|yield|bushel|pounds|ton)\\b",
         "suggest_entity": "mif:entityType/harvest-record",
-        "suggest_namespace": "episodic/transactions"
+        "suggest_namespace": "_episodic/transactions"
       },
       {
         "@id": "mif:pattern/12",
         "@type": "mif:DiscoveryPattern",
         "content_pattern": "\\b(frost|freeze|drought|flood|hail|storm)\\b",
         "suggest_entity": "mif:entityType/weather-event",
-        "suggest_namespace": "episodic/weather"
+        "suggest_namespace": "_episodic/weather"
       }
     ]
   }

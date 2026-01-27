@@ -66,7 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **[Schema]**: Memory types now use cognitive triad
   - Replaced ad-hoc types (`memory`, `decision`, `preference`, `fact`, `episode`, `pattern`, `learning`, `context`)
   - New base types: `semantic` (facts/knowledge), `episodic` (events/experiences), `procedural` (processes/how-to)
-  - Specific categorization expressed through namespace hierarchy (e.g., `semantic/decisions`, `episodic/incidents`)
+  - Specific categorization expressed through namespace hierarchy (e.g., `_semantic/decisions`, `_episodic/incidents`)
   - Ontologies can extend types via entity_types with `base` field
   - **BREAKING**: Existing memories using old type values need migration
 

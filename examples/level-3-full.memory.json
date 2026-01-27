@@ -17,7 +17,7 @@
   "created": "2026-01-15T10:30:00Z",
   "modified": "2026-01-20T14:22:00Z",
 
-  "namespace": "semantic/preferences",
+  "namespace": "_semantic/preferences",
   "tags": ["preference", "ui", "accessibility"],
   "aliases": ["Dark Mode Preference", "UI Theme Choice"],
 

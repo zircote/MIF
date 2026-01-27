@@ -81,7 +81,7 @@ MIF uses three base memory types reflecting how human cognition organizes inform
 | `episodic` | Events and experiences | Incidents, sessions, conversations, timelines |
 | `procedural` | How-to processes | Runbooks, patterns, migration guides, workflows |
 
-Specific categorization is expressed through namespaces (e.g., `semantic/decisions`, `episodic/incidents`).
+Specific categorization is expressed through namespaces (e.g., `_semantic/decisions`, `_episodic/incidents`).
 
 ## Conformance Levels
 
@@ -111,7 +111,7 @@ id: uuid-here
 type: semantic
 created: 2026-01-26T10:00:00Z
 modified: 2026-01-26T10:00:00Z
-namespace: semantic/decisions
+namespace: _semantic/decisions
 title: "Use PostgreSQL for Data Storage"
 tags:
   - database
@@ -262,7 +262,7 @@ For machine processing, use JSON-LD:
     "id": "mif-base",
     "version": "1.0.0"
   },
-  "namespace": "semantic/preferences",
+  "namespace": "_semantic/preferences",
   "tags": ["ui", "accessibility"]
 }
 ```
