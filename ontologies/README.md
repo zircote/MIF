@@ -6,9 +6,9 @@ This directory contains ontology definitions for the Memory Interchange Format.
 
 ### mif-base.ontology.yaml
 
-The base ontology defines the cognitive triad namespace hierarchy.
+The base ontology defines the namespace hierarchy for the three base memory types.
 
-**Important:** Namespace paths use an underscore prefix (`_semantic`, `_episodic`, `_procedural`) to distinguish cognitive triad namespaces from domain-specific namespaces. This convention ensures consistent namespace identification across implementations.
+**Important:** Namespace paths use an underscore prefix (`_semantic`, `_episodic`, `_procedural`) to distinguish base type namespaces from domain-specific namespaces. This convention ensures consistent namespace identification across implementations.
 
 ```
 _semantic/             # Facts, concepts, relationships

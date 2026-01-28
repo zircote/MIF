@@ -15,9 +15,9 @@ MIF supports migration from:
 | [Basic Memory](#basic-memory) | Low | Minimal |
 | [LangMem](#langmem) | Medium | Minimal |
 
-## Memory Type Mapping (Cognitive Triad)
+## Memory Type Mapping
 
-MIF uses three base memory types. When migrating, map provider-specific categories to the cognitive triad:
+MIF uses three base memory types. When migrating, map provider-specific categories to these types:
 
 | Cognitive Type | Use For | Provider Category Examples |
 |----------------|---------|---------------------------|
@@ -25,7 +25,7 @@ MIF uses three base memory types. When migrating, map provider-specific categori
 | `episodic` | Events, sessions, incidents, conversations | `episode`, `event`, `session`, `conversation` |
 | `procedural` | Processes, runbooks, patterns, how-to | `pattern`, `procedure`, `workflow`, `template` |
 
-**Key Principle:** The `memoryType` field uses the cognitive triad base type, while specific categorization is expressed through the `namespace` field:
+**Key Principle:** The `memoryType` field uses one of the three base types, while specific categorization is expressed through the `namespace` field:
 
 ```json
 {
@@ -64,8 +64,8 @@ Mem0 stores memories as JSON objects:
 |------------|-----------|-------|
 | `id` | `@id` | Prefix with `urn:mif:` |
 | `memory` | `content` | Direct mapping |
-| `user_id` | `namespace` | Use cognitive triad prefix (e.g., `_semantic/preferences`) |
-| `metadata.category` | `memoryType` | Map to cognitive triad (`semantic`, `episodic`, `procedural`) |
+| `user_id` | `namespace` | Use base type prefix (e.g., `_semantic/preferences`) |
+| `metadata.category` | `memoryType` | Map to base types (`semantic`, `episodic`, `procedural`) |
 | `metadata.category` | `namespace` (second part) | Preserve as namespace suffix (e.g., `_semantic/{category}`) |
 | `metadata.created_at` | `created` | Direct mapping |
 | `metadata.*` | `extensions.mem0.*` | Preserve in extensions |
@@ -79,19 +79,25 @@ from datetime import datetime
 import uuid
 
 def mem0_to_mif(mem0_data: dict) -> dict:
-    """Convert Mem0 memory to MIF format."""
+    """Convert Mem0 memory to MIF format with base memory types."""
 
-    # Map category to memoryType
-    type_map = {
-        "preference": "preference",
-        "fact": "fact",
-        "context": "context",
-        "conversation": "episode",
-        None: "memory"
+    # Map category to base memoryType and namespace
+    # MIF uses semantic/episodic/procedural as base types
+    # Specific categorization is expressed via namespace
+    category_map = {
+        "preference": ("semantic", "_semantic/preferences"),
+        "fact": ("semantic", "_semantic/knowledge"),
+        "context": ("semantic", "_semantic/knowledge"),
+        "decision": ("semantic", "_semantic/decisions"),
+        "conversation": ("episodic", "_episodic/sessions"),
+        "event": ("episodic", "_episodic/sessions"),
+        "pattern": ("procedural", "_procedural/patterns"),
+        "procedure": ("procedural", "_procedural/runbooks"),
+        None: ("semantic", "_semantic/knowledge")
     }
 
     category = mem0_data.get("metadata", {}).get("category")
-    memory_type = type_map.get(category, "memory")
+    memory_type, namespace = category_map.get(category, ("semantic", "_semantic/knowledge"))
 
     # Build MIF document
     mif = {
@@ -104,13 +110,15 @@ def mem0_to_mif(mem0_data: dict) -> dict:
             "created_at",
             datetime.utcnow().isoformat() + "Z"
         ),
-        "namespace": f"mem0/{mem0_data.get('user_id', 'default')}",
+        "namespace": namespace,
     }
 
     # Preserve original data in extensions
     mif["extensions"] = {
         "mem0": {
             "original_id": mem0_data["id"],
+            "original_category": category,
+            "user_id": mem0_data.get("user_id"),
             "hash": mem0_data.get("hash"),
             "metadata": {
                 k: v for k, v in mem0_data.get("metadata", {}).items()
@@ -312,9 +320,10 @@ Letta stores concatenated facts in a single block. Migration requires:
 
 ```python
 import re
+from datetime import datetime
 
 def letta_to_mif(letta_data: dict) -> list:
-    """Convert Letta agent memory to MIF memories."""
+    """Convert Letta agent memory to MIF memories with base memory types."""
 
     memories = []
     memory_blocks = letta_data.get("agent_state", {}).get("memory", {})
@@ -328,14 +337,15 @@ def letta_to_mif(letta_data: dict) -> list:
         facts = parse_letta_block(block["value"])
 
         for i, fact in enumerate(facts):
+            memory_type, namespace = classify_fact(fact)
             mif = {
                 "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
                 "@type": "Memory",
                 "@id": f"urn:mif:letta-{block_name}-{i}",
-                "memoryType": classify_fact(fact),
+                "memoryType": memory_type,
                 "content": fact,
                 "created": datetime.utcnow().isoformat() + "Z",
-                "namespace": f"letta/agent/{block_name}",
+                "namespace": namespace,
                 "provenance": {
                     "sourceType": "external_import",
                     "confidence": 0.8,
@@ -368,19 +378,29 @@ def parse_letta_block(value: str) -> list:
     return facts
 
 
-def classify_fact(fact: str) -> str:
-    """Classify a fact into a MIF memory type."""
+def classify_fact(fact: str) -> tuple:
+    """Classify a fact into base memory type and namespace.
 
+    Returns:
+        Tuple of (memory_type, namespace)
+    """
     fact_lower = fact.lower()
 
-    if "prefer" in fact_lower or "like" in fact_lower:
-        return "preference"
-    elif "name:" in fact_lower or "age:" in fact_lower:
-        return "fact"
+    # Procedural: how-to, processes, patterns
+    if any(kw in fact_lower for kw in ["step", "process", "how to", "procedure", "workflow"]):
+        return ("procedural", "_procedural/patterns")
+
+    # Episodic: events, sessions, incidents
+    elif any(kw in fact_lower for kw in ["happened", "occurred", "yesterday", "today", "session"]):
+        return ("episodic", "_episodic/sessions")
+
+    # Semantic: facts, preferences, decisions (default)
+    elif "prefer" in fact_lower or "like" in fact_lower:
+        return ("semantic", "_semantic/preferences")
     elif "decided" in fact_lower or "chose" in fact_lower:
-        return "decision"
+        return ("semantic", "_semantic/decisions")
     else:
-        return "memory"
+        return ("semantic", "_semantic/knowledge")
 ```
 
 ---
@@ -412,8 +432,8 @@ Subcog format is closest to MIF (MIF was partially inspired by Subcog):
 |--------------|-----------|-------|
 | `id` | `@id` | Prefix with `urn:mif:` |
 | `content` | `content` | Direct mapping |
-| `namespace` | `memoryType` | Map to MIF types |
-| `domain` | `namespace` | Prefix with `subcog/` |
+| `namespace` | `memoryType` + `namespace` | Map to base type and MIF namespace |
+| `domain` | `extensions.subcog.domain` | Preserved in extensions |
 | `tags` | `tags` | Direct mapping |
 | `created_at` | `created` | Direct mapping |
 | `metadata.confidence` | `provenance.confidence` | Direct mapping |
@@ -421,23 +441,28 @@ Subcog format is closest to MIF (MIF was partially inspired by Subcog):
 ### Conversion Script
 
 ```python
-def subcog_to_mif(subcog_data: dict) -> dict:
-    """Convert Subcog memory to MIF format."""
+from datetime import datetime
 
-    # Map Subcog namespace to MIF memoryType
-    type_map = {
-        "decisions": "decision",
-        "patterns": "pattern",
-        "learnings": "learning",
-        "preferences": "preference",
-        "facts": "fact",
-        "context": "context",
+def subcog_to_mif(subcog_data: dict) -> dict:
+    """Convert Subcog memory to MIF format with base memory types."""
+
+    # Map Subcog namespace to base memoryType and MIF namespace
+    namespace_map = {
+        "decisions": ("semantic", "_semantic/decisions"),
+        "patterns": ("procedural", "_procedural/patterns"),
+        "learnings": ("semantic", "_semantic/knowledge"),
+        "preferences": ("semantic", "_semantic/preferences"),
+        "facts": ("semantic", "_semantic/knowledge"),
+        "context": ("semantic", "_semantic/knowledge"),
+        "incidents": ("episodic", "_episodic/incidents"),
+        "sessions": ("episodic", "_episodic/sessions"),
+        "blockers": ("episodic", "_episodic/blockers"),
+        "runbooks": ("procedural", "_procedural/runbooks"),
+        "migrations": ("procedural", "_procedural/migrations"),
     }
 
-    memory_type = type_map.get(
-        subcog_data.get("namespace", ""),
-        "memory"
-    )
+    subcog_ns = subcog_data.get("namespace", "")
+    memory_type, mif_namespace = namespace_map.get(subcog_ns, ("semantic", "_semantic/knowledge"))
 
     mif = {
         "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
@@ -446,7 +471,7 @@ def subcog_to_mif(subcog_data: dict) -> dict:
         "memoryType": memory_type,
         "content": subcog_data["content"],
         "created": subcog_data.get("created_at", datetime.utcnow().isoformat() + "Z"),
-        "namespace": f"subcog/{subcog_data.get('domain', 'default')}",
+        "namespace": mif_namespace,
         "tags": subcog_data.get("tags", []),
     }
 
@@ -461,7 +486,7 @@ def subcog_to_mif(subcog_data: dict) -> dict:
     mif["extensions"] = {
         "subcog": {
             "original_id": subcog_data["id"],
-            "original_namespace": subcog_data.get("namespace"),
+            "original_namespace": subcog_ns,
             "domain": subcog_data.get("domain")
         }
     }
@@ -523,7 +548,7 @@ def text_to_mif(text_file: str) -> list:
             "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
             "@type": "Memory",
             "@id": f"urn:mif:import-{uuid.uuid4()}",
-            "memoryType": "semantic",  # Cognitive triad base type
+            "memoryType": "semantic",  # Base memory type
             "namespace": "_semantic/preferences" if ":" in line else "_semantic/knowledge",
             "content": content,
             "created": datetime.utcnow().isoformat() + "Z",
@@ -571,8 +596,10 @@ LangMem uses a graph-based structure:
 ### Conversion Script
 
 ```python
+from datetime import datetime
+
 def langmem_to_mif(langmem_data: dict) -> list:
-    """Convert LangMem export to MIF memories."""
+    """Convert LangMem export to MIF memories with base memory types."""
 
     # Build relationship lookup
     relationships = {}
@@ -589,11 +616,15 @@ def langmem_to_mif(langmem_data: dict) -> list:
     mif_memories = []
 
     for mem in langmem_data.get("memories", []):
+        langmem_type = mem.get("metadata", {}).get("type")
+        memory_type, namespace = map_langmem_type(langmem_type)
+
         mif = {
             "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
             "@type": "Memory",
             "@id": f"urn:mif:{mem['id']}",
-            "memoryType": map_langmem_type(mem.get("metadata", {}).get("type")),
+            "memoryType": memory_type,
+            "namespace": namespace,
             "content": mem["text"],
             "created": mem.get("metadata", {}).get(
                 "timestamp",
@@ -617,14 +648,21 @@ def langmem_to_mif(langmem_data: dict) -> list:
     return mif_memories
 
 
-def map_langmem_type(langmem_type: str) -> str:
-    """Map LangMem memory type to MIF type."""
+def map_langmem_type(langmem_type: str) -> tuple:
+    """Map LangMem memory type to MIF base type and namespace.
+
+    LangMem already uses base type naming, so we preserve
+    the type and map to appropriate MIF namespaces.
+
+    Returns:
+        Tuple of (memory_type, namespace)
+    """
     mapping = {
-        "semantic": "fact",
-        "episodic": "episode",
-        "procedural": "pattern",
+        "semantic": ("semantic", "_semantic/knowledge"),
+        "episodic": ("episodic", "_episodic/sessions"),
+        "procedural": ("procedural", "_procedural/patterns"),
     }
-    return mapping.get(langmem_type, "memory")
+    return mapping.get(langmem_type, ("semantic", "_semantic/knowledge"))
 
 
 def map_langmem_relation(relation: str) -> str:

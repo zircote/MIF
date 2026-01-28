@@ -21,14 +21,14 @@ The simplest valid MIF memory.
 
 **Required fields:**
 - `id` - UUID identifier
-- `type` - Memory type (cognitive triad: semantic, episodic, procedural)
+- `type` - Memory type (`semantic`, `episodic`, or `procedural`)
 - `created` - Creation timestamp
 - Content body
 
 **Recommended (shown in example):**
 - `namespace` - Hierarchical scope (e.g., `_semantic/preferences`)
 
-Note: The Level 1 example includes `namespace` as a practical minimum because it's essential for organizing memories in the cognitive triad structure, though technically optional per the schema.
+Note: The Level 1 example includes `namespace` as a practical minimum because it's essential for organizing memories, though technically optional per the schema.
 
 ## Level 2: Standard
 
@@ -57,6 +57,10 @@ Demonstrates the citations feature (Level 3 optional):
 - Entity references in author field using `@[[Name|Type]]` syntax
 - Optional `## Citations` body section for detailed annotations
 - Relevance scores and access dates
+
+## Note on Wiki-Links
+
+The wiki-links in these examples (e.g., `[[vue-exploration-2025]]`, `@[[React|Technology]]`) are intentionally unresolved. They demonstrate MIF's linking syntax but do not point to actual files in this repository. In a real vault, these would link to other memory files.
 
 ## Usage
 

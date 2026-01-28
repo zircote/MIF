@@ -10,7 +10,7 @@ ADRs follow the [MADR](https://adr.github.io/madr/) (Markdown Any Decision Recor
 
 | ADR | Title | Status |
 |-----|-------|--------|
-| [ADR-001](ADR-001-cognitive-triad-taxonomy.md) | Cognitive Triad Taxonomy | Accepted |
+| [ADR-001](ADR-001-cognitive-triad-taxonomy.md) | Three Base Memory Types | Accepted |
 | [ADR-002](ADR-002-dual-format-design.md) | Dual Format Design (Markdown + JSON-LD) | Accepted |
 | [ADR-003](ADR-003-obsidian-compatibility.md) | Obsidian Compatibility | Accepted |
 | [ADR-004](ADR-004-three-tier-trait-inheritance.md) | Three-Tier Trait Inheritance | Accepted |

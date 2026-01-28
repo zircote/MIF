@@ -70,7 +70,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **[Schema]**: Memory types now use cognitive triad
+- **[Schema]**: Memory types now use three base types
   - Replaced ad-hoc types (`memory`, `decision`, `preference`, `fact`, `episode`, `pattern`, `learning`, `context`)
   - New base types: `semantic` (facts/knowledge), `episodic` (events/experiences), `procedural` (processes/how-to)
   - Specific categorization expressed through namespace hierarchy (e.g., `_semantic/decisions`, `_episodic/incidents`)
@@ -96,7 +96,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Example catalog-info.yaml files for each industry ontology
   - MIF-to-Backstage entity mapping via annotations
 
-- **[Ontology]**: Cognitive triad namespace hierarchy
+- **[Ontology]**: Three-type namespace hierarchy
   - Base ontology with semantic/episodic/procedural top-level namespaces
   - Nine sub-namespaces: decisions, knowledge, entities, incidents, sessions, blockers, runbooks, patterns, migrations
   - Entity type definitions with traits and schemas

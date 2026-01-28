@@ -8,7 +8,7 @@ This directory contains the schema definitions for MIF ontology files.
 
 JSON Schema (draft 2020-12) for validating ontology YAML files. Key features:
 
-- **Hierarchical namespaces**: Supports cognitive triad hierarchy (semantic/episodic/procedural) with nested children
+- **Hierarchical namespaces**: Supports base type hierarchy (semantic/episodic/procedural) with nested children
 - **Entity types**: Custom entity definitions with traits and JSON Schema validation
 - **Discovery patterns**: Content and file pattern matching for entity suggestions
 - **Relationships**: Typed relationships between entities
@@ -52,7 +52,7 @@ python ../../scripts/yaml2jsonld.py ../../ontologies/mif-base.ontology.yaml
 
 ## Schema Evolution
 
-- **v1.0** (current): Cognitive triad hierarchy with nested namespaces
+- **v1.0** (current): Three-type hierarchy with nested namespaces
 
 When updating the schema:
 1. Increment version in `$id`

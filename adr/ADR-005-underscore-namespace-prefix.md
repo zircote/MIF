@@ -10,7 +10,7 @@ Accepted
 
 ## Context
 
-MIF uses the cognitive triad (semantic, episodic, procedural) as top-level namespace categories. These namespaces need to:
+MIF uses three base types (semantic, episodic, procedural) as top-level namespace categories. These namespaces need to:
 - Be visually distinguishable from domain namespaces
 - Sort predictably in file listings
 - Indicate "system" vs "user" namespaces
@@ -30,7 +30,7 @@ Alternative approaches:
 
 ## Decision
 
-Use **underscore prefix** for cognitive triad namespaces:
+Use **underscore prefix** for base type namespaces:
 
 - `_semantic/` - Facts, concepts, knowledge
 - `_episodic/` - Events, experiences, incidents

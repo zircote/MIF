@@ -1,7 +1,7 @@
 # Memory Interchange Format (MIF)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Spec Version](https://img.shields.io/badge/spec-v0.1.0-blue.svg)](./SPECIFICATION.md)
+[![Spec Version](https://img.shields.io/badge/spec-v0.1.0--draft-blue.svg)](./SPECIFICATION.md)
 [![JSON-LD](https://img.shields.io/badge/format-JSON--LD-orange.svg)](https://json-ld.org/)
 [![W3C PROV](https://img.shields.io/badge/provenance-W3C%20PROV-green.svg)](https://www.w3.org/TR/prov-dm/)
 
@@ -68,11 +68,11 @@ User prefers dark mode for all applications.
 | **Citations** | Structured references with type/role taxonomy (Level 3) |
 | **W3C PROV** | Standard provenance tracking |
 | **JSON Schema** | Automated validation for MIF documents |
-| **Ontology System** | Cognitive triad hierarchy with domain extensions |
+| **Ontology System** | Three-type hierarchy with domain extensions |
 
 ## Ontology System
 
-MIF includes an ontology system for organizing memories into a cognitive triad hierarchy:
+MIF includes an ontology system for organizing memories into three base types:
 
 ```
 semantic/              # Facts, concepts, relationships

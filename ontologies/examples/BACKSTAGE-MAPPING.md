@@ -230,9 +230,9 @@ spec:
 
 ---
 
-## Cognitive Triad Gap Analysis
+## Memory Type Gap Analysis
 
-The MIF cognitive triad (semantic/episodic/procedural) maps to different
+The MIF base types (semantic/episodic/procedural) map to different
 aspects of organizational knowledge. This analysis identifies gaps in each
 industry ontology.
 
@@ -343,7 +343,7 @@ traits from `shared-traits.ontology.yaml`:
 
 1. **Use MIF for Deep Domain Knowledge**
    - Store detailed domain-specific memories in MIF format
-   - Leverage cognitive triad for proper categorization
+   - Leverage base types for proper categorization
    - Enable agent-based discovery patterns
 
 2. **Use Backstage for Developer/Operator Experience**
@@ -356,7 +356,7 @@ traits from `shared-traits.ontology.yaml`:
    - Backstage → MIF: Link catalog entries in memory relationships
    - Use `mif.ontology/*` annotations for type mapping
 
-4. **Address Cognitive Triad Gaps**
+4. **Address Memory Type Gaps**
    - Prioritize adding decision history (episodic) entities
    - Add troubleshooting/diagnostic procedures
    - Create formal knowledge base entities for learnings

@@ -16,7 +16,7 @@ ontology for different industries:
 | `backstage` | Developer portals | 12 | 6 |
 
 All three ontologies:
-- Extend `mif-base.ontology.yaml` (cognitive triad namespaces)
+- Extend `mif-base.ontology.yaml` (base type namespaces)
 - Use traits from `shared-traits.ontology.yaml` (DRY mixins)
 - Follow the MIF schema specification v2
 - Include discovery patterns for entity suggestion
@@ -277,7 +277,7 @@ are composed into entity types across all three industries.
 
 ```
 ontologies/
-├── mif-base.ontology.yaml          # Core cognitive triad
+├── mif-base.ontology.yaml          # Core base types
 ├── shared-traits.ontology.yaml     # Reusable mixins
 ├── examples/
 │   ├── software-engineering.ontology.yaml

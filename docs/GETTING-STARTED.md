@@ -71,7 +71,7 @@ namespace: _semantic/livestock
 Herd of 85 Angus-cross beef cattle managed with adaptive multi-paddock grazing.
 ```
 
-## Memory Types (Cognitive Triad)
+## Memory Types
 
 MIF uses three base memory types reflecting how human cognition organizes information:
 
@@ -177,7 +177,7 @@ citations:
 
 ## Directory Structure
 
-Organize your MIF vault using the cognitive triad:
+Organize your MIF vault using the three base types:
 
 ```
 my-project/

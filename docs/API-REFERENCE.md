@@ -369,12 +369,28 @@ from datetime import datetime
 
 def create_mif_memory(
     content: str,
-    memory_type: str = "memory",
-    namespace: str = None,
+    memory_type: str = "semantic",
+    namespace: str = "_semantic/knowledge",
     tags: list = None,
     ontology: dict = None
 ) -> dict:
-    """Create a valid MIF memory document."""
+    """Create a valid MIF memory document.
+
+    Args:
+        content: The memory content text
+        memory_type: Base memory type - "semantic", "episodic", or "procedural"
+        namespace: Hierarchical scope (e.g., "_semantic/decisions", "_episodic/sessions")
+        tags: Classification tags
+        ontology: Optional ontology reference dict with "id" and optional "version"
+
+    Returns:
+        A valid MIF document as a dictionary
+    """
+
+    # Validate memory_type is base memory types
+    valid_types = {"semantic", "episodic", "procedural"}
+    if memory_type not in valid_types:
+        raise ValueError(f"memory_type must be one of {valid_types}, got '{memory_type}'")
 
     memory_id = str(uuid.uuid4())
 
@@ -384,11 +400,9 @@ def create_mif_memory(
         "@id": f"urn:mif:{memory_id}",
         "memoryType": memory_type,
         "content": content,
-        "created": datetime.utcnow().isoformat() + "Z"
+        "created": datetime.utcnow().isoformat() + "Z",
+        "namespace": namespace
     }
-
-    if namespace:
-        mif["namespace"] = namespace
 
     if tags:
         mif["tags"] = tags
@@ -405,8 +419,8 @@ def create_mif_memory(
 # Usage
 memory = create_mif_memory(
     content="User prefers dark mode for all applications.",
-    memory_type="preference",
-    namespace="acme-corp/user-settings",
+    memory_type="semantic",  # Base memory type
+    namespace="_semantic/preferences",  # Specific categorization via namespace
     tags=["ui", "accessibility"],
     ontology={"id": "mif-base", "version": "1.0.0"}
 )
@@ -419,11 +433,17 @@ print(json.dumps(memory, indent=2))
 ```javascript
 function createMifMemory(content, options = {}) {
   const {
-    memoryType = 'memory',
-    namespace,
+    memoryType = 'semantic',  // Base types: semantic, episodic, procedural
+    namespace = '_semantic/knowledge',
     tags,
     ontology
   } = options;
+
+  // Validate memory type
+  const validTypes = ['semantic', 'episodic', 'procedural'];
+  if (!validTypes.includes(memoryType)) {
+    throw new Error(`memoryType must be one of ${validTypes.join(', ')}, got '${memoryType}'`);
+  }
 
   const memoryId = crypto.randomUUID();
 
@@ -433,10 +453,10 @@ function createMifMemory(content, options = {}) {
     '@id': `urn:mif:${memoryId}`,
     memoryType,
     content,
-    created: new Date().toISOString()
+    created: new Date().toISOString(),
+    namespace
   };
 
-  if (namespace) mif.namespace = namespace;
   if (tags) mif.tags = tags;
   if (ontology) {
     mif.ontology = {
@@ -452,8 +472,8 @@ function createMifMemory(content, options = {}) {
 const memory = createMifMemory(
   'User prefers dark mode for all applications.',
   {
-    memoryType: 'preference',
-    namespace: 'acme-corp/user-settings',
+    memoryType: 'semantic',  // Base memory type
+    namespace: '_semantic/preferences',  // Specific categorization via namespace
     tags: ['ui', 'accessibility'],
     ontology: { id: 'mif-base', version: '1.0.0' }
   }

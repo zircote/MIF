@@ -32,9 +32,9 @@ All schemas use JSON Schema Draft 2020-12.
 | `content` | string (minLength: 1) | Memory content |
 | `created` | string (date-time) | Creation timestamp |
 
-### Memory Types (Cognitive Triad)
+### Memory Types
 
-MIF uses the cognitive triad as base memory types:
+MIF uses three base memory types:
 
 ```json
 "memoryType": {
@@ -345,7 +345,7 @@ Custom roles use namespace prefix: `legal:precedent`, `research:replicates`
 ## Ontology Schema
 
 **File:** `schema/ontology/ontology.schema.json`
-**ID:** `https://github.com/zircote/MIF/schema/ontology/v2`
+**ID:** `https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology/ontology.schema.json`
 
 ### Structure
 

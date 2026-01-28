@@ -196,9 +196,9 @@ A Memory Unit is the atomic element of MIF. It contains:
 | `compressed_at` | OPTIONAL | DateTime | When compression was applied (Level 3) |
 | `extensions` | OPTIONAL | Object | Provider-specific data |
 
-### 4.2 Memory Types (Cognitive Triad)
+### 4.2 Memory Types
 
-MIF uses the **cognitive triad** as base memory types, reflecting how human memory systems organize information:
+MIF uses three **base memory types**, reflecting how human memory systems organize information:
 
 | Type | Description | Namespace Hint |
 |------|-------------|----------------|
@@ -232,7 +232,7 @@ entity_types:
     description: "Production incident record"
 ```
 
-When using ontology-extended types, the `type` field uses the base cognitive type, while specific categorization is expressed through the namespace:
+When using ontology-extended types, the `type` field uses the base type, while specific categorization is expressed through the namespace:
 
 ```yaml
 ---
@@ -243,7 +243,7 @@ ontology:
 ---
 ```
 
-This allows ontologies to define rich taxonomies while maintaining interoperability through the cognitive triad foundation.
+This allows ontologies to define rich taxonomies while maintaining interoperability through the base type foundation.
 
 ### 4.3 Ontology Reference
 
@@ -304,7 +304,7 @@ Memory content in Markdown format.
 ---
 # === REQUIRED ===
 id: 550e8400-e29b-41d4-a716-446655440000  # UUID v4
-type: semantic                              # Cognitive triad: semantic|episodic|procedural
+type: semantic                              # Base type: semantic|episodic|procedural
 created: 2026-01-15T10:30:00Z              # ISO 8601 datetime
 
 # === RECOMMENDED ===
@@ -1323,13 +1323,13 @@ Ontologies are defined in YAML files with optional JSON-LD export:
 
 ```
 .mif/ontologies/
-├── mif-base.ontology.yaml       # Base ontology (cognitive triad)
+├── mif-base.ontology.yaml       # Base ontology (semantic/episodic/procedural)
 ├── mif-base.ontology.jsonld     # JSON-LD export for semantic web
 └── domain/
     └── software-engineering.ontology.yaml
 ```
 
-#### 10.8.2 Cognitive Triad Hierarchy
+#### 10.8.2 Base Type Hierarchy
 
 The base ontology uses a three-tier hierarchy based on cognitive memory types:
 
@@ -1954,7 +1954,7 @@ See Section 6.2 for a complete Level 3 example.
     "@id": "urn:mif:mem0_123",                    # id → @id
     "content": "User prefers dark mode",          # memory → content
     "memoryType": "semantic",                     # preferences are semantic knowledge
-    "namespace": "_semantic/preferences",          # categorize by cognitive triad + type
+    "namespace": "_semantic/preferences",          # categorize by base type + category
     "created": "2026-01-15T10:30:00Z",           # created_at → created
     "extensions": {
         "mem0": {"original_id": "mem0_123", "category": "preference"}
@@ -2038,7 +2038,7 @@ See Section 6.2 for a complete Level 3 example.
     "@id": "urn:mif:subcog_abc",
     "content": "Decision: Use React",
     "memoryType": "semantic",                     # decisions are semantic knowledge
-    "namespace": "_semantic/decisions",            # cognitive triad prefix + category
+    "namespace": "_semantic/decisions",            # base type prefix + category
     "tags": ["frontend"],
     "created": "2026-01-15T10:30:00Z"
 }
@@ -2241,7 +2241,7 @@ citations:
 ## Changelog
 
 ### 0.1.0-draft (2026-01-26)
-- **BREAKING**: Replaced ad-hoc memory types with cognitive triad (Section 4.2)
+- **BREAKING**: Replaced ad-hoc memory types with three base types (Section 4.2)
   - New base types: `semantic`, `episodic`, `procedural`
   - Removed: `memory`, `decision`, `preference`, `fact`, `episode`, `pattern`, `learning`, `context`
   - Specific categorization via namespace hierarchy (e.g., `_semantic/decisions`)
