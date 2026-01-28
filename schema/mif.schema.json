@@ -238,18 +238,27 @@
         },
         "relationshipType": {
           "type": "string",
-          "enum": [
-            "RelatesTo",
-            "DerivedFrom",
-            "Supersedes",
-            "ConflictsWith",
-            "PartOf",
-            "Implements",
-            "Uses",
-            "Created",
-            "MentionedIn"
-          ],
-          "description": "Relationship type"
+          "description": "Relationship type",
+          "oneOf": [
+            {
+              "enum": [
+                "RelatesTo",
+                "DerivedFrom",
+                "Supersedes",
+                "ConflictsWith",
+                "PartOf",
+                "Implements",
+                "Uses",
+                "Created",
+                "MentionedIn"
+              ]
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-zA-Z][a-zA-Z0-9]*:[a-zA-Z][a-zA-Z0-9-]*$",
+              "description": "Custom namespaced relationship type (e.g., farm:BreedsWith)"
+            }
+          ]
         },
         "target": {
           "type": "object",

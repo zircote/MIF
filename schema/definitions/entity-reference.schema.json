@@ -24,8 +24,17 @@
     },
     "entityType": {
       "type": "string",
-      "enum": ["Person", "Organization", "Technology", "Concept", "File"],
-      "description": "Entity type classification"
+      "description": "Entity type classification",
+      "oneOf": [
+        {
+          "enum": ["Person", "Organization", "Technology", "Concept", "File"]
+        },
+        {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Custom entity type from ontology (e.g., grazing-plan, soil-profile)"
+        }
+      ]
     },
     "name": {
       "type": "string",

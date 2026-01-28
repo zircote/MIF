@@ -1,7 +1,7 @@
 ---
 id: a1b2c3d4-5678-90ab-cdef-1234567890ab
 type: semantic
-namespace: semantic/land/project
+namespace: _semantic/land
 created: 2026-01-15T10:30:00Z
 modified: 2026-01-15T10:30:00Z
 title: "North Field Soil Profile - January 2026"

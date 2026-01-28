@@ -182,10 +182,10 @@ discovery:
 discovery:
   content_patterns:
     - pattern: "\\b(database|postgres)\\b"
-      namespace: semantic/resources
+      namespace: _semantic/resources
   file_patterns:
     - pattern: "**/openapi.yaml"
-      namespaces: [semantic/apis]
+      namespaces: [_semantic/apis]
       context: "API specification file"
 ```
 

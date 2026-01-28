@@ -26,7 +26,7 @@ The simplest valid MIF memory.
 - Content body
 
 **Recommended (shown in example):**
-- `namespace` - Hierarchical scope (e.g., `semantic/preferences`)
+- `namespace` - Hierarchical scope (e.g., `_semantic/preferences`)
 
 Note: The Level 1 example includes `namespace` as a practical minimum because it's essential for organizing memories in the cognitive triad structure, though technically optional per the schema.
 

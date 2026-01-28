@@ -703,70 +703,70 @@ discovery:
     # Component patterns
     - content_pattern: "\\b(service|microservice|backend|frontend)\\b"
       suggest_entity: component
-      suggest_namespace: semantic/components
+      suggest_namespace: _semantic/components
     - content_pattern: "\\b(library|package|module|sdk)\\b"
       suggest_entity: component
-      suggest_namespace: semantic/components
+      suggest_namespace: _semantic/components
     - content_pattern: "\\b(website|web app|portal|dashboard)\\b"
       suggest_entity: component
-      suggest_namespace: semantic/components
+      suggest_namespace: _semantic/components
     - file_pattern: "**/catalog-info.yaml"
       suggest_entity: component
-      suggest_namespace: semantic/components
+      suggest_namespace: _semantic/components
 
     # API patterns
     - content_pattern: "\\b(openapi|swagger|graphql|grpc|rest api)\\b"
       suggest_entity: api
-      suggest_namespace: semantic/apis
+      suggest_namespace: _semantic/apis
     - content_pattern: "\\b(asyncapi|websocket|event-driven)\\b"
       suggest_entity: api
-      suggest_namespace: semantic/apis
+      suggest_namespace: _semantic/apis
     - file_pattern: "**/openapi.yaml"
       suggest_entity: api
-      suggest_namespace: semantic/apis
+      suggest_namespace: _semantic/apis
     - file_pattern: "**/schema.graphql"
       suggest_entity: api
-      suggest_namespace: semantic/apis
+      suggest_namespace: _semantic/apis
 
     # Resource patterns
     - content_pattern: "\\b(database|postgres|mysql|mongodb|redis)\\b"
       suggest_entity: resource
-      suggest_namespace: semantic/resources
+      suggest_namespace: _semantic/resources
     - content_pattern: "\\b(s3|bucket|storage|cdn|cloudfront)\\b"
       suggest_entity: resource
-      suggest_namespace: semantic/resources
+      suggest_namespace: _semantic/resources
     - content_pattern: "\\b(kafka|rabbitmq|sqs|queue|pubsub)\\b"
       suggest_entity: resource
-      suggest_namespace: semantic/resources
+      suggest_namespace: _semantic/resources
     - content_pattern: "\\b(kubernetes|k8s|cluster|namespace)\\b"
       suggest_entity: resource
-      suggest_namespace: semantic/resources
+      suggest_namespace: _semantic/resources
 
     # System/Domain patterns
     - content_pattern: "\\b(system|platform|product)\\b"
       suggest_entity: system
-      suggest_namespace: semantic/systems
+      suggest_namespace: _semantic/systems
     - content_pattern: "\\b(domain|business unit|capability)\\b"
       suggest_entity: domain
-      suggest_namespace: semantic/domains
+      suggest_namespace: _semantic/domains
 
     # Group patterns
     - content_pattern: "\\b(team|squad|tribe|guild)\\b"
       suggest_entity: group
-      suggest_namespace: semantic/groups
+      suggest_namespace: _semantic/groups
 
     # Template patterns
     - content_pattern: "\\b(template|scaffold|cookiecutter)\\b"
       suggest_entity: template
-      suggest_namespace: semantic/templates
+      suggest_namespace: _semantic/templates
     - file_pattern: "**/template.yaml"
       suggest_entity: template
-      suggest_namespace: semantic/templates
+      suggest_namespace: _semantic/templates
 
     # TechDocs patterns
     - content_pattern: "\\b(techdocs|mkdocs|documentation site)\\b"
       suggest_entity: techdocs-build
-      suggest_namespace: episodic/catalog-events
+      suggest_namespace: _episodic/catalog-events
     - file_pattern: "**/mkdocs.yml"
       suggest_entity: component
-      suggest_namespace: semantic/components
+      suggest_namespace: _semantic/components

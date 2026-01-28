@@ -1,7 +1,7 @@
 ---
 id: e5f6a7b8-9012-34ef-0123-5678901234ef
 type: semantic
-namespace: semantic/grants/project
+namespace: _semantic/grants
 created: 2026-01-05T11:00:00Z
 modified: 2026-01-05T11:00:00Z
 title: "NIH R01 CA-999999 - Metabolic Reprogramming in Cancer"

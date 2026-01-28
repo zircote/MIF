@@ -1,7 +1,7 @@
 ---
 id: c3d4e5f6-7890-12cd-ef01-3456789012cd
 type: semantic
-namespace: semantic/adoptions/project
+namespace: _semantic/adoptions
 created: 2026-01-20T14:00:00Z
 modified: 2026-01-20T14:00:00Z
 title: "Texas 2027 Mathematics Adoption - Into Math Submission"

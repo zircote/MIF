@@ -1,7 +1,7 @@
 ---
 id: d4e5f6a7-8901-23de-f012-4567890123de
 type: procedural
-namespace: procedural/editorial-workflow/project
+namespace: _procedural/editorial-workflow
 created: 2026-01-10T09:00:00Z
 modified: 2026-01-10T09:00:00Z
 title: "K-8 Mathematics Title Development Workflow"

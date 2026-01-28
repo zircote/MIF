@@ -4,14 +4,14 @@
   "description": "Canonical version numbers for MIF specification and components",
   "specification": "0.1.0",
   "schemas": {
-    "mif": "1.0.0",
-    "citation": "1.0.0",
-    "ontology": "1.0.0",
-    "entity-reference": "1.0.0"
+    "mif": "0.1.0",
+    "citation": "0.1.0",
+    "ontology": "0.1.0",
+    "entity-reference": "0.1.0"
   },
   "ontologies": {
-    "mif-base": "1.0.0",
-    "shared-traits": "1.0.0"
+    "mif-base": "0.1.0",
+    "shared-traits": "0.1.0"
   },
   "context": {
     "jsonld": "1.1"

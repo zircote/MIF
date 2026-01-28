@@ -1,7 +1,7 @@
 ---
 id: f6a7b8c9-0123-45f0-1234-6789012345f0
 type: procedural
-namespace: procedural/lab-protocols/project
+namespace: _procedural/lab-protocols
 created: 2026-01-08T15:30:00Z
 modified: 2026-01-08T15:30:00Z
 title: "Western Blot Protocol - Standard"

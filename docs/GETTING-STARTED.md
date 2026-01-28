@@ -36,7 +36,7 @@ id: a1b2c3d4-5678-90ab-cdef-1234567890ab
 type: semantic
 created: 2026-01-26T10:00:00Z
 modified: 2026-01-26T10:00:00Z
-namespace: semantic/preferences
+namespace: _semantic/preferences
 title: "Dark Mode Preference"
 tags:
   - ui
@@ -65,7 +65,7 @@ created: 2026-01-26T10:00:00Z
 ontology:
   id: regenerative-agriculture
   version: "1.0.0"
-namespace: semantic/livestock
+namespace: _semantic/livestock
 ---
 
 Herd of 85 Angus-cross beef cattle managed with adaptive multi-paddock grazing.
@@ -157,7 +157,7 @@ temporal:
   ttl: P365D
   decay:
     model: exponential
-    half_life: P30D
+    halfLife: P30D
     strength: 1.0
 provenance:
   source_type: user_explicit
@@ -173,7 +173,7 @@ citations:
 ---
 ```
 
-> **Decay Values:** The `half_life: P30D` means memory strength halves every 30 days. Common values: P7D (short-term), P14D (medium-term), P30D (long-term). These are pragmatic defaults inspired by Ebbinghaus's forgetting curve research. See [SPECIFICATION.md Section 9.3](../SPECIFICATION.md#93-decay-rationale) for details.
+> **Decay Values:** The `halfLife: P30D` means memory strength halves every 30 days. Common values: P7D (short-term), P14D (medium-term), P30D (long-term). These are pragmatic defaults inspired by Ebbinghaus's forgetting curve research. See [SPECIFICATION.md Section 9.3](../SPECIFICATION.md#93-decay-rationale) for details.
 
 ## Directory Structure
 
@@ -238,7 +238,7 @@ created: 2026-01-26T10:00:00Z
 ontology:
   id: my-project
   version: "1.0.0"
-namespace: semantic/features
+namespace: _semantic/features
 ---
 
 # Dark Mode Feature

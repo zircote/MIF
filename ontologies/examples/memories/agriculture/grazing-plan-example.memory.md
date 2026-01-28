@@ -1,7 +1,7 @@
 ---
 id: b2c3d4e5-6789-01bc-def0-2345678901bc
 type: procedural
-namespace: procedural/animal-welfare/project
+namespace: _procedural/animal-welfare
 created: 2026-03-01T08:00:00Z
 modified: 2026-03-01T08:00:00Z
 title: "2026 Spring Rotational Grazing Plan - Beef Herd"

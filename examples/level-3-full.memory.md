@@ -3,7 +3,7 @@ id: 7f3a8b2c-1d4e-5f6a-9b0c-2d3e4f5a6b7c
 type: semantic
 created: 2026-01-15T10:30:00Z
 modified: 2026-01-20T14:22:00Z
-namespace: semantic/preferences
+namespace: _semantic/preferences
 title: "Dark Mode UI Preference"
 tags:
   - preference
@@ -20,7 +20,7 @@ temporal:
   ttl: P365D
   decay:
     model: exponential
-    half_life: P30D
+    halfLife: P30D
     strength: 0.92
     last_reinforced: 2026-01-20T14:22:00Z
   access_count: 8

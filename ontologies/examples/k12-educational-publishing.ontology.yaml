@@ -881,44 +881,44 @@ discovery:
     # Title patterns
     - content_pattern: "\\b(ISBN|textbook|workbook|edition)\\b"
       suggest_entity: title
-      suggest_namespace: semantic/titles
+      suggest_namespace: _semantic/titles
     - content_pattern: "\\b(curriculum|program|series)\\b"
       suggest_entity: program
-      suggest_namespace: semantic/programs
+      suggest_namespace: _semantic/programs
 
     # Standards patterns
     - content_pattern: "\\b(CCSS|Common Core|NGSS|C3)\\b"
       suggest_entity: standard
-      suggest_namespace: semantic/standards
+      suggest_namespace: _semantic/standards
     - content_pattern: "\\b(standard|learning objective|alignment)\\b"
       suggest_entity: alignment
-      suggest_namespace: semantic/alignments
+      suggest_namespace: _semantic/alignments
 
     # Adoption patterns
     - content_pattern: "\\b(adoption|state review|submission)\\b"
       suggest_entity: state-adoption
-      suggest_namespace: semantic/adoptions
+      suggest_namespace: _semantic/adoptions
     - content_pattern: "\\b(district|school|enrollment)\\b"
       suggest_entity: district-sale
-      suggest_namespace: episodic/adoption-cycles
+      suggest_namespace: _episodic/adoption-cycles
 
     # Editorial patterns
     - content_pattern: "\\b(manuscript|draft|revision)\\b"
       suggest_entity: manuscript
-      suggest_namespace: semantic/content
+      suggest_namespace: _semantic/content
     - content_pattern: "\\b(milestone|deadline|due date)\\b"
       suggest_entity: editorial-milestone
-      suggest_namespace: episodic/editorial
+      suggest_namespace: _episodic/editorial
 
     # Author patterns
     - content_pattern: "\\b(author|contributor|editor)\\b"
       suggest_entity: author
-      suggest_namespace: semantic/contributors
+      suggest_namespace: _semantic/contributors
 
     # Digital patterns
     - content_pattern: "\\b(LMS|interactive|digital resource)\\b"
       suggest_entity: digital-resource
-      suggest_namespace: semantic/content
+      suggest_namespace: _semantic/content
     - content_pattern: "\\b(WCAG|accessibility|508)\\b"
       suggest_entity: accessibility-spec
-      suggest_namespace: procedural/production
+      suggest_namespace: _procedural/production

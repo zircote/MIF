@@ -1187,58 +1187,58 @@ discovery:
     # Grant patterns
     - content_pattern: "\\b(R01|R21|R03|K99|F31|T32|U01)\\b"
       suggest_entity: grant
-      suggest_namespace: semantic/grants
+      suggest_namespace: _semantic/grants
     - content_pattern: "\\b(NIH|NSF|grant|funding|award)\\b"
       suggest_entity: grant
-      suggest_namespace: semantic/grants
+      suggest_namespace: _semantic/grants
     - content_pattern: "\\b(specific aim|proposal|study section)\\b"
       suggest_entity: grant-submission
-      suggest_namespace: episodic/grant-events
+      suggest_namespace: _episodic/grant-events
 
     # Personnel patterns
     - content_pattern: "\\b(postdoc|graduate student|lab manager)\\b"
       suggest_entity: lab-member
-      suggest_namespace: semantic/personnel
+      suggest_namespace: _semantic/personnel
     - content_pattern: "\\b(PI|principal investigator|ORCID)\\b"
       suggest_entity: principal-investigator
-      suggest_namespace: semantic/personnel
+      suggest_namespace: _semantic/personnel
 
     # Experiment patterns
     - content_pattern: "\\b(protocol|SOP|procedure)\\b"
       suggest_entity: protocol
-      suggest_namespace: procedural/lab-protocols
+      suggest_namespace: _procedural/lab-protocols
     - content_pattern: "\\b(experiment|assay|Western|PCR|qPCR)\\b"
       suggest_entity: experiment
-      suggest_namespace: episodic/experiments
+      suggest_namespace: _episodic/experiments
 
     # Sample patterns
     - content_pattern: "\\b(sample|specimen|cell line|tissue)\\b"
       suggest_entity: sample
-      suggest_namespace: semantic/samples
+      suggest_namespace: _semantic/samples
     - content_pattern: "\\b(reagent|antibody|primer|enzyme)\\b"
       suggest_entity: reagent
-      suggest_namespace: semantic/reagents
+      suggest_namespace: _semantic/reagents
 
     # Publication patterns
     - content_pattern: "\\b(manuscript|paper|publication|preprint)\\b"
       suggest_entity: publication
-      suggest_namespace: semantic/publications
+      suggest_namespace: _semantic/publications
     - content_pattern: "\\b(DOI|PMID|journal|submitted)\\b"
       suggest_entity: manuscript-submission
-      suggest_namespace: episodic/pub-events
+      suggest_namespace: _episodic/pub-events
 
     # Compliance patterns
     - content_pattern: "\\b(IRB|human subjects|consent)\\b"
       suggest_entity: irb-protocol
-      suggest_namespace: semantic/compliance
+      suggest_namespace: _semantic/compliance
     - content_pattern: "\\b(IACUC|animal protocol|animal use)\\b"
       suggest_entity: iacuc-protocol
-      suggest_namespace: semantic/compliance
+      suggest_namespace: _semantic/compliance
     - content_pattern: "\\b(IBC|biosafety|BSL)\\b"
       suggest_entity: ibc-protocol
-      suggest_namespace: semantic/compliance
+      suggest_namespace: _semantic/compliance
 
     # Data patterns
     - content_pattern: "\\b(dataset|GEO|SRA|repository)\\b"
       suggest_entity: dataset
-      suggest_namespace: semantic/datasets
+      suggest_namespace: _semantic/datasets

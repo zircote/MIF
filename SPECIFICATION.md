@@ -328,7 +328,7 @@ temporal:
   ttl: P90D                                 # Time-to-live (ISO 8601 duration)
   decay:
     model: exponential                      # Decay model
-    half_life: P7D                          # Half-life duration
+    halfLife: P7D                          # Half-life duration
     strength: 0.85                          # Current strength (0-1)
   access_count: 5                           # Times accessed
   last_accessed: 2026-01-20T14:22:00Z      # Last access time
@@ -1154,7 +1154,7 @@ temporal:
   ttl: P90D
   decay:
     model: exponential
-    half_life: P7D
+    halfLife: P7D
     strength: 0.85
     last_reinforced: 2026-01-18T09:00:00Z
   access_count: 5
@@ -1387,7 +1387,7 @@ discovery:
       suggest_namespace: _semantic/entities
     - file_pattern: "**/services/**/*.py"
       suggest_entity: component
-      suggest_namespace: semantic/components
+      suggest_namespace: _semantic/components
 ```
 
 #### 10.8.5 Ontology Resolution
@@ -1399,6 +1399,78 @@ Ontologies are loaded from multiple sources with precedence:
 3. Project ontology (`./.claude/mnemonic/ontology.yaml`)
 
 Later sources can extend or override earlier definitions.
+
+#### 10.8.6 Trait Inheritance and Conflict Resolution
+
+Traits support inheritance via the `extends` field, enabling composition:
+
+```yaml
+traits:
+  timestamped:
+    fields:
+      created: { type: string, format: date-time }
+      modified: { type: string, format: date-time }
+
+  auditable:
+    extends: [timestamped]
+    fields:
+      audit_log: { type: array }
+      last_audited: { type: string, format: date-time }
+
+  lifecycle:
+    extends: [timestamped]
+    fields:
+      status: { type: string, enum: [draft, active, archived] }
+```
+
+**Conflict Resolution Strategy:**
+
+When multiple traits define the same field (e.g., both `auditable` and `lifecycle` inherit `created` from `timestamped`), implementations MUST apply the following resolution rules:
+
+| Scenario | Resolution | Rationale |
+|----------|------------|-----------|
+| Same field inherited via different paths | Use shared ancestor definition | Diamond inheritance resolved to common base |
+| Same field defined in multiple independent traits | Error at composition time | Ambiguous definition requires explicit resolution |
+| Field in trait overrides inherited field | Child definition wins | Explicit override is intentional |
+| Field in entity overrides trait field | Entity definition wins | Most specific wins |
+
+**Example - Diamond Inheritance:**
+
+```yaml
+# Both auditable and lifecycle inherit timestamped
+entity_types:
+  - name: document
+    traits: [auditable, lifecycle]  # No conflict: `created` from shared `timestamped`
+```
+
+**Example - Conflict Requiring Resolution:**
+
+```yaml
+traits:
+  trait_a:
+    fields:
+      status: { type: string, enum: [open, closed] }
+
+  trait_b:
+    fields:
+      status: { type: string, enum: [draft, published] }
+
+entity_types:
+  - name: conflicting_entity
+    traits: [trait_a, trait_b]
+    # ERROR: `status` defined differently in both traits
+    # Resolution: Override explicitly in entity schema
+    schema:
+      properties:
+        status: { type: string, enum: [draft, open, published, closed] }
+```
+
+**Implementation Guidance:**
+
+1. **Validation**: Implementations SHOULD detect conflicts at ontology load time
+2. **Error Messages**: Include both conflicting definitions and their sources
+3. **Explicit Override**: When conflicts exist, entity-level schema takes precedence
+4. **Documentation**: Ontology authors SHOULD document intentional overrides
 
 ---
 
@@ -2051,7 +2123,7 @@ temporal:
   ttl: ISO-8601-duration
   decay:
     model: none|linear|exponential|step
-    half_life: ISO-8601-duration
+    halfLife: ISO-8601-duration
     strength: 0.0-1.0
   access_count: integer
   last_accessed: ISO-8601-datetime

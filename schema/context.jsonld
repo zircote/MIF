@@ -13,6 +13,8 @@
     "TemporalMetadata": "mif:TemporalMetadata",
     "EmbeddingReference": "mif:EmbeddingReference",
     "EntityReference": "mif:EntityReference",
+    "OntologyReference": "mif:OntologyReference",
+    "EntityData": "mif:EntityData",
     "Vector": "mif:Vector",
 
     "Person": "mif:Person",
@@ -65,8 +67,49 @@
       "@type": "@id"
     },
     "entityType": "mif:entityType",
+    "entity_type": "mif:entity_type",
+    "entity_id": "mif:entity_id",
     "name": "schema:name",
     "role": "mif:role",
+
+    "ontology": "mif:ontology",
+    "version": "mif:version",
+    "uri": {
+      "@id": "mif:uri",
+      "@type": "@id"
+    },
+
+    "citations": {
+      "@id": "mif:citations",
+      "@container": "@set"
+    },
+    "Citation": "mif:Citation",
+    "citationType": {
+      "@id": "mif:citationType",
+      "@type": "@vocab"
+    },
+    "citationRole": {
+      "@id": "mif:citationRole",
+      "@type": "@vocab"
+    },
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "author": "schema:author",
+    "date": {
+      "@id": "schema:datePublished",
+      "@type": "xsd:date"
+    },
+    "accessed": {
+      "@id": "mif:accessed",
+      "@type": "xsd:dateTime"
+    },
+    "relevance": {
+      "@id": "mif:relevance",
+      "@type": "xsd:decimal"
+    },
+    "note": "mif:note",
 
     "relationships": {
       "@id": "mif:relationships",

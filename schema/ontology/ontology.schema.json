@@ -96,6 +96,13 @@
           "items": {
             "$ref": "#/$defs/filePattern"
           }
+        },
+        "patterns": {
+          "type": "array",
+          "description": "Unified patterns array (alternative to separate content/file arrays)",
+          "items": {
+            "$ref": "#/$defs/unifiedPattern"
+          }
         }
       }
     }
@@ -180,6 +187,13 @@
         "description": {
           "type": "string"
         },
+        "extends": {
+          "type": "array",
+          "description": "List of trait names this trait extends (inherits fields from)",
+          "items": {
+            "type": "string"
+          }
+        },
         "fields": {
           "type": "object",
           "description": "Fields provided by this trait",
@@ -227,7 +241,7 @@
     "contentPattern": {
       "type": "object",
       "description": "Pattern matched against user prompts and memory content",
-      "required": ["pattern", "namespace"],
+      "required": ["pattern"],
       "properties": {
         "pattern": {
           "type": "string",
@@ -235,11 +249,42 @@
         },
         "namespace": {
           "type": "string",
-          "description": "Namespace to suggest (hierarchical path like semantic/decisions)"
+          "description": "Namespace to suggest (hierarchical path)"
+        },
+        "namespaces": {
+          "type": "array",
+          "description": "Multiple namespaces to suggest",
+          "items": { "type": "string" }
         },
         "suggest_entity": {
           "type": "string",
           "description": "Entity type to suggest when pattern matches"
+        },
+        "context": {
+          "type": "string",
+          "description": "Human-readable context hint"
+        }
+      }
+    },
+    "unifiedPattern": {
+      "type": "object",
+      "description": "Unified pattern with content_pattern or file_pattern discriminator",
+      "properties": {
+        "content_pattern": {
+          "type": "string",
+          "description": "Regex pattern to match in content"
+        },
+        "file_pattern": {
+          "type": "string",
+          "description": "Glob pattern to match file paths"
+        },
+        "suggest_namespace": {
+          "type": "string",
+          "description": "Namespace to suggest"
+        },
+        "suggest_entity": {
+          "type": "string",
+          "description": "Entity type to suggest"
         }
       }
     },

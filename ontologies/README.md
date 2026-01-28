@@ -6,20 +6,22 @@ This directory contains ontology definitions for the Memory Interchange Format.
 
 ### mif-base.ontology.yaml
 
-The base ontology defines the cognitive triad namespace hierarchy:
+The base ontology defines the cognitive triad namespace hierarchy.
+
+**Important:** Namespace paths use an underscore prefix (`_semantic`, `_episodic`, `_procedural`) to distinguish cognitive triad namespaces from domain-specific namespaces. This convention ensures consistent namespace identification across implementations.
 
 ```
-semantic/              # Facts, concepts, relationships
+_semantic/             # Facts, concepts, relationships
 ├── decisions/         # Architectural choices, rationale
 ├── knowledge/         # APIs, context, learnings, security
 └── entities/          # Entity definitions
 
-episodic/              # Events, experiences, timelines
+_episodic/             # Events, experiences, timelines
 ├── incidents/         # Production issues, postmortems
 ├── sessions/          # Debug sessions, work sessions
 └── blockers/          # Impediments, issues
 
-procedural/            # Step-by-step processes
+_procedural/           # Step-by-step processes
 ├── runbooks/          # Operational procedures
 ├── patterns/          # Code conventions, testing
 └── migrations/        # Migration steps, upgrades
@@ -80,6 +82,36 @@ entity_types:
         organic_matter_percent: { type: number }
 ```
 
+### Inheritance Semantics
+
+When an ontology declares `extends`, the following inheritance rules apply:
+
+1. **Traits**: All traits from parent ontologies become available to entity types in the child ontology. Traits are inherited by reference and merged additively.
+
+2. **Relationships**: Relationship type definitions are inherited. Child ontologies can extend the `from`/`to` constraints to include additional entity types.
+
+3. **Namespaces**: Parent namespace hierarchies are inherited. Child ontologies can:
+   - Add sibling namespaces at any level
+   - Add child namespaces to inherited parents
+   - Override `description` or `type_hint` for inherited namespaces
+   - Cannot remove or rename inherited namespaces
+
+4. **Discovery Patterns**: Parent discovery patterns are inherited and merged with child patterns. When patterns conflict (same pattern string), the child pattern takes precedence.
+
+5. **Entity Types**: Entity types are NOT inherited automatically. Child ontologies must explicitly define their own entity types, but can reference inherited traits.
+
+#### Inheritance Order
+
+When multiple ontologies are listed in `extends`, they are processed in order:
+
+```yaml
+extends:
+  - mif-base        # Processed first
+  - shared-traits   # Processed second (overrides mif-base on conflict)
+```
+
+Later entries override earlier entries for conflicting definitions.
+
 ## Using Ontologies
 
 ### Path Format
@@ -129,7 +161,7 @@ ontology:
   id: regenerative-agriculture
   version: "1.0.0"
   uri: https://github.com/zircote/MIF/ontologies/examples/regenerative-agriculture.ontology.yaml
-namespace: semantic/livestock
+namespace: _semantic/livestock
 ---
 ```
 

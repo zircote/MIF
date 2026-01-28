@@ -64,9 +64,9 @@ Mem0 stores memories as JSON objects:
 |------------|-----------|-------|
 | `id` | `@id` | Prefix with `urn:mif:` |
 | `memory` | `content` | Direct mapping |
-| `user_id` | `namespace` | Use cognitive triad prefix (e.g., `semantic/preferences`) |
+| `user_id` | `namespace` | Use cognitive triad prefix (e.g., `_semantic/preferences`) |
 | `metadata.category` | `memoryType` | Map to cognitive triad (`semantic`, `episodic`, `procedural`) |
-| `metadata.category` | `namespace` (second part) | Preserve as namespace suffix (e.g., `semantic/{category}`) |
+| `metadata.category` | `namespace` (second part) | Preserve as namespace suffix (e.g., `_semantic/{category}`) |
 | `metadata.created_at` | `created` | Direct mapping |
 | `metadata.*` | `extensions.mem0.*` | Preserve in extensions |
 | `hash` | `extensions.mem0.hash` | Preserve hash |
