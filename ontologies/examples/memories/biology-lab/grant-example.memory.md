@@ -16,7 +16,7 @@ temporal:
   valid_until: 2030-06-30T00:00:00Z
   recorded_at: 2026-01-05T11:00:00Z
 provenance:
-  source_type: grant_award
+  source_type: external_import
   agent: claude-opus-4
   confidence: 0.98
 citations:
@@ -27,7 +27,7 @@ citations:
     relevance: 1.0
 ontology:
   id: biology-research-lab
-  version: "1.0.0"
+  version: "0.1.0"
 entity:
   entity_type: grant
   entity_id: grant-nih-r01-ca999999

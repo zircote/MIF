@@ -4,14 +4,14 @@
 # A comprehensive ontology for software development teams.
 # Extends the MIF base ontology with domain-specific entity types.
 #
-# Compatible with: mif-base v1.0.0 (cognitive triad hierarchy)
+# Compatible with: mif-base v0.1.0 (cognitive triad hierarchy)
 #
-# Version: 1.0.0
+# Version: 0.1.0
 # Last Updated: 2026-01-26
 
 ontology:
   id: software-engineering
-  version: "1.0.0"
+  version: "0.1.0"
   description: "Software engineering domain ontology"
   extends:
     - mif-base

@@ -14,12 +14,12 @@ temporal:
   valid_from: 2026-01-01T00:00:00Z
   recorded_at: 2026-01-08T15:30:00Z
 provenance:
-  source_type: lab_protocol
+  source_type: external_import
   agent: claude-opus-4
   confidence: 0.95
 ontology:
   id: biology-research-lab
-  version: "1.0.0"
+  version: "0.1.0"
 entity:
   entity_type: protocol
   entity_id: protocol-western-blot-v2.1

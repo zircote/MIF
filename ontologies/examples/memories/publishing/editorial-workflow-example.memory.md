@@ -14,12 +14,12 @@ temporal:
   valid_from: 2026-01-01T00:00:00Z
   recorded_at: 2026-01-10T09:00:00Z
 provenance:
-  source_type: process_documentation
+  source_type: user_explicit
   agent: claude-opus-4
   confidence: 0.95
 ontology:
   id: k12-educational-publishing
-  version: "1.0.0"
+  version: "0.1.0"
 entity:
   entity_type: editorial-milestone
   entity_id: workflow-k8-math-development

@@ -1,0 +1,130 @@
+---
+name: Validate MIF Schemas and Examples
+
+"on":
+  push:
+    branches: [main]
+    paths:
+      - 'schema/**'
+      - 'examples/**'
+      - 'ontologies/**'
+      - 'scripts/*.py'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'schema/**'
+      - 'examples/**'
+      - 'ontologies/**'
+      - 'scripts/*.py'
+  workflow_dispatch:
+
+jobs:
+  validate-json-schemas:
+    name: Validate JSON Examples
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install ajv-cli
+        run: npm install -g ajv-cli ajv-formats
+
+      - name: Validate Level 1 Example
+        run: |
+          ajv validate -s schema/mif.schema.json \
+            -d examples/level-1-minimal.memory.json \
+            --spec=draft2020 -c ajv-formats
+
+      - name: Validate Level 2 Example
+        run: |
+          ajv validate -s schema/mif.schema.json \
+            -d examples/level-2-standard.memory.json \
+            --spec=draft2020 -c ajv-formats
+
+      - name: Validate Level 3 Citations Example
+        run: |
+          ajv validate -s schema/mif.schema.json \
+            -d examples/level-3-citations.memory.json \
+            --spec=draft2020 -c ajv-formats
+
+      - name: Validate Level 3 Full Example
+        run: |
+          ajv validate -s schema/mif.schema.json \
+            -d examples/level-3-full.memory.json \
+            --spec=draft2020 -c ajv-formats
+
+  validate-ontologies:
+    name: Validate Ontology Files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install jsonschema pyyaml
+
+      - name: Validate ontology files
+        run: python scripts/validate-ontologies.py
+
+  validate-memory-frontmatter:
+    name: Validate Memory Frontmatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install jsonschema pyyaml
+
+      - name: Validate memory frontmatter
+        run: python scripts/validate-memories.py
+
+  validate-namespaces:
+    name: Validate Namespace Consistency
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml
+
+      - name: Validate namespace consistency
+        run: python scripts/validate-namespaces.py
+
+  test-conversion:
+    name: Test Format Conversion
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml
+
+      - name: Test Markdown to JSON-LD conversion
+        run: python scripts/test-conversion.py

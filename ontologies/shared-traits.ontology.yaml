@@ -4,9 +4,9 @@
 # Reusable traits for domain-specific ontologies.
 # These extend mif-base traits with industry-agnostic patterns.
 #
-# Compatible with: mif-base v1.0.0 (cognitive triad hierarchy)
+# Compatible with: mif-base v0.1.0 (cognitive triad hierarchy)
 #
-# Version: 1.0.0
+# Version: 0.1.0
 # Last Updated: 2026-01-26
 #
 # Sources:
@@ -17,7 +17,7 @@
 
 ontology:
   id: shared-traits
-  version: "1.0.0"
+  version: "0.1.0"
   description: "Cross-domain reusable traits for industry ontologies"
   extends:
     - mif-base

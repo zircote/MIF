@@ -5,9 +5,9 @@
 # curriculum, textbooks, digital content, and state adoption processes.
 # Modeled after legacy publishers like Houghton Mifflin Harcourt (est. 1832).
 #
-# Compatible with: mif-base v1.0.0, shared-traits v1.0.0
+# Compatible with: mif-base v0.1.0, shared-traits v0.1.0
 #
-# Version: 1.0.0
+# Version: 0.1.0
 # Last Updated: 2026-01-26
 #
 # Sources:
@@ -25,9 +25,10 @@
 
 ontology:
   id: k12-educational-publishing
-  version: "1.0.0"
+  version: "0.1.0"
   description: "K-12 educational publishing ontology"
-  schema_url: "https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology.schema.json"
+  schema_url: >-
+    https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology/ontology.schema.json
   extends:
     - mif-base
     - shared-traits

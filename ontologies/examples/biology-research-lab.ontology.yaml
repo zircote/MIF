@@ -5,9 +5,9 @@
 # full research lifecycle: PI leadership, grants, experiments, samples,
 # publications, and compliance (IRB/IACUC/IBC).
 #
-# Compatible with: mif-base v1.0.0, shared-traits v1.0.0
+# Compatible with: mif-base v0.1.0, shared-traits v0.1.0
 #
-# Version: 1.0.0
+# Version: 0.1.0
 # Last Updated: 2026-01-26
 #
 # Sources:
@@ -26,9 +26,10 @@
 
 ontology:
   id: biology-research-lab
-  version: "1.0.0"
+  version: "0.1.0"
   description: "Biology research lab ontology with full lifecycle"
-  schema_url: "https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology.schema.json"
+  schema_url: >-
+    https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology/ontology.schema.json
   extends:
     - mif-base
     - shared-traits

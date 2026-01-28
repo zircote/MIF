@@ -21,7 +21,7 @@ temporal:
   decay:
     model: exponential
     halfLife: P30D
-    strength: 0.92
+    currentStrength: 0.92
     last_reinforced: 2026-01-20T14:22:00Z
   access_count: 8
   last_accessed: 2026-01-20T14:22:00Z

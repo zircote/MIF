@@ -13,7 +13,7 @@ temporal:
   valid_from: 2026-01-15T00:00:00Z
   recorded_at: 2026-01-15T10:30:00Z
 provenance:
-  source_type: lab_report
+  source_type: external_import
   agent: claude-opus-4
   confidence: 0.98
 citations:
@@ -24,7 +24,7 @@ citations:
     relevance: 1.0
 ontology:
   id: regenerative-agriculture
-  version: "1.0.0"
+  version: "0.1.0"
 entity:
   entity_type: soil-profile
   entity_id: soil-profile-north-field-2026-01

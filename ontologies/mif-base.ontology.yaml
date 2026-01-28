@@ -4,15 +4,15 @@
 # This ontology defines the hierarchical namespace structure based on the
 # cognitive science triad: semantic, episodic, and procedural memory.
 #
-# Version: 1.0.0
+# Version: 0.1.0
 # Last Updated: 2026-01-26
 
 ontology:
   id: mif-base
-  version: "1.0.0"
+  version: "0.1.0"
   description: "MIF base ontology with cognitive triad namespace hierarchy"
   schema_url: >-
-    https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology.schema.json
+    https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology/ontology.schema.json
 
 # Cognitive Triad Namespace Hierarchy
 #
@@ -38,6 +38,9 @@ namespaces:
         type_hint: semantic
       entities:
         description: "Entity definitions - technologies, components, systems"
+        type_hint: semantic
+      preferences:
+        description: "User preferences, settings, configuration choices"
         type_hint: semantic
 
   _episodic:

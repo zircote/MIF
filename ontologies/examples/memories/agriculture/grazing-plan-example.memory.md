@@ -15,12 +15,12 @@ temporal:
   valid_until: 2026-10-31T00:00:00Z
   recorded_at: 2026-03-01T08:00:00Z
 provenance:
-  source_type: planning_session
+  source_type: user_explicit
   agent: claude-opus-4
   confidence: 0.95
 ontology:
   id: regenerative-agriculture
-  version: "1.0.0"
+  version: "0.1.0"
 entity:
   entity_type: grazing-plan
   entity_id: grazing-plan-beef-2026-spring

@@ -4,8 +4,7 @@
 **Status**: Draft
 **Last Updated**: 2026-01-26
 **Authors**: Robert Allen (zircote)
-**Repository**: https://github.com/zircote/subcog
-**Issue**: https://github.com/zircote/subcog/issues/82
+**Repository**: https://github.com/zircote/MIF
 
 ---
 

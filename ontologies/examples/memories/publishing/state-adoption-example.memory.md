@@ -15,7 +15,7 @@ temporal:
   valid_until: 2027-06-30T00:00:00Z
   recorded_at: 2026-01-20T14:00:00Z
 provenance:
-  source_type: planning_document
+  source_type: user_explicit
   agent: claude-opus-4
   confidence: 0.95
 citations:
@@ -26,7 +26,7 @@ citations:
     relevance: 1.0
 ontology:
   id: k12-educational-publishing
-  version: "1.0.0"
+  version: "0.1.0"
 entity:
   entity_type: state-adoption
   entity_id: adoption-tx-math-2027
