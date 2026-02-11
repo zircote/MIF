@@ -7,7 +7,7 @@ This project uses the mnemonic memory system for persistent knowledge.
 ### Project Context
 - **Organization**: zircote
 - **Project**: MIF
-- **User-level path**: ~/.claude/mnemonic/zircote/
+- **User-level path**: ${MNEMONIC_ROOT}/zircote/
 - **Project-level path**: ./.claude/mnemonic/
 
 ### Project-Specific Recall
@@ -15,7 +15,7 @@ This project uses the mnemonic memory system for persistent knowledge.
 On session start, search for project memories:
 ```bash
 rg -l "." ./.claude/mnemonic/ --glob "*.memory.md" | head -10
-rg -l "MIF" ~/.claude/mnemonic/zircote/ --glob "*.memory.md" | head -10
+rg -l "MIF" ${MNEMONIC_ROOT}/zircote/ --glob "*.memory.md" | head -10
 ```
 
 ### Project-Specific Capture

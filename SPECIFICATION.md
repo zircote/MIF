@@ -1394,7 +1394,7 @@ discovery:
 Ontologies are loaded from multiple sources with precedence:
 
 1. MIF base ontology (built-in)
-2. User ontology (`~/.claude/mnemonic/ontology.yaml`)
+2. User ontology (`${MNEMONIC_ROOT}/ontology.yaml`)
 3. Project ontology (`./.claude/mnemonic/ontology.yaml`)
 
 Later sources can extend or override earlier definitions.

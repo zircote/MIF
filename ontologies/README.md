@@ -120,14 +120,14 @@ Memories are stored using hierarchical namespace paths:
 
 ```
 # User-level (includes org and project)
-~/.claude/mnemonic/{org}/{project}/{namespace}/
+${MNEMONIC_ROOT}/{org}/{project}/{namespace}/
 
 # Project-level (namespace only)
 ./.claude/mnemonic/{namespace}/
 ```
 
 Examples:
-- `~/.claude/mnemonic/zircote/mif/_semantic/decisions/`
+- `${MNEMONIC_ROOT}/zircote/mif/_semantic/decisions/`
 - `./.claude/mnemonic/_procedural/patterns/`
 
 ### Namespace Selection
