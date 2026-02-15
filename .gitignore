@@ -14,3 +14,8 @@ Thumbs.db
 .idea/
 .vscode/
 *.sublime-*
+
+# Astro
+dist/
+.astro/
+node_modules/
