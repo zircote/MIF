@@ -1,0 +1,49 @@
+---
+title: Security
+description: Security considerations and IANA media type registrations.
+---
+
+## Security Considerations
+
+### Data Privacy
+
+- MIF files MAY contain sensitive personal information
+- Implementations SHOULD support encryption at rest
+- Namespace isolation SHOULD be enforced
+- Export functions MUST respect access controls
+
+### Integrity
+
+- Implementations SHOULD compute content hashes
+- The `extensions.hash` field MAY store integrity hashes
+- Import functions SHOULD verify integrity when hashes present
+
+### Provenance Trust
+
+- `provenance.trust_level` indicates data reliability
+- Implementations SHOULD NOT elevate trust levels on import
+- External sources SHOULD be marked as `external_import`
+
+---
+
+## IANA Considerations
+
+### Media Type Registration
+
+**Markdown Format:**
+- Type name: text
+- Subtype name: markdown
+- Required parameters: variant=mif
+- Optional parameters: version
+
+**JSON-LD Format:**
+- Type name: application
+- Subtype name: ld+json
+- Required parameters: profile="https://raw.githubusercontent.com/zircote/MIF/main"
+
+### URI Scheme
+
+MIF URIs use the `mif:` scheme:
+```
+mif://{authority}/{namespace}/{memory-id}
+```

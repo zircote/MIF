@@ -1,0 +1,101 @@
+---
+title: Data Model
+description: Required and optional fields, schema definitions, and core data structures.
+---
+
+### Memory Unit
+
+A Memory Unit is the atomic element of MIF. It contains:
+
+| Property | Required | Type | Description |
+|----------|----------|------|-------------|
+| `id` | REQUIRED | UUID | Globally unique identifier |
+| `content` | REQUIRED | String | The memory content (Markdown) |
+| `type` | REQUIRED | Enum | Memory classification (see below) |
+| `created` | REQUIRED | DateTime | When the memory was created |
+| `modified` | RECOMMENDED | DateTime | When last modified |
+| `ontology` | RECOMMENDED | Object | Reference to applied ontology |
+| `namespace` | RECOMMENDED | String | Hierarchical scope |
+| `tags` | OPTIONAL | Array | Classification tags |
+| `entities` | OPTIONAL | Array | Referenced entities |
+| `relationships` | OPTIONAL | Array | Typed relationships |
+| `temporal` | OPTIONAL | Object | Temporal validity data |
+| `provenance` | OPTIONAL | Object | Source and trust data |
+| `embedding` | OPTIONAL | Object | Embedding reference |
+| `citations` | OPTIONAL | Array | Citation references (Level 3) |
+| `summary` | OPTIONAL | String | Compressed content summary (Level 3) |
+| `compressed_at` | OPTIONAL | DateTime | When compression was applied (Level 3) |
+| `extensions` | OPTIONAL | Object | Provider-specific data |
+
+### Memory Types
+
+MIF uses three **base memory types**, reflecting how human memory systems organize information:
+
+| Type | Description | Namespace Hint |
+|------|-------------|----------------|
+| `semantic` | Facts, concepts, relationships, and knowledge | `semantic/*` |
+| `episodic` | Events, experiences, sessions, and timelines | `episodic/*` |
+| `procedural` | Step-by-step processes, runbooks, and patterns | `procedural/*` |
+
+**Base Type Descriptions:**
+
+- **Semantic**: Declarative knowledge about the world—facts, concepts, decisions, preferences, and relationships between entities. Examples: architectural decisions, technology choices, user preferences, domain knowledge.
+
+- **Episodic**: Time-bound experiences and events—incidents, conversations, sessions, and blockers. These memories have strong temporal context and represent "what happened."
+
+- **Procedural**: How-to knowledge—runbooks, migration guides, code patterns, and step-by-step processes. These memories describe "how to do" something.
+
+#### Ontology-Extended Types
+
+Ontologies MAY define extended types using namespace prefixes:
+
+```yaml
+# In ontology definition
+entity_types:
+  - name: decision
+    base: semantic
+    description: "Architectural or design decision"
+  - name: runbook
+    base: procedural
+    description: "Step-by-step operational guide"
+  - name: incident
+    base: episodic
+    description: "Production incident record"
+```
+
+When using ontology-extended types, the `type` field uses the base type, while specific categorization is expressed through the namespace:
+
+```yaml
+---
+type: semantic
+namespace: _semantic/decisions
+ontology:
+  id: mif-base
+---
+```
+
+This allows ontologies to define rich taxonomies while maintaining interoperability through the base type foundation.
+
+### Ontology Reference
+
+A Memory Unit MAY declare which ontology it conforms to using the `ontology` field:
+
+| Property | Required | Type | Description |
+|----------|----------|------|-------------|
+| `id` | REQUIRED | String | Ontology identifier (matches `ontology.id` in ontology definition) |
+| `version` | OPTIONAL | String | Semantic version (e.g., "1.0.0") |
+| `uri` | OPTIONAL | URI | URL to the ontology definition file |
+
+**Example:**
+
+```yaml
+ontology:
+  id: regenerative-agriculture
+  version: "1.0.0"
+  uri: https://github.com/zircote/MIF/ontologies/examples/regenerative-agriculture.ontology.yaml
+```
+
+The `ontology.id` MUST match the `ontology.id` field in the referenced ontology definition file. This enables:
+- Validation that namespace paths conform to the ontology's defined namespaces
+- Discovery pattern matching for entity type suggestions
+- Schema validation for entity-specific fields

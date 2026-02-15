@@ -1,0 +1,161 @@
+---
+title: JSON-LD Format
+description: The .memory.json format specification for machine-processable memory documents.
+---
+
+### Structure
+
+```json
+{
+  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+  "@type": "Memory",
+  "@id": "urn:mif:550e8400-e29b-41d4-a716-446655440000",
+
+  "content": "User prefers dark mode for all applications",
+  "memoryType": "semantic",
+  "title": "Dark Mode Preference",
+
+  "created": "2026-01-15T10:30:00Z",
+  "modified": "2026-01-20T14:22:00Z",
+
+  "namespace": "_semantic/preferences",
+  "tags": ["preference", "ui", "accessibility"],
+
+  "entities": [...],
+  "relationships": [...],
+  "temporal": {...},
+  "provenance": {...},
+  "embedding": {...},
+  "extensions": {...}
+}
+```
+
+### Full Example
+
+```json
+{
+  "@context": [
+    "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+    {
+      "prov": "http://www.w3.org/ns/prov#",
+      "dc": "http://purl.org/dc/terms/",
+      "subcog": "https://github.com/zircote/subcog/ns/"
+    }
+  ],
+  "@type": ["Memory", "prov:Entity"],
+  "@id": "urn:mif:550e8400-e29b-41d4-a716-446655440000",
+
+  "content": "User prefers dark mode for all applications. This applies to:\n- IDE themes\n- Terminal colors\n- Web applications\n- Mobile apps",
+  "memoryType": "semantic",
+  "title": "Dark Mode Preference",
+
+  "dc:created": "2026-01-15T10:30:00Z",
+  "dc:modified": "2026-01-20T14:22:00Z",
+
+  "ontology": {
+    "@type": "OntologyReference",
+    "id": "mif-base",
+    "version": "1.0.0"
+  },
+
+  "namespace": "_semantic/preferences",
+  "tags": ["preference", "ui", "accessibility"],
+  "aliases": ["Dark Mode Preference", "UI Theme Choice"],
+
+  "entities": [
+    {
+      "@type": "EntityReference",
+      "entity": {"@id": "urn:mif:entity:person:jane-doe"},
+      "role": "subject"
+    },
+    {
+      "@type": "EntityReference",
+      "entity": {"@id": "urn:mif:entity:concept:dark-mode"},
+      "role": "topic"
+    }
+  ],
+
+  "relationships": [
+    {
+      "@type": "Relationship",
+      "relationshipType": "RelatesTo",
+      "target": {"@id": "urn:mif:memory:ui-preferences"},
+      "strength": 0.85
+    },
+    {
+      "@type": "Relationship",
+      "relationshipType": "Supersedes",
+      "target": {"@id": "urn:mif:memory:old-theme-preference"}
+    }
+  ],
+
+  "temporal": {
+    "@type": "TemporalMetadata",
+    "validFrom": "2026-01-15T00:00:00Z",
+    "validUntil": null,
+    "recordedAt": "2026-01-15T10:30:00Z",
+    "ttl": "P90D",
+    "decay": {
+      "model": "exponential",
+      "halfLife": "P7D",
+      "currentStrength": 0.85
+    },
+    "accessCount": 5,
+    "lastAccessed": "2026-01-20T14:22:00Z"
+  },
+
+  "provenance": {
+    "@type": "prov:Entity",
+    "sourceType": "user_explicit",
+    "prov:wasGeneratedBy": {
+      "@type": "prov:Activity",
+      "prov:wasAssociatedWith": {
+        "@id": "urn:mif:agent:claude-3-opus",
+        "@type": "prov:SoftwareAgent"
+      }
+    },
+    "prov:wasDerivedFrom": {
+      "@id": "urn:mif:conversation:conv-456"
+    },
+    "prov:wasAttributedTo": {
+      "@id": "urn:mif:entity:person:jane-doe"
+    },
+    "confidence": 0.95,
+    "trustLevel": "user_stated"
+  },
+
+  "embedding": {
+    "@type": "EmbeddingReference",
+    "model": "text-embedding-3-small",
+    "modelVersion": "2024-01",
+    "dimensions": 1536,
+    "sourceText": "User prefers dark mode for all applications",
+    "vectorUri": "urn:mif:vector:550e8400-e29b-41d4-a716-446655440000"
+  },
+
+  "citations": [
+    {
+      "@type": "Citation",
+      "citationType": "article",
+      "citationRole": "supports",
+      "title": "Dark Mode UI Benefits for Developer Productivity",
+      "url": "https://example.com/dark-mode-research",
+      "author": {
+        "@type": "EntityReference",
+        "entity": {"@id": "urn:mif:entity:person:jane-smith"},
+        "entityType": "Person",
+        "name": "Jane Smith"
+      },
+      "date": "2024-03-15",
+      "accessed": "2026-01-18",
+      "relevance": 0.92,
+      "note": "Research supporting dark mode preference for reduced eye strain"
+    }
+  ],
+
+  "extensions": {
+    "subcog:domain": "user",
+    "subcog:hash": "sha256:4c04b32ddc2053b5..."
+  }
+}
+```

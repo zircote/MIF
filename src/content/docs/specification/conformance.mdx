@@ -1,0 +1,42 @@
+---
+title: Conformance Levels
+description: Level 1, 2, and 3 conformance requirements for MIF implementations.
+---
+
+### Level 1: Core (REQUIRED for conformance)
+
+- `id`, `type`, `content`, `created` fields
+- Valid Markdown or JSON-LD structure
+- Basic wiki-link syntax
+
+### Level 2: Standard (RECOMMENDED)
+
+- All Level 1 requirements
+- Namespace support
+- Entity references
+- Relationship types
+- Temporal metadata (timestamps)
+
+### Level 3: Full (OPTIONAL)
+
+- All Level 2 requirements
+- Bi-temporal model
+- Decay functions
+- W3C PROV provenance
+- Embedding references
+- Citations with rich metadata
+- Compression support
+- Extension support
+
+### Conformance Statement
+
+Implementations SHOULD declare their conformance level:
+
+```yaml
+# .mif/config.yaml
+mif_version: "0.1.0"
+conformance_level: 2
+extensions:
+  - subcog
+  - custom-provider
+```

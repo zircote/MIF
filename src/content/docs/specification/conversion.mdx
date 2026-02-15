@@ -1,0 +1,109 @@
+---
+title: Conversion Rules
+description: Rules for converting between Markdown and JSON-LD formats.
+---
+
+### Markdown to JSON-LD
+
+1. Parse YAML frontmatter as structured data
+2. Map frontmatter properties to JSON-LD using context
+3. Parse Markdown content for:
+   - Wiki-links → `relationships` array
+   - Entity references (@[[...]]) → `entities` array
+   - Block references (^id) → fragment identifiers
+4. Convert body content to `content` field
+
+### JSON-LD to Markdown
+
+1. Generate YAML frontmatter from JSON-LD properties
+2. Set first `title` or H1 from `dc:title`
+3. Convert `content` to Markdown body
+4. Append "## Relationships" section from `relationships`
+5. Append "## Entities" section from `entities`
+6. Convert `@id` URIs to wiki-links
+
+### Example Conversion
+
+**Input (JSON-LD):**
+```json
+{
+  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+  "@type": "Memory",
+  "@id": "urn:mif:550e8400",
+  "title": "Dark Mode",
+  "content": "User prefers dark mode",
+  "relationships": [
+    {"relationshipType": "RelatesTo", "target": {"@id": "urn:mif:ui-prefs"}}
+  ]
+}
+```
+
+**Output (Markdown):**
+```markdown
+---
+id: 550e8400
+type: semantic
+title: Dark Mode
+---
+
+# Dark Mode
+
+User prefers dark mode
+
+## Relationships
+
+- relates-to [[ui-prefs]]
+```
+
+### Citations Conversion
+
+**Markdown to JSON-LD:**
+
+1. Parse frontmatter `citations` array
+2. For each citation:
+   - Map `type` → `citationType` vocabulary term
+   - Map `role` → `citationRole` vocabulary term
+   - Resolve `@[[Entity|Type]]` author refs → entity URIs
+   - For multiple authors (comma-separated), convert to array of author objects
+   - Convert dates to ISO 8601 format
+3. If `## Citations` body section exists:
+   - Parse markdown links for title/url
+   - Extract metadata from `**Key**: value` patterns
+   - Merge with frontmatter (frontmatter takes precedence)
+4. Build `Citation` objects array
+
+**JSON-LD to Markdown:**
+
+1. Generate frontmatter `citations` array from JSON-LD
+2. Convert entity URIs to wiki-link syntax
+3. If any citation has `note` exceeding 100 characters:
+   - Create `## Citations` body section
+   - Format as markdown list with metadata
+
+**Example:**
+
+```yaml
+# Frontmatter
+citations:
+  - type: article
+    title: "Research Paper"
+    url: https://example.com/paper
+    role: supports
+    author: "@[[Jane Smith|Person]]"
+```
+
+Converts to:
+
+```json
+"citations": [{
+  "@type": "Citation",
+  "citationType": "article",
+  "citationRole": "supports",
+  "title": "Research Paper",
+  "url": "https://example.com/paper",
+  "author": {
+    "@type": "EntityReference",
+    "entity": {"@id": "urn:mif:entity:person:jane-smith"}
+  }
+}]
+```

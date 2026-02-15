@@ -1,0 +1,54 @@
+---
+title: File Format
+description: File extensions, encoding requirements, and YAML frontmatter structure.
+---
+
+### File Extensions
+
+| Extension | Format | MIME Type |
+|-----------|--------|-----------|
+| `.memory.md` | Markdown | `text/markdown; variant=mif` |
+| `.memory.json` | JSON-LD | `application/ld+json; profile="https://raw.githubusercontent.com/zircote/MIF/main"` |
+
+### File Naming
+
+Files SHOULD be named using the memory's identifier:
+
+```
+{id}.memory.md
+{id}.memory.json
+```
+
+Example:
+```
+550e8400-e29b-41d4-a716-446655440000.memory.md
+550e8400-e29b-41d4-a716-446655440000.memory.json
+```
+
+Human-readable names MAY be used when the `id` is specified in frontmatter:
+```
+dark-mode-preference.memory.md
+```
+
+### Directory Structure
+
+A MIF vault SHOULD follow this structure:
+
+```
+vault/
+├── .mif/                           # MIF configuration
+│   ├── config.yaml                 # Vault configuration
+│   ├── context.jsonld              # Local JSON-LD context
+│   └── entities/                   # Entity definitions
+│       ├── person/
+│       ├── organization/
+│       ├── technology/
+│       ├── concept/
+│       └── file/
+├── memories/                       # Memory files
+│   ├── {namespace}/               # Namespace directories
+│   │   ├── {id}.memory.md
+│   │   └── {id}.memory.json
+│   └── ...
+└── README.md                       # Vault documentation
+```

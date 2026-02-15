@@ -1,0 +1,86 @@
+---
+title: Overview
+description: Abstract, terminology, and design principles of the Memory Interchange Format.
+---
+
+## Abstract
+
+The Memory Interchange Format (MIF) is a proposed open standard for portable AI memory representation. The AI memory ecosystem is currently fragmented—Mem0, Zep, Letta, LangMem, Subcog, and others each use proprietary schemas with no interoperability. MIF aims to address this by defining a common data model with dual representations: human-readable Markdown files and machine-processable JSON-LD documents.
+
+**Current Status**: This is a draft specification. No providers currently implement MIF. The goal is to establish a vendor-neutral interchange format that providers may choose to adopt.
+
+MIF is designed to be:
+- **Portable**: Move memories between providers without vendor lock-in
+- **Human-Readable**: Valid Obsidian notes that work in any Markdown editor
+- **Machine-Processable**: JSON-LD with semantic web compatibility
+- **Extensible**: Support custom properties without breaking compatibility
+- **Privacy-Respecting**: Local-first with no required cloud dependencies
+
+---
+
+## Terminology
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
+
+### Definitions
+
+- **Memory**: A discrete unit of information captured from or about an AI interaction, including its content, metadata, relationships, and provenance.
+- **Memory Unit**: The atomic element of MIF; a single memory with its associated data.
+- **Entity**: A named thing (person, organization, technology, concept, or file) that can participate in relationships.
+- **Relationship**: A typed, directed connection between two entities or between a memory and an entity.
+- **Namespace**: A hierarchical scope for organizing memories (e.g., `org/user/project/session`).
+- **Vault**: A collection of MIF files, analogous to an Obsidian vault.
+- **Provider**: An AI memory system that can import or export MIF format.
+
+---
+
+## Design Principles
+
+### Dual Representation
+
+MIF defines two equivalent representations:
+
+1. **Markdown Format** (`.memory.md`): Human-readable, Obsidian-compatible
+2. **JSON-LD Format** (`.memory.json`): Machine-processable, semantically linked
+
+Both representations MUST be losslessly convertible to each other. A conforming implementation MAY support either or both formats.
+
+### Obsidian Compatibility
+
+The Markdown format MUST be valid Obsidian notes, ensuring files work seamlessly in Obsidian vaults while remaining readable in any text editor or Markdown processor.
+
+**Required Obsidian Features:**
+
+- **YAML Frontmatter**: Structured metadata at the top of files, enclosed in `---` delimiters. Obsidian's Properties panel reads and writes this data, supporting typed fields (text, number, date, checkbox, list).
+
+- **Wiki-Links**: Internal links using double-bracket syntax `[[Target Note]]` enable bidirectional linking. Obsidian automatically tracks backlinks, enabling graph visualization and relationship discovery. Links can include display text `[[Target|Display Text]]` and heading anchors `[[Target#Heading]]`.
+
+- **Block References**: Unique identifiers (`^block-id`) attached to paragraphs, list items, or other blocks enable granular linking and transclusion. References like `[[Note#^block-id]]` link to specific content within a file.
+
+- **Aliases**: The `aliases` frontmatter property allows notes to be found and linked using alternative names, improving discoverability.
+
+- **Tags**: Both inline `#tags` and frontmatter `tags: [a, b]` are supported, with hierarchical tags using forward slashes (`#category/subcategory`).
+
+- **Standard Markdown**: All content uses CommonMark-compatible Markdown, ensuring portability to other tools and platforms.
+
+**Optional Obsidian Extensions:**
+
+- **Callouts**: Admonition blocks using `> [!type]` syntax for notes, warnings, tips, etc.
+- **Embeds**: Transclusion using `![[Note]]` to embed content from other files
+- **Dataview Queries**: Compatible with Dataview plugin for vault-as-database queries
+
+### Semantic Web Compatibility
+
+The JSON-LD format MUST be valid JSON-LD 1.1:
+- Use `@context` for vocabulary mapping
+- Use `@id` for unique identifiers
+- Use `@type` for entity classification
+- Compatible with RDF tooling
+
+### Local-First
+
+MIF is designed for local-first storage:
+- No required network dependencies
+- Files can be read with any text editor
+- No proprietary database required
+- Full user data ownership

@@ -1,0 +1,140 @@
+---
+title: JSON-LD Context
+description: The MIF JSON-LD context definition and namespace mappings.
+---
+
+### Context URL
+
+```
+https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld
+```
+
+### Context Definition
+
+```json
+{
+  "@context": {
+    "@version": 1.1,
+    "mif": "https://raw.githubusercontent.com/zircote/MIF/main/ns/",
+    "dc": "http://purl.org/dc/terms/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Memory": "mif:Memory",
+    "Entity": "mif:Entity",
+    "Relationship": "mif:Relationship",
+    "TemporalMetadata": "mif:TemporalMetadata",
+    "EmbeddingReference": "mif:EmbeddingReference",
+    "EntityReference": "mif:EntityReference",
+    "OntologyReference": "mif:OntologyReference",
+
+    "Person": "mif:Person",
+    "Organization": "mif:Organization",
+    "Technology": "mif:Technology",
+    "Concept": "mif:Concept",
+    "File": "mif:File",
+
+    "id": "@id",
+    "type": "@type",
+    "content": "mif:content",
+    "memoryType": "mif:memoryType",
+    "title": "dc:title",
+    "namespace": "mif:namespace",
+    "tags": "mif:tags",
+    "aliases": "mif:aliases",
+
+    "created": {
+      "@id": "dc:created",
+      "@type": "xsd:dateTime"
+    },
+    "modified": {
+      "@id": "dc:modified",
+      "@type": "xsd:dateTime"
+    },
+
+    "ontology": "mif:ontology",
+    "entities": "mif:entities",
+    "relationships": "mif:relationships",
+    "temporal": "mif:temporal",
+    "provenance": "mif:provenance",
+    "embedding": "mif:embedding",
+    "extensions": "mif:extensions",
+
+    "relationshipType": "mif:relationshipType",
+    "target": "mif:target",
+    "strength": "mif:strength",
+
+    "validFrom": {
+      "@id": "mif:validFrom",
+      "@type": "xsd:dateTime"
+    },
+    "validUntil": {
+      "@id": "mif:validUntil",
+      "@type": "xsd:dateTime"
+    },
+    "recordedAt": {
+      "@id": "mif:recordedAt",
+      "@type": "xsd:dateTime"
+    },
+    "ttl": "mif:ttl",
+    "decay": "mif:decay",
+    "accessCount": "mif:accessCount",
+    "lastAccessed": {
+      "@id": "mif:lastAccessed",
+      "@type": "xsd:dateTime"
+    },
+
+    "sourceType": "mif:sourceType",
+    "sourceRef": "mif:sourceRef",
+    "agent": "mif:agent",
+    "confidence": "mif:confidence",
+    "trustLevel": "mif:trustLevel",
+
+    "model": "mif:model",
+    "modelVersion": "mif:modelVersion",
+    "dimensions": "mif:dimensions",
+    "sourceText": "mif:sourceText",
+    "vectorUri": "mif:vectorUri",
+
+    "citations": {
+      "@id": "mif:citations",
+      "@container": "@set"
+    },
+    "Citation": "mif:Citation",
+    "citationType": {
+      "@id": "mif:citationType",
+      "@type": "@vocab"
+    },
+    "citationRole": {
+      "@id": "mif:citationRole",
+      "@type": "@vocab"
+    },
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "author": {
+      "@id": "dc:creator"
+    },
+    "date": {
+      "@id": "dc:date",
+      "@type": "xsd:date"
+    },
+    "relevance": {
+      "@id": "mif:relevance",
+      "@type": "xsd:decimal"
+    },
+    "accessed": {
+      "@id": "schema:accessDate",
+      "@type": "xsd:date"
+    },
+    "note": "schema:description",
+
+    "summary": "mif:summary",
+    "compressedAt": {
+      "@id": "mif:compressedAt",
+      "@type": "xsd:dateTime"
+    }
+  }
+}
+```

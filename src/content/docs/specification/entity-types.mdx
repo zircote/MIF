@@ -1,0 +1,152 @@
+---
+title: Entity Types
+description: Person, Organization, Technology, Concept, and File entity type definitions.
+---
+
+MIF provides an **extensible entity type system**. Implementations SHOULD support the core types for interoperability, but MAY define custom types for domain-specific needs.
+
+### Entity Type Architecture
+
+Entity types are **not hard-coded**. They are defined in vault configuration and can be extended per-project:
+
+```yaml
+# .mif/config.yaml
+entity_types:
+  # Core types (RECOMMENDED for interoperability)
+  - name: Person
+    description: Human individual
+    icon: "\U0001F464"
+    color: blue
+  - name: Organization
+    description: Company, team, or group
+    icon: "\U0001F3E2"
+    color: purple
+  - name: Technology
+    description: Tool, language, or framework
+    icon: "\U0001F527"
+    color: green
+  - name: Concept
+    description: Abstract idea or topic
+    icon: "\U0001F4A1"
+    color: yellow
+  - name: File
+    description: Document or code file
+    icon: "\U0001F4C4"
+    color: gray
+
+  # Custom types (domain-specific)
+  - name: Project
+    description: Work initiative or product
+    icon: "\U0001F4E6"
+    color: orange
+  - name: Event
+    description: Meeting, deadline, or occurrence
+    icon: "\U0001F4C5"
+    color: red
+  - name: Location
+    description: Physical or virtual place
+    icon: "\U0001F4CD"
+    color: teal
+```
+
+### Core Entity Types (Recommended)
+
+For maximum interoperability, implementations SHOULD recognize these five core types:
+
+| Type | Description | Example | URI |
+|------|-------------|---------|-----|
+| `Person` | Human individual | User, team member | `mif:Person` |
+| `Organization` | Company, team, or group | Acme Corp | `mif:Organization` |
+| `Technology` | Tool, language, or framework | Python, React | `mif:Technology` |
+| `Concept` | Abstract idea or topic | Dark Mode | `mif:Concept` |
+| `File` | Document or code file | src/main.py | `mif:File` |
+
+### Custom Entity Types
+
+Providers MAY define additional entity types using namespaced URIs:
+
+```yaml
+# Custom type definition
+entity_types:
+  - name: Animal
+    namespace: farm        # Results in URI: farm:Animal
+    description: Livestock or pet
+    properties:
+      - name: breed
+        type: string
+      - name: birth_date
+        type: date
+      - name: registry_id
+        type: string
+```
+
+**JSON-LD representation of custom types:**
+
+```json
+{
+  "@context": [
+    "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+    {"farm": "https://example.org/farm/"}
+  ],
+  "@type": "farm:Animal",
+  "@id": "urn:mif:entity:animal:sheep-001",
+  "name": "Dolly",
+  "farm:breed": "Dorper",
+  "farm:birth_date": "2025-03-15"
+}
+```
+
+### Entity Schema
+
+**Markdown (in `.mif/entities/` directory):**
+
+```yaml
+# .mif/entities/person/jane-doe.yaml
+id: jane-doe
+type: Person
+name: Jane Doe
+aliases:
+  - J. Doe
+  - jdoe
+properties:
+  email: jane@example.com
+  role: Engineer
+```
+
+**JSON-LD:**
+
+```json
+{
+  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+  "@type": "Person",
+  "@id": "urn:mif:entity:person:jane-doe",
+  "name": "Jane Doe",
+  "aliases": ["J. Doe", "jdoe"],
+  "properties": {
+    "email": "jane@example.com",
+    "role": "Engineer"
+  }
+}
+```
+
+### Entity References in Memories
+
+**Markdown:**
+```markdown
+## Entities
+
+- mentions @[[Jane Doe]]
+- uses @[[Python|Technology]]
+- about @[[Dark Mode|Concept]]
+```
+
+**JSON-LD:**
+```json
+"entities": [
+  {
+    "@type": "EntityReference",
+    "entity": {"@id": "urn:mif:entity:person:jane-doe"},
+    "role": "mentions"
+  }
+]
+```

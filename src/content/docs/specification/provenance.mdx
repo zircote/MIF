@@ -1,0 +1,43 @@
+---
+title: Provenance
+description: W3C PROV-based provenance tracking for memory origins.
+---
+
+MIF uses W3C PROV vocabulary for provenance tracking.
+
+### Source Types
+
+| Type | Description | Confidence Range |
+|------|-------------|------------------|
+| `user_explicit` | User directly stated | 0.90 - 1.00 |
+| `user_implicit` | Inferred from user actions | 0.70 - 0.89 |
+| `agent_inferred` | AI reasoning from context | 0.50 - 0.69 |
+| `external_import` | From external data source | 0.30 - 0.70 |
+| `system_generated` | Automatically generated | 0.20 - 0.50 |
+
+### Trust Levels
+
+| Level | Description |
+|-------|-------------|
+| `verified` | Confirmed by multiple sources |
+| `user_stated` | User explicitly provided |
+| `high_confidence` | Strong inference |
+| `moderate_confidence` | Reasonable inference |
+| `low_confidence` | Weak inference |
+| `uncertain` | Unverified |
+
+### Provenance Schema
+
+```yaml
+provenance:
+  source_type: user_explicit
+  source_ref: conversation:conv-456
+  agent: claude-3-opus
+  agent_version: "20240229"
+  confidence: 0.95
+  trust_level: user_stated
+  derived_from:
+    - memory:parent-memory-id
+  attribution:
+    - entity:person:jane-doe
+```
