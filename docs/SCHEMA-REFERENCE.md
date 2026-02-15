@@ -19,7 +19,7 @@ All schemas use JSON Schema Draft 2020-12.
 ## MIF Document Schema
 
 **File:** `schema/mif.schema.json`
-**ID:** `https://raw.githubusercontent.com/zircote/MIF/main/schema/mif.schema.json`
+**ID:** `https://mif-spec.dev/schema/mif.schema.json`
 
 ### Required Fields
 
@@ -260,7 +260,7 @@ See [Citation Schema](#citation-schema) for full details.
 ## Citation Schema
 
 **File:** `schema/citation.schema.json`
-**ID:** `https://raw.githubusercontent.com/zircote/MIF/main/schema/citation.schema.json`
+**ID:** `https://mif-spec.dev/schema/citation.schema.json`
 
 ### Required Fields
 
@@ -345,7 +345,7 @@ Custom roles use namespace prefix: `legal:precedent`, `research:replicates`
 ## Ontology Schema
 
 **File:** `schema/ontology/ontology.schema.json`
-**ID:** `https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology/ontology.schema.json`
+**ID:** `https://mif-spec.dev/schema/ontology/ontology.schema.json`
 
 ### Structure
 
@@ -502,8 +502,8 @@ jsonschema.validate(document, schema)
 
 Production schemas will be available at:
 
-- `https://raw.githubusercontent.com/zircote/MIF/main/schema/mif.schema.json`
-- `https://raw.githubusercontent.com/zircote/MIF/main/schema/citation.schema.json`
-- `https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld` (JSON-LD context)
+- `https://mif-spec.dev/schema/mif.schema.json`
+- `https://mif-spec.dev/schema/citation.schema.json`
+- `https://mif-spec.dev/schema/context.jsonld` (JSON-LD context)
 
 During development, reference local files or GitHub raw URLs.

@@ -208,16 +208,16 @@ Separating them allows:
 
 ### What Changed
 
-All schema `$id` and `schema_url` references now use a consistent URI pattern: `https://raw.githubusercontent.com/zircote/MIF/main/schema/`.
+All schema `$id` and `schema_url` references now use a consistent URI pattern: `https://mif-spec.dev/schema/`.
 
 **Before:**
 ```
-https://github.com/zircote/MIF/schema/ontology/v2
+https://mif-spec.dev/schema/ontology.schema.json
 ```
 
 **After:**
 ```
-https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology.schema.json
+https://mif-spec.dev/schema/ontology.schema.json
 ```
 
 ### Purpose

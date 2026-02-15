@@ -44,7 +44,7 @@ User prefers dark mode for all applications.
 
 ```json
 {
-  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+  "@context": "https://mif-spec.dev/schema/context.jsonld",
   "@type": "Memory",
   "@id": "urn:mif:550e8400-e29b-41d4-a716-446655440000",
   "memoryType": "semantic",

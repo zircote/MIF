@@ -592,7 +592,7 @@ Implementations MAY apply compression when memories meet these criteria:
 
 ```json
 {
-  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+  "@context": "https://mif-spec.dev/schema/context.jsonld",
   "@type": "Memory",
   "@id": "urn:mif:550e8400-e29b-41d4-a716-446655440000",
 
@@ -620,7 +620,7 @@ Implementations MAY apply compression when memories meet these criteria:
 ```json
 {
   "@context": [
-    "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+    "https://mif-spec.dev/schema/context.jsonld",
     {
       "prov": "http://www.w3.org/ns/prov#",
       "dc": "http://purl.org/dc/terms/",
@@ -831,7 +831,7 @@ entity_types:
 ```json
 {
   "@context": [
-    "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+    "https://mif-spec.dev/schema/context.jsonld",
     {"farm": "https://example.org/farm/"}
   ],
   "@type": "farm:Animal",
@@ -863,7 +863,7 @@ properties:
 
 ```json
 {
-  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+  "@context": "https://mif-spec.dev/schema/context.jsonld",
   "@type": "Person",
   "@id": "urn:mif:entity:person:jane-doe",
   "name": "Jane Doe",
@@ -1011,7 +1011,7 @@ relationship_types:
 ```json
 {
   "@context": [
-    "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+    "https://mif-spec.dev/schema/context.jsonld",
     {"farm": "https://example.org/farm/"}
   ],
   "relationships": [
@@ -1611,7 +1611,7 @@ extensions:
 ### 14.1 Context URL
 
 ```
-https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld
+https://mif-spec.dev/schema/context.jsonld
 ```
 
 ### 14.2 Context Definition
@@ -1772,7 +1772,7 @@ https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld
 **Input (JSON-LD):**
 ```json
 {
-  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+  "@context": "https://mif-spec.dev/schema/context.jsonld",
   "@type": "Memory",
   "@id": "urn:mif:550e8400",
   "title": "Dark Mode",
@@ -1873,7 +1873,7 @@ User prefers dark mode for all applications.
 **JSON-LD:**
 ```json
 {
-  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+  "@context": "https://mif-spec.dev/schema/context.jsonld",
   "@type": "Memory",
   "@id": "urn:mif:550e8400-e29b-41d4-a716-446655440000",
   "memoryType": "semantic",
@@ -1950,7 +1950,7 @@ See Section 6.2 for a complete Level 3 example.
 
 # MIF mapping
 {
-    "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+    "@context": "https://mif-spec.dev/schema/context.jsonld",
     "@id": "urn:mif:mem0_123",                    # id → @id
     "content": "User prefers dark mode",          # memory → content
     "memoryType": "semantic",                     # preferences are semantic knowledge

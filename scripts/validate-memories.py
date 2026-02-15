@@ -35,7 +35,7 @@ def create_memory_from_frontmatter(frontmatter: dict, content: str) -> dict:
     """Convert frontmatter to JSON-LD-like structure for validation."""
     # Map frontmatter fields to schema fields
     memory = {
-        "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+        "@context": "https://mif-spec.dev/schema/context.jsonld",
         "@type": "Memory",
     }
 
@@ -85,7 +85,7 @@ def validate_memory(memory_path: Path, schema: dict) -> list[str]:
     content = memory_path.read_text()
     match = FRONTMATTER_PATTERN.match(content)
     if match:
-        body = content[match.end():].strip()
+        body = content[match.end() :].strip()
     else:
         body = ""
 

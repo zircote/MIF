@@ -101,7 +101,7 @@ def mem0_to_mif(mem0_data: dict) -> dict:
 
     # Build MIF document
     mif = {
-        "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+        "@context": "https://mif-spec.dev/schema/context.jsonld",
         "@type": "Memory",
         "@id": f"urn:mif:{mem0_data['id']}",
         "memoryType": memory_type,
@@ -223,7 +223,7 @@ def zep_to_mif(zep_data: dict) -> dict:
     """Convert Zep memory to MIF format."""
 
     mif = {
-        "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+        "@context": "https://mif-spec.dev/schema/context.jsonld",
         "@type": "Memory",
         "@id": f"urn:mif:{zep_data['uuid']}",
         "memoryType": "semantic",  # Default to semantic for factual memories
@@ -339,7 +339,7 @@ def letta_to_mif(letta_data: dict) -> list:
         for i, fact in enumerate(facts):
             memory_type, namespace = classify_fact(fact)
             mif = {
-                "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+                "@context": "https://mif-spec.dev/schema/context.jsonld",
                 "@type": "Memory",
                 "@id": f"urn:mif:letta-{block_name}-{i}",
                 "memoryType": memory_type,
@@ -465,7 +465,7 @@ def subcog_to_mif(subcog_data: dict) -> dict:
     memory_type, mif_namespace = namespace_map.get(subcog_ns, ("semantic", "_semantic/knowledge"))
 
     mif = {
-        "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+        "@context": "https://mif-spec.dev/schema/context.jsonld",
         "@type": "Memory",
         "@id": f"urn:mif:{subcog_data['id']}",
         "memoryType": memory_type,
@@ -545,7 +545,7 @@ def text_to_mif(text_file: str) -> list:
             content = line
 
         mif = {
-            "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+            "@context": "https://mif-spec.dev/schema/context.jsonld",
             "@type": "Memory",
             "@id": f"urn:mif:import-{uuid.uuid4()}",
             "memoryType": "semantic",  # Base memory type
@@ -620,7 +620,7 @@ def langmem_to_mif(langmem_data: dict) -> list:
         memory_type, namespace = map_langmem_type(langmem_type)
 
         mif = {
-            "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+            "@context": "https://mif-spec.dev/schema/context.jsonld",
             "@type": "Memory",
             "@id": f"urn:mif:{mem['id']}",
             "memoryType": memory_type,
@@ -694,7 +694,7 @@ done
 ### Missing Required Fields
 
 If validation fails for missing fields, ensure:
-- `@context` is set to `"https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld"`
+- `@context` is set to `"https://mif-spec.dev/schema/context.jsonld"`
 - `@type` is `"Memory"`
 - `@id` starts with `urn:mif:`
 - `created` is a valid ISO 8601 datetime

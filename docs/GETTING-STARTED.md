@@ -253,7 +253,7 @@ For machine processing, use JSON-LD:
 
 ```json
 {
-  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+  "@context": "https://mif-spec.dev/schema/context.jsonld",
   "@type": "Memory",
   "@id": "urn:mif:a1b2c3d4-5678-90ab-cdef-1234567890ab",
   "memoryType": "semantic",

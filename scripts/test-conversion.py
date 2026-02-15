@@ -36,7 +36,7 @@ def parse_markdown_memory(md_path: Path) -> tuple[dict, str]:
 def frontmatter_to_jsonld(frontmatter: dict, body: str) -> dict:
     """Convert frontmatter to JSON-LD structure."""
     jsonld = {
-        "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+        "@context": "https://mif-spec.dev/schema/context.jsonld",
         "@type": "Memory",
     }
 

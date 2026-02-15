@@ -44,7 +44,7 @@ Memory content in readable Markdown...
 ### JSON-LD Format
 ```json
 {
-  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+  "@context": "https://mif-spec.dev/schema/context.jsonld",
   "@type": "Memory",
   "@id": "urn:mif:memory:uuid",
   "memoryType": "semantic",

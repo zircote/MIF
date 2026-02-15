@@ -123,7 +123,7 @@
   "identifier": "mif-base",
   "version": "1.0.0",
   "description": "MIF base ontology with cognitive triad namespace hierarchy",
-  "schema_url": "https://github.com/zircote/MIF/schema/ontology/v1",
+  "schema_url": "https://mif-spec.dev/schema/ontology/v1",
   "namespaces": {
     "semantic": {
       "@id": "mif:namespace/semantic",

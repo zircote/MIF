@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/zircote/MIF/main/schema/citation.schema.json",
+  "$id": "https://mif-spec.dev/schema/citation.schema.json",
   "title": "MIF Citation",
   "description": "JSON Schema for validating MIF citation objects",
   "type": "object",

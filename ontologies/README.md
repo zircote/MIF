@@ -169,7 +169,7 @@ namespace: _semantic/livestock
 
 ```json
 {
-  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+  "@context": "https://mif-spec.dev/schema/context.jsonld",
   "@type": "Memory",
   "@id": "urn:mif:550e8400",
   "ontology": {

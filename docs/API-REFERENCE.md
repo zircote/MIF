@@ -250,7 +250,7 @@ Reference the context in your JSON-LD documents:
 
 ```json
 {
-  "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+  "@context": "https://mif-spec.dev/schema/context.jsonld",
   "@type": "Memory",
   "@id": "urn:mif:my-memory",
   ...
@@ -262,7 +262,7 @@ Or extend with custom vocabulary:
 ```json
 {
   "@context": [
-    "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+    "https://mif-spec.dev/schema/context.jsonld",
     {
       "myns": "https://example.com/ns/",
       "customField": "myns:customField"
@@ -395,7 +395,7 @@ def create_mif_memory(
     memory_id = str(uuid.uuid4())
 
     mif = {
-        "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+        "@context": "https://mif-spec.dev/schema/context.jsonld",
         "@type": "Memory",
         "@id": f"urn:mif:{memory_id}",
         "memoryType": memory_type,
@@ -448,7 +448,7 @@ function createMifMemory(content, options = {}) {
   const memoryId = crypto.randomUUID();
 
   const mif = {
-    '@context': 'https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld',
+    '@context': 'https://mif-spec.dev/schema/context.jsonld',
     '@type': 'Memory',
     '@id': `urn:mif:${memoryId}`,
     memoryType,

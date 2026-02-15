@@ -29,7 +29,7 @@ ontology:
   version: "0.1.0"
   description: "Regenerative agriculture ontology with ecosystem coverage"
   schema_url: >-
-    https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology/ontology.schema.json
+    https://mif-spec.dev/schema/ontology/ontology.schema.json
   extends:
     - mif-base
     - shared-traits

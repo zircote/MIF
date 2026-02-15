@@ -31,7 +31,7 @@
         ]
       },
       "draft_schema": {
-        "@context": "https://raw.githubusercontent.com/zircote/MIF/main/schema/context.jsonld",
+        "@context": "https://mif-spec.dev/schema/context.jsonld",
         "format_version": "1.0",
         "key_fields": [
           "memories",

@@ -123,7 +123,7 @@
   "identifier": "k12-educational-publishing",
   "version": "1.0.0",
   "description": "K-12 educational publishing ontology",
-  "schema_url": "https://github.com/zircote/MIF/schema/ontology/v2",
+  "schema_url": "https://mif-spec.dev/schema/ontology/v2",
   "namespaces": {
     "semantic": {
       "@id": "mif:namespace/semantic",

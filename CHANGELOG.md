@@ -34,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **[Schema]**: Standardized schema identifiers to `https://raw.githubusercontent.com/zircote/MIF/main/schema/` namespace
+- **[Schema]**: Standardized schema identifiers to `https://mif-spec.dev/schema/` namespace
   - Updated ontology.schema.json `$id`
   - Updated all domain ontology `schema_url` fields
   - Note: These are identifiers, not resolvable URLs

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/zircote/MIF/main/schema/definitions/entity-reference.schema.json",
+  "$id": "https://mif-spec.dev/schema/definitions/entity-reference.schema.json",
   "title": "MIF Entity Reference",
   "description": "Reference to an entity (person, organization, technology, etc.) within a MIF memory",
   "type": "object",
