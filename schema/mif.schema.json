@@ -321,8 +321,20 @@
               "type": "number",
               "minimum": 0,
               "maximum": 1
+            },
+            "strength": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Alias for currentStrength"
+            },
+            "lastReinforced": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When the memory was last reinforced"
             }
-          }
+          },
+          "additionalProperties": false
         },
         "accessCount": {
           "type": "integer",
@@ -331,6 +343,30 @@
         "lastAccessed": {
           "type": "string",
           "format": "date-time"
+        },
+        "reinforcementHistory": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["timestamp", "event"],
+            "properties": {
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "event": {
+                "type": "string"
+              },
+              "strengthDelta": {
+                "type": "number"
+              },
+              "context": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "description": "History of reinforcement events that strengthened or weakened the memory"
         }
       },
       "additionalProperties": false

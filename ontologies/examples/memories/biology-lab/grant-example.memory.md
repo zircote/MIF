@@ -21,6 +21,7 @@ provenance:
   confidence: 0.98
 citations:
   - type: documentation
+    role: source
     title: "NIH Reporter Grant Details"
     url: https://reporter.nih.gov/project-details/CA999999
     accessed: 2026-01-05T11:00:00Z

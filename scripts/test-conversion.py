@@ -7,6 +7,7 @@ Validates ADR-002: Dual Format Design promise of lossless bidirectional conversi
 import json
 import re
 import sys
+from datetime import date, datetime
 from pathlib import Path
 
 import yaml
@@ -33,8 +34,25 @@ def parse_markdown_memory(md_path: Path) -> tuple[dict, str]:
     return frontmatter, body
 
 
+def stringify_datetimes(obj):
+    """Recursively convert datetime/date objects to ISO 8601 strings."""
+    if isinstance(obj, datetime):
+        s = obj.isoformat()
+        return s.replace("+00:00", "Z")
+    if isinstance(obj, date):
+        return obj.isoformat()
+    if isinstance(obj, dict):
+        return {k: stringify_datetimes(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [stringify_datetimes(item) for item in obj]
+    return obj
+
+
 def frontmatter_to_jsonld(frontmatter: dict, body: str) -> dict:
     """Convert frontmatter to JSON-LD structure."""
+    # Stringify all datetime objects from YAML parsing
+    frontmatter = stringify_datetimes(frontmatter)
+
     jsonld = {
         "@context": "https://mif-spec.dev/schema/context.jsonld",
         "@type": "Memory",

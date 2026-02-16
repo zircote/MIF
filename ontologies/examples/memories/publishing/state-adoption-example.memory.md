@@ -20,6 +20,7 @@ provenance:
   confidence: 0.95
 citations:
   - type: documentation
+    role: source
     title: "Texas Proclamation 2027 - Mathematics"
     url: https://tea.texas.gov/proclamation-2027
     accessed: 2026-01-20T14:00:00Z

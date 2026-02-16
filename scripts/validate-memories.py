@@ -4,6 +4,7 @@
 import json
 import re
 import sys
+from datetime import date, datetime
 from pathlib import Path
 
 import yaml
@@ -11,6 +12,60 @@ from jsonschema import Draft202012Validator
 
 
 FRONTMATTER_PATTERN = re.compile(r"^---\n(.*?)\n---", re.DOTALL)
+
+
+def stringify_datetimes(obj):
+    """Recursively convert datetime/date objects to ISO 8601 strings."""
+    if isinstance(obj, datetime):
+        s = obj.isoformat()
+        return s.replace("+00:00", "Z")
+    if isinstance(obj, date):
+        return obj.isoformat()
+    if isinstance(obj, dict):
+        return {k: stringify_datetimes(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [stringify_datetimes(item) for item in obj]
+    return obj
+
+
+# Mapping from snake_case frontmatter keys to camelCase JSON-LD keys
+TEMPORAL_KEY_MAP = {
+    "valid_from": "validFrom",
+    "valid_until": "validUntil",
+    "recorded_at": "recordedAt",
+    "access_count": "accessCount",
+    "last_accessed": "lastAccessed",
+}
+
+DECAY_KEY_MAP = {
+    "last_reinforced": "lastReinforced",
+}
+
+EMBEDDING_KEY_MAP = {
+    "model_version": "modelVersion",
+    "source_text": "sourceText",
+}
+
+PROVENANCE_KEY_MAP = {
+    "source_type": "sourceType",
+    "trust_level": "trustLevel",
+}
+
+
+def remap_keys(obj, key_map):
+    """Remap dictionary keys using a mapping."""
+    if not isinstance(obj, dict):
+        return obj
+    return {key_map.get(k, k): v for k, v in obj.items()}
+
+
+def transform_citation(citation):
+    """Transform a frontmatter citation to JSON-LD Citation format."""
+    result = {"@type": "Citation"}
+    key_map = {"type": "citationType", "role": "citationRole"}
+    for k, v in citation.items():
+        result[key_map.get(k, k)] = v
+    return result
 
 
 def load_schema(schema_path: Path) -> dict:
@@ -33,6 +88,9 @@ def extract_frontmatter(memory_path: Path) -> dict | None:
 
 def create_memory_from_frontmatter(frontmatter: dict, content: str) -> dict:
     """Convert frontmatter to JSON-LD-like structure for validation."""
+    # Stringify all datetime objects from YAML parsing
+    frontmatter = stringify_datetimes(frontmatter)
+
     # Map frontmatter fields to schema fields
     memory = {
         "@context": "https://mif-spec.dev/schema/context.jsonld",
@@ -64,6 +122,16 @@ def create_memory_from_frontmatter(frontmatter: dict, content: str) -> dict:
             value = frontmatter[fm_key]
             if fm_key == "id":
                 value = f"urn:mif:{value}"
+            elif fm_key == "temporal":
+                value = remap_keys(value, TEMPORAL_KEY_MAP)
+                if "decay" in value and isinstance(value["decay"], dict):
+                    value["decay"] = remap_keys(value["decay"], DECAY_KEY_MAP)
+            elif fm_key == "embedding":
+                value = remap_keys(value, EMBEDDING_KEY_MAP)
+            elif fm_key == "provenance":
+                value = remap_keys(value, PROVENANCE_KEY_MAP)
+            elif fm_key == "citations" and isinstance(value, list):
+                value = [transform_citation(c) for c in value]
             memory[schema_key] = value
 
     # Extract content from markdown body

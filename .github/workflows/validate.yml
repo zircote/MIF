@@ -36,24 +36,28 @@ jobs:
       - name: Validate Level 1 Example
         run: |
           ajv validate -s schema/mif.schema.json \
+            -r "schema/definitions/*.schema.json" \
             -d examples/level-1-minimal.memory.json \
             --spec=draft2020 -c ajv-formats
 
       - name: Validate Level 2 Example
         run: |
           ajv validate -s schema/mif.schema.json \
+            -r "schema/definitions/*.schema.json" \
             -d examples/level-2-standard.memory.json \
             --spec=draft2020 -c ajv-formats
 
       - name: Validate Level 3 Citations Example
         run: |
           ajv validate -s schema/mif.schema.json \
+            -r "schema/definitions/*.schema.json" \
             -d examples/level-3-citations.memory.json \
             --spec=draft2020 -c ajv-formats
 
       - name: Validate Level 3 Full Example
         run: |
           ajv validate -s schema/mif.schema.json \
+            -r "schema/definitions/*.schema.json" \
             -d examples/level-3-full.memory.json \
             --spec=draft2020 -c ajv-formats
 

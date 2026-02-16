@@ -18,6 +18,7 @@ provenance:
   confidence: 0.98
 citations:
   - type: documentation
+    role: source
     title: "Ward Laboratories Soil Analysis Report"
     url: https://wardlab.com/reports/2026-01-15-NF001
     accessed: 2026-01-15T10:30:00Z
