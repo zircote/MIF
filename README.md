@@ -2,8 +2,11 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Spec Version](https://img.shields.io/badge/spec-v0.1.0--draft-blue.svg)](./SPECIFICATION.md)
+[![Docs](https://img.shields.io/badge/docs-mif--spec.dev-5c4a32.svg)](https://mif-spec.dev)
+[![CI](https://github.com/zircote/MIF/actions/workflows/validate.yml/badge.svg)](https://github.com/zircote/MIF/actions/workflows/validate.yml)
 [![JSON-LD](https://img.shields.io/badge/format-JSON--LD-orange.svg)](https://json-ld.org/)
 [![W3C PROV](https://img.shields.io/badge/provenance-W3C%20PROV-green.svg)](https://www.w3.org/TR/prov-dm/)
+[![GitHub topics](https://img.shields.io/github/topics/zircote/MIF)](https://github.com/zircote/MIF)
 
 An open standard for portable AI memory representation.
 
@@ -16,7 +19,11 @@ MIF is a proposed standard that aims to enable interoperability between AI memor
 
 ## Why MIF?
 
-<img src=".github/readme-infographic.svg" alt="How MIF Works" width="100%">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/readme-infographic-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/readme-infographic.svg">
+  <img src=".github/readme-infographic.svg" alt="How MIF Works" width="100%">
+</picture>
 
 The AI memory ecosystem is fragmented. Mem0, Zep, Letta, LangMem, Subcog, and others all use proprietary schemas. MIF solves:
 
