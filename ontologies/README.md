@@ -1,3 +1,7 @@
+---
+diataxis_type: reference
+---
+
 # MIF Ontologies
 
 This directory contains ontology definitions for the Memory Interchange Format.
@@ -10,7 +14,7 @@ The base ontology defines the namespace hierarchy for the three base memory type
 
 **Important:** Namespace paths use an underscore prefix (`_semantic`, `_episodic`, `_procedural`) to distinguish base type namespaces from domain-specific namespaces. This convention ensures consistent namespace identification across implementations.
 
-```
+```text
 _semantic/             # Facts, concepts, relationships
 ├── decisions/         # Architectural choices, rationale
 ├── knowledge/         # APIs, context, learnings, security
@@ -130,6 +134,9 @@ Examples:
 - `${MNEMONIC_ROOT}/zircote/mif/_semantic/decisions/`
 - `./.claude/mnemonic/_procedural/patterns/`
 
+> **Path contexts:** `${MNEMONIC_ROOT}/{org}/{project}/` is the user-level storage path
+> (external to the repository). Project-level `.claude/mnemonic/` is for embedded project memories.
+
 ### Namespace Selection
 
 Choose namespaces based on memory type:
@@ -159,7 +166,7 @@ type: semantic
 created: 2026-01-26T10:00:00Z
 ontology:
   id: regenerative-agriculture
-  version: "1.0.0"
+  version: "0.1.0"
   uri: https://github.com/zircote/MIF/ontologies/examples/regenerative-agriculture.ontology.yaml
 namespace: _semantic/livestock
 ---
@@ -175,7 +182,7 @@ namespace: _semantic/livestock
   "ontology": {
     "@type": "OntologyReference",
     "id": "regenerative-agriculture",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "uri": "https://github.com/zircote/MIF/ontologies/examples/regenerative-agriculture.ontology.yaml"
   },
   "namespace": "_semantic/livestock",
@@ -200,6 +207,7 @@ The `examples/` directory contains domain-specific ontologies:
 - `k12-educational-publishing.ontology.yaml` - Educational content publishing
 - `biology-research-lab.ontology.yaml` - Academic research lab operations
 - `backstage.ontology.yaml` - Backstage.io developer portal entities
+- `csi-5w1h.ontology.yaml` - CSI 5W1H investigative framework
 - `shared-traits.ontology.yaml` - Reusable trait mixins
 
 ## Creating Custom Ontologies
@@ -238,3 +246,5 @@ Convert YAML ontologies to JSON-LD for semantic web compatibility:
 python scripts/yaml2jsonld.py ontologies/mif-base.ontology.yaml
 python scripts/yaml2jsonld.py --all  # Convert all
 ```
+
+> **Prerequisites:** `pip install pyyaml` (PyYAML is required for YAML processing)

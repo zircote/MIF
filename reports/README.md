@@ -1,3 +1,7 @@
+---
+diataxis_type: reference
+---
+
 # Research Reports
 
 This directory contains market research reports generated using the sigint research framework.
@@ -23,6 +27,9 @@ report-name/
 ## Generating New Reports
 
 Use the sigint research commands:
+
+> **Note:** The `sigint` research framework is an internal tool not included in this repository.
+> The commands below are shown for reference; generating new reports requires the sigint plugin.
 
 ```bash
 # Start a new research session

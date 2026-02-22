@@ -1,6 +1,10 @@
+---
+diataxis_type: reference
+---
+
 # Industry Ontologies for MIF
 
-This document provides comprehensive documentation for the three industry
+This document provides comprehensive documentation for the four industry
 ontologies created for the Memory Interchange Format (MIF) system.
 
 ## Overview
@@ -15,7 +19,7 @@ ontology for different industries:
 | `biology-research-lab` | Academic research | 18 | 11 |
 | `backstage` | Developer portals | 12 | 6 |
 
-All three ontologies:
+All four ontologies:
 - Extend `mif-base.ontology.yaml` (base type namespaces)
 - Use traits from `shared-traits.ontology.yaml` (DRY mixins)
 - Follow the MIF schema specification v2
@@ -239,7 +243,7 @@ handling, publication pipeline, and regulatory compliance.
 ## Shared Traits (Mixins)
 
 The `shared-traits.ontology.yaml` file provides reusable traits that
-are composed into entity types across all three industries.
+are composed into entity types across all four industries.
 
 ### Trait Categories
 
@@ -284,6 +288,7 @@ ontologies/
 │   ├── regenerative-agriculture.ontology.yaml
 │   ├── k12-educational-publishing.ontology.yaml
 │   ├── biology-research-lab.ontology.yaml
+│   ├── csi-5w1h.ontology.yaml
 │   ├── INDUSTRY-ONTOLOGIES.md      # This file
 │   ├── BACKSTAGE-MAPPING.md        # Backstage integration
 │   └── memories/

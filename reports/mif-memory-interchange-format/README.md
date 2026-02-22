@@ -1,3 +1,7 @@
+---
+diataxis_type: reference
+---
+
 # MIF Market Research Report
 
 **Topic:** Memory Interchange Format (MIF) - Open Standard for AI Memory Interoperability

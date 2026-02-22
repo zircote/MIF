@@ -1,3 +1,7 @@
+---
+diataxis_type: reference
+---
+
 # MIF Ontology Schema
 
 This directory contains the schema definitions for MIF ontology files.
@@ -27,21 +31,19 @@ JSON-LD context for semantic web compatibility. Maps ontology concepts to:
 ### Validating an ontology file
 
 ```bash
-# Using ajv-cli
-npx ajv validate -s ontology.schema.json -d ../../ontologies/mif-base.ontology.yaml
-
-# Using Python jsonschema
-python -c "
-import json, yaml
+# Python validation (handles YAML natively - recommended)
+python3 -c "
+import json, sys
 from jsonschema import validate
-
-with open('ontology.schema.json') as f:
-    schema = json.load(f)
-with open('../../ontologies/mif-base.ontology.yaml') as f:
-    data = yaml.safe_load(f)
-validate(data, schema)
-print('Valid!')
+import yaml
+with open('ontology.schema.json') as s, open('../../ontologies/mif-base.ontology.yaml') as d:
+    validate(yaml.safe_load(d), json.load(s))
+print('Valid')
 "
+
+# ajv validation (requires JSON conversion)
+yq -o=json '.' ../../ontologies/mif-base.ontology.yaml | \
+  npx ajv validate -s ontology.schema.json -d /dev/stdin
 ```
 
 ### Converting to JSON-LD
@@ -52,7 +54,7 @@ python ../../scripts/yaml2jsonld.py ../../ontologies/mif-base.ontology.yaml
 
 ## Schema Evolution
 
-- **v1.0** (current): Three-type hierarchy with nested namespaces
+- **v0.1.0** (current): Three-type hierarchy with nested namespaces
 
 When updating the schema:
 1. Increment version in `$id`

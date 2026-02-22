@@ -1,3 +1,7 @@
+---
+diataxis_type: how-to
+---
+
 # Backstage.io Entity Mapping Guide
 
 This document maps MIF industry ontologies to Backstage.io's Software Catalog

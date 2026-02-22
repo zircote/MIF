@@ -1,3 +1,7 @@
+---
+diataxis_type: reference
+---
+
 # MIF Market Trend Models
 
 **Date:** 2026-01-23
@@ -46,7 +50,7 @@ xychart-beta
 | 2029 | $7.1B | 48% | Memory becomes AI infrastructure standard |
 | 2030 | $10.5B | 48% | Mainstream enterprise deployment |
 
-**CAGR 2024-2030:** 54%
+**CAGR 2024-2030:** 54% (AI Memory Tools Market 2024-2030)
 
 ---
 
@@ -275,7 +279,7 @@ sankey-beta
 | Pilot → Production | 80% | 8-12 weeks | Governance approval |
 
 **Overall Conversion:** 28% Awareness → Production
-**Forecast:** With tooling and governance improvements, target 40% by Q4 2026.
+**Forecast:** With tooling and governance improvements, target 40% by Q4 2026. [Status: Pending]
 
 ---
 
@@ -285,8 +289,8 @@ sankey-beta
 
 ```mermaid
 gitGraph
-    commit id: "MIF 0.1 Draft"
-    commit id: "MIF 0.2 Beta" tag: "Current"
+    commit id: "MIF 0.1.0-draft"
+    commit id: "MIF 0.1.0" tag: "Current"
     branch v1
     commit id: "MIF 1.0 Core"
     commit id: "MIF 1.0 Extended"
@@ -302,11 +306,11 @@ gitGraph
 
 | Level | Features | Target Date | Adoption Requirement |
 |-------|----------|-------------|----------------------|
-| **0.2 Beta** | Current spec | Now | Early adopters only |
-| **1.0 Core** | Hash, lineage, EDTF | Q1 2026 | Basic interoperability |
-| **1.0 Extended** | Full provenance, conformance | Q2 2026 | Enterprise pilots |
-| **1.0 Full** | All features, certification | Q3 2026 | Production deployments |
-| **1.1** | OWL 2, SPARQL, WebNN | Q1 2027 | Advanced use cases |
+| **0.1.0** | Current spec | Now | Early adopters only |
+| **1.0 Core** | Hash, lineage, EDTF | Q1 2026 [Status: Not yet implemented] | Basic interoperability |
+| **1.0 Extended** | Full provenance, conformance | Q2 2026 [Status: Pending] | Enterprise pilots |
+| **1.0 Full** | All features, certification | Q3 2026 [Status: Pending] | Production deployments |
+| **1.1** | OWL 2, SPARQL, WebNN | Q1 2027 [Status: Pending] | Advanced use cases |
 
 ---
 

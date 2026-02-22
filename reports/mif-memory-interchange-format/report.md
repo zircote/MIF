@@ -1,3 +1,7 @@
+---
+diataxis_type: explanation
+---
+
 # Memory Interchange Format (MIF) Market Research Report
 
 **Date:** 2026-01-23
@@ -19,7 +23,7 @@
 
 **Anti-Pattern Compliance:** This report avoids surface-level analysis. Every finding includes actionable spec guidance with priority ratings and implementation complexity.
 
-> **Note:** This document uses Mermaid diagrams including `quadrantChart`, `stateDiagram-v2`, and `gantt`. Mermaid 10.0+ is recommended for full rendering.
+> **Note:** This document uses Mermaid diagrams including `quadrantChart`, `stateDiagram-v2`, and `gantt`. Mermaid 10.6+ is recommended for full rendering.
 
 ---
 
@@ -118,7 +122,7 @@ The market exhibits classic pre-standardization characteristics:
 - Memory/context management segment: ~32% of AI infrastructure
 - Source: Industry analyst reports, vendor ARR aggregation
 
-**Growth Rate:** 34% CAGR (INC)
+**Growth Rate:** 34% CAGR (TAM -- Total Addressable Market) (INC)
 
 **Supporting Factors:**
 - LLM agent proliferation driving memory requirements
@@ -134,7 +138,7 @@ The market exhibits classic pre-standardization characteristics:
 - English-language documentation markets (initial focus)
 - Cloud and hybrid deployments (excludes air-gapped)
 
-**Trend:** INC (42% CAGR) - Memory tools growing faster than broader AI infrastructure
+**Trend:** INC (42% CAGR (SAM -- Serviceable Addressable Market)) - Memory tools growing faster than broader AI infrastructure
 
 ### Serviceable Obtainable Market (SOM)
 
@@ -329,7 +333,7 @@ quadrantChart
 | Weakness | Risk | Mitigation |
 |----------|------|------------|
 | **No Production Tooling** | Spec without tools = vaporware | Prioritize Python mif-tools, CLI |
-| **Unknown Brand** | No awareness outside subcog users | conference presence |
+| **Unknown Brand** | No awareness outside subcog (the predecessor project from which MIF evolved) users | conference presence |
 | **Single Maintainer Risk** | Bus factor = 1 | Governance model, W3C submission |
 | **Unproven at Scale** | No enterprise deployments | Partner with early adopter for case study |
 
@@ -376,7 +380,7 @@ quadrantChart
 
 ---
 
-#### 2. Add Integrity Hash and Lineage Fields to Spec (HIGH)
+#### 2. Add Integrity Hash and Lineage Fields to Spec (HIGH) [Status: Not yet implemented]
 
 **Recommendation:** Add `hash` field at memory level and `lineage[]` array for transformation tracking.
 
@@ -417,7 +421,7 @@ quadrantChart
 - Single-vendor standards create adoption resistance
 - Precedent: OpenAPI success followed Linux Foundation governance
 
-**Expected Outcome:** Removes "subcog's format" perception; enables competitor participation
+**Expected Outcome:** Removes "subcog's format" (subcog being the predecessor project) perception; enables competitor participation
 
 **Resource Requirements:** 2-4 weeks for submission process; ongoing governance participation
 
@@ -463,16 +467,16 @@ quadrantChart
 
 ### Tactical Next Steps (Next 30 Days)
 
-| Week | Action | Owner | Deliverable |
-|------|--------|-------|-------------|
-| 1 | Finalize hash/lineage spec additions | Spec Lead | Updated spec draft |
-| 1 | Use GitHub raw URLs | Ops | Domain + placeholder site |
-| 2 | Begin mif-tools Python package | Eng | GitHub repo, basic structure |
-| 2 | Draft W3C Community Group proposal | Governance | Submission document |
-| 3 | Build Mem0 converter (lowest complexity) | Eng | Working converter script |
-| 3 | Create spec comparison table for marketing | Product | Comparison asset |
-| 4 | Draft enterprise compliance whitepaper outline | Marketing | Outline + key messages |
-| 4 | Initial Zep team outreach | BD | Meeting scheduled |
+| Week | Action | Owner | Deliverable | Status |
+|------|--------|-------|-------------|--------|
+| 1 | Finalize hash/lineage spec additions | Spec Lead | Updated spec draft | Pending |
+| 1 | Use GitHub raw URLs | Ops | Domain + placeholder site | Completed -- migrated to mif-spec.dev |
+| 2 | Begin mif-tools Python package | Eng | GitHub repo, basic structure | Pending |
+| 2 | Draft W3C Community Group proposal | Governance | Submission document | Pending |
+| 3 | Build Mem0 converter (lowest complexity) | Eng | Working converter script | Pending |
+| 3 | Create spec comparison table for marketing | Product | Comparison asset | Pending |
+| 4 | Draft enterprise compliance whitepaper outline | Marketing | Outline + key messages | Pending |
+| 4 | Initial Zep team outreach | BD | Meeting scheduled | Pending |
 
 ---
 
@@ -534,9 +538,9 @@ Based on this research, the following decisions are recommended:
 | Decision Point | Recommendation | Confidence | Reversibility |
 |----------------|----------------|------------|---------------|
 | Keep JSON-LD foundation | YES | HIGH (95%) | LOW (format change = breaking) |
-| Add hash field to spec | YES | HIGH (90%) | MEDIUM (additive, optional) |
-| Add lineage array | YES | HIGH (85%) | MEDIUM (additive, optional) |
-| Add EDTF temporal support | YES | MEDIUM (75%) | HIGH (optional extension) |
+| Add hash field to spec | YES [Status: Not yet implemented] | HIGH (90%) | MEDIUM (additive, optional) |
+| Add lineage array | YES [Status: Not yet implemented] | HIGH (85%) | MEDIUM (additive, optional) |
+| Add EDTF temporal support | YES [Status: Not yet implemented] | MEDIUM (75%) | HIGH (optional extension) |
 | Canonical embedding IDs | YES | MEDIUM (70%) | HIGH (can update mapping) |
 | OWL 2 RL profile | DEFER to 1.1 | LOW (50%) | HIGH (separate doc) |
 | SPARQL endpoint spec | DEFER to 1.1 | LOW (45%) | HIGH (separate doc) |

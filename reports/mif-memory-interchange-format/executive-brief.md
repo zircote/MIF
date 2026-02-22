@@ -1,3 +1,7 @@
+---
+diataxis_type: explanation
+---
+
 # MIF Market Research: Executive Brief
 
 **Date:** 2026-01-23 | **Classification:** Strategic Decision Support | **Urgency:** HIGH
@@ -17,7 +21,7 @@
 | **Total Addressable Market** | $15.2B (AI Memory Infrastructure) |
 | **Serviceable Market** | $2.1B (Memory Tools) |
 | **Obtainable (3-year)** | $85M (MIF Ecosystem) |
-| **Growth Rate** | 34% CAGR |
+| **Growth Rate** | 34% CAGR (TAM -- Total Addressable Market) |
 
 **Why Now:** EU AI Act compliance deadline (August 2027) will force 70% of enterprises to implement data provenance capabilities they currently lack. MIF is positioned to capture this demand.
 
@@ -73,21 +77,21 @@ Format                     |
 
 ### Immediate (Next 30 Days)
 
-1. **Add hash/lineage fields to spec** - Enables enterprise compliance use cases
-2. **Use GitHub raw URLs** - Establish canonical context URL
-3. **Begin mif-tools Python package** - Tooling must ship with spec
+1. **Add hash/lineage fields to spec** - Enables enterprise compliance use cases [Status: Not yet implemented]
+2. **Use GitHub raw URLs** - Establish canonical context URL [Status: Completed -- migrated to mif-spec.dev]
+3. **Begin mif-tools Python package** - Tooling must ship with spec [Status: Pending]
 
 ### Short-term (90 Days)
 
-4. **Ship Obsidian plugin** - Developer community entry point
-5. **Build Mem0/Letta converters** - Lowest complexity migrations first
-6. **Approach Zep partnership** - Technical alignment opportunity
+4. **Ship Obsidian plugin** - Developer community entry point [Status: Pending]
+5. **Build Mem0/Letta converters** - Lowest complexity migrations first [Status: Pending]
+6. **Approach Zep partnership** - Technical alignment opportunity [Status: Pending]
 
 ### Medium-term (6-12 Months)
 
-7. **Submit W3C Community Group** - Governance neutrality required for enterprise trust
-8. **Partner with data governance vendor** - Collibra/Atlan/Solidatus co-marketing
-9. **Launch certification program** - Compliance revenue stream
+7. **Submit W3C Community Group** - Governance neutrality required for enterprise trust [Status: Pending]
+8. **Partner with data governance vendor** - Collibra/Atlan/Solidatus co-marketing [Status: Pending]
+9. **Launch certification program** - Compliance revenue stream [Status: Pending]
 
 ---
 

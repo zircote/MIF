@@ -1,3 +1,7 @@
+---
+diataxis_type: reference
+---
+
 # MIF Examples
 
 This directory contains reference examples for each MIF conformance level.
@@ -11,7 +15,7 @@ This directory contains reference examples for each MIF conformance level.
 | **Level 3: Full** | `level-3-full.memory.md` | Complete with bi-temporal, decay, provenance |
 | **Level 3: Citations** | `level-3-citations.memory.md` | Full example with citations |
 
-Each example is provided in both formats:
+Each core conformance example is provided in both formats:
 - `.memory.md` - Human-readable Markdown with YAML frontmatter
 - `.memory.json` - Machine-processable JSON-LD
 
@@ -39,6 +43,8 @@ Adds organizational and relational features:
 - Relationships section with wiki-links
 - Entities section with typed references
 
+Note: The Level 2 example uses a descriptive slug for `id`; UUID v4 format is recommended but any unique string is valid.
+
 ## Level 3: Full
 
 Complete feature demonstration:
@@ -57,6 +63,25 @@ Demonstrates the citations feature (Level 3 optional):
 - Entity references in author field using `@[[Name|Type]]` syntax
 - Optional `## Citations` body section for detailed annotations
 - Relevance scores and access dates
+
+### Field Name Mapping
+
+Markdown frontmatter uses `snake_case`; JSON-LD uses `camelCase`:
+
+| Markdown (frontmatter) | JSON-LD / JSON Schema | Notes |
+|------------------------|-----------------------|-------|
+| `type` | `memoryType` | Memory type (semantic/episodic/procedural) |
+| `valid_from` | `validFrom` | Temporal validity start |
+| `recorded_at` | `recordedAt` | When the memory was recorded |
+| `source_type` | `sourceType` | Provenance source type |
+| `trust_level` | `trustLevel` | Trust level classification |
+| `access_count` | `accessCount` | Number of times accessed |
+| `last_accessed` | `lastAccessed` | Last access timestamp |
+| `last_reinforced` | `lastReinforced` | Last reinforcement timestamp |
+| `strength` | `currentStrength` | Current decay strength |
+| `half_life` | `halfLife` | Decay half-life (uses camelCase in both) |
+| Citations: `type` | `citationType` | Citation type classification |
+| Citations: `role` | `citationRole` | Citation role in memory |
 
 ## Note on Wiki-Links
 

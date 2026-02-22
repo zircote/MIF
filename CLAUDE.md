@@ -7,7 +7,7 @@ This project uses the mnemonic memory system for persistent knowledge.
 ### Project Context
 - **Organization**: zircote
 - **Project**: MIF
-- **User-level path**: ${MNEMONIC_ROOT}/zircote/
+- **User-level path**: `${MNEMONIC_ROOT}/zircote/` (default: `~/.local/share/mnemonic/zircote/`)
 - **Project-level path**: ./.claude/mnemonic/
 
 ### Project-Specific Recall
