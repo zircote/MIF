@@ -22,11 +22,11 @@ WARNINGS=0
 
 err() {
 	echo "  ERROR: $1"
-	((ERRORS++))
+	ERRORS=$((ERRORS + 1))
 }
 warn() {
 	echo "  WARN:  $1"
-	((WARNINGS++))
+	WARNINGS=$((WARNINGS + 1))
 }
 ok() { echo "  OK:    $1"; }
 
@@ -109,9 +109,7 @@ HAS_EXTENDS=$(yq -r '.ontology.extends | length' "$FILE" 2>/dev/null || echo 0)
 USED_TRAITS=$(yq -r '.entity_types[].traits[]?' "$FILE" 2>/dev/null || true)
 for trait in $USED_TRAITS; do
 	if ! echo "$DEFINED_TRAITS" | grep -qx "$trait"; then
-		if [[ "$HAS_EXTENDS" -gt 0 ]]; then
-			warn "Trait '$trait' not defined locally (may be inherited)"
-		else
+		if [[ "$HAS_EXTENDS" -eq 0 ]]; then
 			err "Trait '$trait' referenced but not defined"
 		fi
 	fi
@@ -127,10 +125,10 @@ PAT_COUNT=0
 PAT_ERR=0
 while IFS= read -r pat; do
 	[[ -z "$pat" ]] && continue
-	((PAT_COUNT++))
+	PAT_COUNT=$((PAT_COUNT + 1))
 	if ! python3 -c "import re; re.compile(r'''$pat''')" 2>/dev/null; then
 		err "Invalid regex in discovery pattern: $pat"
-		((PAT_ERR++))
+		PAT_ERR=$((PAT_ERR + 1))
 	fi
 done <<<"$PATTERNS"
 if [[ "$PAT_COUNT" -gt 0 ]]; then
@@ -165,7 +163,7 @@ except ImportError:
 		else
 			RC=$?
 			if [[ "$RC" -eq 1 ]]; then
-				((ERRORS++))
+				ERRORS=$((ERRORS + 1))
 				VALIDATED=true
 			fi
 		fi
