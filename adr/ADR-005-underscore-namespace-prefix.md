@@ -57,7 +57,7 @@ Domain-specific sub-namespaces remain unprefixed:
 ## Examples
 
 ```
-.claude/mnemonic/
+memories/
 ├── _episodic/
 │   ├── blockers/
 │   └── incidents/
@@ -69,6 +69,11 @@ Domain-specific sub-namespaces remain unprefixed:
     ├── knowledge/
     └── domain/
 ```
+
+## Related Decisions
+
+- [ADR-001](ADR-001-cognitive-triad-taxonomy.md) - Prefix convention derives from the three base memory types
+- [ADR-003](ADR-003-obsidian-compatibility.md) - Underscore prefix ensures filesystem compatibility with Obsidian vaults
 
 ## Notes
 

@@ -50,9 +50,9 @@ decay:
 Accessing or explicitly reinforcing a memory resets decay:
 ```yaml
 temporal:
-  lastAccessed: "2026-01-27T10:00:00Z"
-  accessCount: 5
-  lastReinforced: "2026-01-25T15:00:00Z"
+  last_accessed: "2026-01-27T10:00:00Z"
+  access_count: 5
+  last_reinforced: "2026-01-25T15:00:00Z"
 ```
 
 ## Consequences
@@ -73,9 +73,13 @@ temporal:
 ## Implementation Notes
 
 ### Decay Calculation
-```
+```math
 currentStrength = initialStrength * (0.5 ^ (elapsed / halfLife))
 ```
+
+> **Note:** The canonical half-life formula is `0.5^(t/halfLife)`. The specification's
+> `e^(-t/halfLife)` is the natural exponential decay form. For true half-life behavior
+> (strength = 0.5 when t = halfLife), use: `e^(-ln(2) * t / halfLife)` which equals `0.5^(t/halfLife)`.
 
 ### Garbage Collection Threshold
 Memories with `currentStrength < 0.1` are candidates for:
@@ -88,6 +92,10 @@ Memories with `currentStrength < 0.1` are candidates for:
 - Explicit reinforcement command
 - Citation by other memories
 - User interaction referencing memory
+
+## Related Decisions
+
+- [ADR-001](ADR-001-cognitive-triad-taxonomy.md) - Default decay half-lives differ by memory type (semantic, episodic, procedural)
 
 ## References
 

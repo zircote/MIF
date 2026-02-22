@@ -59,6 +59,11 @@ Key insight here. ^important-point
 - Obsidian-specific features may not translate to all MIF consumers
 - Some validation tools may flag intentional wiki-links as errors
 
+## Related Decisions
+
+- [ADR-002](ADR-002-dual-format-design.md) - Obsidian is one of the dual formats supported by MIF
+- [ADR-005](ADR-005-underscore-namespace-prefix.md) - Underscore prefix convention ensures filesystem compatibility with Obsidian vaults
+
 ## Notes
 
 Wiki-link validation warnings from tools like Marksman are **intentional** in example files - they demonstrate MIF relationship syntax, not broken references.

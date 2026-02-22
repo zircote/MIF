@@ -66,9 +66,14 @@ mif-base → shared-traits → domain-ontology
 - Progressive enhancement: Start simple, add complexity as needed
 
 ### Negative
-- Three-tier limit may feel arbitrary
-- Trait conflicts require resolution strategy (see trait conflict documentation)
+- Three-tier limit may feel arbitrary. Three tiers balance reusability (shared-traits) with domain specificity while keeping the inheritance chain shallow enough for straightforward debugging and override reasoning.
+- Trait conflicts require resolution strategy (see SPECIFICATION.md Section 6.3, Trait Conflict Resolution)
 - Requires understanding inheritance chain
+
+## Related Decisions
+
+- [ADR-006](ADR-006-entitydata-vs-entityreference.md) - EntityData ties into the trait system for structured entity representation
+- [ADR-001](ADR-001-cognitive-triad-taxonomy.md) - Three base memory types form the foundation that traits extend
 
 ## Implementation
 

@@ -44,7 +44,7 @@ Adopt the **cognitive triad** from cognitive psychology:
 ## Consequences
 
 ### Positive
-- Based on well-established cognitive science research (Tulving, 1972)
+- Based on Tulving (1972) for the semantic/episodic distinction and Cohen & Squire (1980) for procedural memory as a distinct category
 - Intuitive for both humans and AI systems
 - Universal applicability across all domains
 - Clear mental model for memory organization
@@ -55,7 +55,13 @@ Adopt the **cognitive triad** from cognitive psychology:
 - Requires understanding of cognitive psychology concepts
 - May feel limiting for domain-specific use cases (addressed via namespace extensions)
 
+## Related Decisions
+
+- [ADR-005](ADR-005-underscore-namespace-prefix.md) - Namespace prefix convention derives from the three base memory types
+- [ADR-008](ADR-008-decay-model-rationale.md) - Default decay half-lives vary by memory type
+
 ## References
 
 - Tulving, E. (1972). Episodic and semantic memory. Organization of Memory.
+- Cohen, N. J. & Squire, L. R. (1980). Preserved learning and retention of pattern-analyzing skill in amnesia.
 - Squire, L. R. (2004). Memory systems of the brain.

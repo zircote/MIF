@@ -42,7 +42,7 @@ For referencing entities mentioned in memory content:
 **Constraints:**
 - Core types: Person, Organization, Technology, Concept, File
 - Custom types via lowercase pattern: `grazing-plan`, `soil-profile`
-- Minimal schema, extensibility via `additionalProperties: false`
+- Minimal schema, closed schema: `additionalProperties: false`
 
 ### EntityData
 For structured ontology-typed data embedded in the memory:
@@ -81,6 +81,11 @@ For structured ontology-typed data embedded in the memory:
 - Two patterns to understand
 - Potential confusion about when to use each
 - Schema duplication for `name` field
+
+## Related Decisions
+
+- [ADR-004](ADR-004-three-tier-trait-inheritance.md) - Trait inheritance model governs EntityData schema composition
+- [ADR-002](ADR-002-dual-format-design.md) - Both entity patterns have dual format (Markdown/JSON-LD) representations
 
 ## Guidelines
 

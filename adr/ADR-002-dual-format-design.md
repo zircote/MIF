@@ -48,6 +48,8 @@ Memory content in readable Markdown...
   "@type": "Memory",
   "@id": "urn:mif:memory:uuid",
   "memoryType": "semantic",
+  "namespace": "_semantic/knowledge",
+  "created": "2026-01-27T10:00:00Z",
   "content": "Memory content..."
 }
 ```
@@ -67,6 +69,11 @@ Both formats are semantically equivalent and bidirectionally convertible.
 - Dual implementation complexity
 - Must maintain format parity
 - Conversion tooling required
+
+## Related Decisions
+
+- [ADR-003](ADR-003-obsidian-compatibility.md) - Markdown format is designed for Obsidian compatibility
+- [ADR-007](ADR-007-github-raw-urls-for-schema-ids.md) - JSON-LD format requires resolvable schema $id URIs
 
 ## Implementation Notes
 

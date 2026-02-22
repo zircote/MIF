@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Amended
 
 ## Date
 
@@ -64,6 +64,10 @@ https://mif-spec.dev/schema/context.jsonld
 - JSON-LD `@context` references same URL pattern
 - Schema `$ref` uses relative paths within repository
 
+## Related Decisions
+
+- [ADR-002](ADR-002-dual-format-design.md) - JSON-LD format requires resolvable schema $id URIs
+
 ## Migration History
 
 Originally used placeholder domains:
@@ -72,3 +76,9 @@ Originally used placeholder domains:
 - ~~`subcog.dev`~~ → Never existed (hallucinated)
 
 All replaced with GitHub raw URLs in v0.1.0.
+
+## Amendment (2026-02)
+
+The original decision to use GitHub raw URLs was superseded by migration to a custom domain `mif-spec.dev`. Schema `$id` values now use `https://mif-spec.dev/schema/...`. The JSON-LD namespace prefix (`ns/`) continues to use `https://raw.githubusercontent.com/zircote/MIF/main/ns/` as the canonical IRI.
+
+**Rationale for amendment:** A custom domain provides URL stability independent of repository location, enables proper HTTP content negotiation, and presents a more professional identity. The zero-infrastructure benefit is preserved via GitHub Pages hosting.
