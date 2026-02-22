@@ -1,3 +1,7 @@
+---
+diataxis_type: reference
+---
+
 # MIF API Reference
 
 This document describes the programmatic interfaces available in MIF.
@@ -365,7 +369,7 @@ if (!valid) {
 ```python
 import json
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 
 def create_mif_memory(
     content: str,
@@ -400,7 +404,7 @@ def create_mif_memory(
         "@id": f"urn:mif:{memory_id}",
         "memoryType": memory_type,
         "content": content,
-        "created": datetime.utcnow().isoformat() + "Z",
+        "created": datetime.now(timezone.utc).isoformat() + "Z",
         "namespace": namespace
     }
 
@@ -422,7 +426,7 @@ memory = create_mif_memory(
     memory_type="semantic",  # Base memory type
     namespace="_semantic/preferences",  # Specific categorization via namespace
     tags=["ui", "accessibility"],
-    ontology={"id": "mif-base", "version": "1.0.0"}
+    ontology={"id": "mif-base", "version": "0.1.0"}
 )
 
 print(json.dumps(memory, indent=2))
@@ -475,7 +479,7 @@ const memory = createMifMemory(
     memoryType: 'semantic',  // Base memory type
     namespace: '_semantic/preferences',  // Specific categorization via namespace
     tags: ['ui', 'accessibility'],
-    ontology: { id: 'mif-base', version: '1.0.0' }
+    ontology: { id: 'mif-base', version: '0.1.0' }
   }
 );
 

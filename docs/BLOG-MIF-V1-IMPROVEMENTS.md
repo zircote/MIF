@@ -1,3 +1,7 @@
+---
+diataxis_type: explanation
+---
+
 # MIF Schema Improvements (v0.1.0)
 
 *Technical overview of the Memory Interchange Format architecture updates*
@@ -20,7 +24,7 @@ Ontologies can now explicitly declare which parent ontologies they inherit from 
 ```yaml
 ontology:
   id: regenerative-agriculture
-  version: "1.0.0"
+  version: "0.1.0"
   # Traits were implicitly assumed, no formal inheritance chain
 ```
 
@@ -28,7 +32,7 @@ ontology:
 ```yaml
 ontology:
   id: regenerative-agriculture
-  version: "1.0.0"
+  version: "0.1.0"
   extends:
     - mif-base        # Core traits
     - shared-traits   # Cross-domain traits
@@ -212,12 +216,12 @@ All schema `$id` and `schema_url` references now use a consistent URI pattern: `
 
 **Before:**
 ```
-https://mif-spec.dev/schema/ontology.schema.json
+https://raw.githubusercontent.com/zircote/MIF/main/schema/ontology.schema.json
 ```
 
 **After:**
 ```
-https://mif-spec.dev/schema/ontology.schema.json
+https://mif-spec.dev/schema/ontology/ontology.schema.json
 ```
 
 ### Purpose
@@ -239,14 +243,14 @@ Created a centralized version constants file:
 {
   "specification": "0.1.0",
   "schemas": {
-    "mif": "1.0.0",
-    "citation": "1.0.0",
-    "ontology": "1.0.0",
-    "entity-reference": "1.0.0"
+    "mif": "0.1.0",
+    "citation": "0.1.0",
+    "ontology": "0.1.0",
+    "entity-reference": "0.1.0"
   },
   "ontologies": {
-    "mif-base": "1.0.0",
-    "shared-traits": "1.0.0"
+    "mif-base": "0.1.0",
+    "shared-traits": "0.1.0"
   }
 }
 ```

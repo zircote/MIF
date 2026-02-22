@@ -1,3 +1,7 @@
+---
+diataxis_type: reference
+---
+
 # MIF Schema Reference
 
 This document provides a complete reference for all MIF JSON Schemas.
@@ -72,7 +76,7 @@ Ontologies can define extended types that map to these base types via namespace 
 "ontology": {
   "@type": "OntologyReference",
   "id": "ontology-identifier",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "uri": "https://example.com/ontology.yaml"
 }
 ```
@@ -168,9 +172,20 @@ Ontologies can define extended types that map to these base types via namespace 
 | `ttl` | ISO 8601 duration | Time-to-live |
 | `decay.model` | enum | `none`, `linear`, `exponential`, `step` |
 | `decay.halfLife` | ISO 8601 duration | Decay half-life |
-| `decay.currentStrength` | 0.0-1.0 | Current strength |
+| `decay.currentStrength` | 0.0-1.0 | Current strength (alias: `strength` in Markdown frontmatter) |
+| `decay.lastReinforced` | date-time | When memory was last reinforced |
 | `accessCount` | integer | Times accessed |
 | `lastAccessed` | date-time | Last access time |
+| `reinforcementHistory` | array | Array of reinforcement events (see below) |
+
+**Reinforcement History Entry:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `date` | date-time | When reinforcement occurred |
+| `source` | string | What triggered the reinforcement |
+| `delta` | number | Strength change amount |
+| `newStrength` | number | Strength after reinforcement |
 
 **Recommended Half-Life Values:**
 
@@ -352,7 +367,7 @@ Custom roles use namespace prefix: `legal:precedent`, `research:replicates`
 ```yaml
 ontology:
   id: my-ontology
-  version: "1.0.0"
+  version: "0.1.0"
   description: "Description"
   schema_url: https://example.com/schema
 
@@ -504,6 +519,8 @@ Production schemas will be available at:
 
 - `https://mif-spec.dev/schema/mif.schema.json`
 - `https://mif-spec.dev/schema/citation.schema.json`
+- `https://mif-spec.dev/schema/ontology/ontology.schema.json`
+- `https://mif-spec.dev/schema/definitions/entity-reference.schema.json`
 - `https://mif-spec.dev/schema/context.jsonld` (JSON-LD context)
 
 During development, reference local files or GitHub raw URLs.

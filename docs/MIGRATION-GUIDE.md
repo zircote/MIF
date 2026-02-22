@@ -1,3 +1,7 @@
+---
+diataxis_type: how-to
+---
+
 # MIF Migration Guide
 
 This guide provides detailed instructions for migrating memories from other AI memory providers to MIF format.
@@ -75,7 +79,7 @@ Mem0 stores memories as JSON objects:
 
 ```python
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 import uuid
 
 def mem0_to_mif(mem0_data: dict) -> dict:
@@ -108,7 +112,7 @@ def mem0_to_mif(mem0_data: dict) -> dict:
         "content": mem0_data["memory"],
         "created": mem0_data.get("metadata", {}).get(
             "created_at",
-            datetime.utcnow().isoformat() + "Z"
+            datetime.now(timezone.utc).isoformat() + "Z"
         ),
         "namespace": namespace,
     }
@@ -249,7 +253,7 @@ def zep_to_mif(zep_data: dict) -> dict:
                 "@type": "Relationship",
                 "relationshipType": map_zep_relation(edge["relation"]),
                 "target": {
-                    "@id": f"urn:mif:entity:{edge['target'].replace(':', ':')}"
+                    "@id": f"urn:mif:entity:{edge['target'].replace(':', '-')}"
                 },
                 "metadata": {
                     "source": edge["source"],
@@ -320,7 +324,7 @@ Letta stores concatenated facts in a single block. Migration requires:
 
 ```python
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 
 def letta_to_mif(letta_data: dict) -> list:
     """Convert Letta agent memory to MIF memories with base memory types."""
@@ -344,7 +348,7 @@ def letta_to_mif(letta_data: dict) -> list:
                 "@id": f"urn:mif:letta-{block_name}-{i}",
                 "memoryType": memory_type,
                 "content": fact,
-                "created": datetime.utcnow().isoformat() + "Z",
+                "created": datetime.now(timezone.utc).isoformat() + "Z",
                 "namespace": namespace,
                 "provenance": {
                     "sourceType": "external_import",
@@ -441,7 +445,7 @@ Subcog format is closest to MIF (MIF was partially inspired by Subcog):
 ### Conversion Script
 
 ```python
-from datetime import datetime
+from datetime import datetime, timezone
 
 def subcog_to_mif(subcog_data: dict) -> dict:
     """Convert Subcog memory to MIF format with base memory types."""
@@ -470,7 +474,7 @@ def subcog_to_mif(subcog_data: dict) -> dict:
         "@id": f"urn:mif:{subcog_data['id']}",
         "memoryType": memory_type,
         "content": subcog_data["content"],
-        "created": subcog_data.get("created_at", datetime.utcnow().isoformat() + "Z"),
+        "created": subcog_data.get("created_at", datetime.now(timezone.utc).isoformat() + "Z"),
         "namespace": mif_namespace,
         "tags": subcog_data.get("tags", []),
     }
@@ -551,7 +555,7 @@ def text_to_mif(text_file: str) -> list:
             "memoryType": "semantic",  # Base memory type
             "namespace": "_semantic/preferences" if ":" in line else "_semantic/knowledge",
             "content": content,
-            "created": datetime.utcnow().isoformat() + "Z",
+            "created": datetime.now(timezone.utc).isoformat() + "Z",
             "provenance": {
                 "sourceType": "external_import",
                 "confidence": 0.7
@@ -596,7 +600,7 @@ LangMem uses a graph-based structure:
 ### Conversion Script
 
 ```python
-from datetime import datetime
+from datetime import datetime, timezone
 
 def langmem_to_mif(langmem_data: dict) -> list:
     """Convert LangMem export to MIF memories with base memory types."""
@@ -628,7 +632,7 @@ def langmem_to_mif(langmem_data: dict) -> list:
             "content": mem["text"],
             "created": mem.get("metadata", {}).get(
                 "timestamp",
-                datetime.utcnow().isoformat() + "Z"
+                datetime.now(timezone.utc).isoformat() + "Z"
             ),
         }
 
@@ -701,11 +705,11 @@ If validation fails for missing fields, ensure:
 
 ### Invalid Memory Types
 
-Map provider-specific types to MIF types:
-- `semantic` -> `fact`
-- `episodic` -> `episode`
-- `procedural` -> `pattern`
-- Unknown -> `memory`
+Map provider-specific types to MIF base types:
+- `fact` -> `semantic`
+- `episode` -> `episodic`
+- `pattern` -> `procedural`
+- Unknown -> `semantic`
 
 ### Relationship Mapping
 

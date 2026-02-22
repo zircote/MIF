@@ -1,3 +1,7 @@
+---
+diataxis_type: tutorial
+---
+
 # Getting Started with MIF
 
 This guide walks you through implementing the Memory Interchange Format (MIF) in your project.
@@ -64,7 +68,7 @@ type: semantic
 created: 2026-01-26T10:00:00Z
 ontology:
   id: regenerative-agriculture
-  version: "1.0.0"
+  version: "0.1.0"
 namespace: _semantic/livestock
 ---
 
@@ -175,6 +179,8 @@ citations:
 
 > **Decay Values:** The `halfLife: P30D` means memory strength halves every 30 days. Common values: P7D (short-term), P14D (medium-term), P30D (long-term). These are pragmatic defaults inspired by Ebbinghaus's forgetting curve research. See [SPECIFICATION.md Section 9.3](../SPECIFICATION.md#93-decay-rationale) for details.
 
+> **Naming Convention:** Markdown frontmatter uses `snake_case` field names (`valid_from`, `source_type`, `trust_level`). JSON-LD uses `camelCase` equivalents (`validFrom`, `sourceType`, `trustLevel`). Exception: `halfLife` uses camelCase in both formats. See the [Field Name Mapping](../examples/README.md#field-name-mapping) table for a complete reference.
+
 ## Directory Structure
 
 Organize your MIF vault using the three base types:
@@ -206,7 +212,7 @@ my-project/
 # ontology.yaml
 ontology:
   id: my-project
-  version: "1.0.0"
+  version: "0.1.0"
   description: "Custom ontology for my project"
 
 namespaces:
@@ -237,7 +243,7 @@ type: semantic
 created: 2026-01-26T10:00:00Z
 ontology:
   id: my-project
-  version: "1.0.0"
+  version: "0.1.0"
 namespace: _semantic/features
 ---
 
@@ -262,7 +268,7 @@ For machine processing, use JSON-LD:
   "ontology": {
     "@type": "OntologyReference",
     "id": "mif-base",
-    "version": "1.0.0"
+    "version": "0.1.0"
   },
   "namespace": "_semantic/preferences",
   "tags": ["ui", "accessibility"]
