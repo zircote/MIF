@@ -176,6 +176,31 @@ This specification is open source. Contributions welcome:
 - [Mnemonic](https://github.com/zircote/mnemonic) - Claude Code plugin using MIF ontologies
 - [Issue #82](https://github.com/zircote/subcog/issues/82) - Original proposal
 
+## Citing This Project
+
+If you use MIF in your research or projects, please cite it:
+
+```bibtex
+@software{allen_mif_2026,
+  author       = {Allen, Robert},
+  title        = {{Memory Interchange Format (MIF)}},
+  version      = {0.1.0},
+  date         = {2026-01-23},
+  url          = {https://mif-spec.dev},
+  license      = {MIT}
+}
+```
+
+You can also use GitHub's built-in **"Cite this repository"** button on the repository page to get an auto-generated citation in APA or BibTeX format.
+
+### Acknowledgments
+
+MIF builds on the following standards:
+
+> Manu Sporny, Dave Longley, Gregg Kellogg, Markus Lanthaler, Pierre-Antoine Champin, and Niklas Lindstrom. *JSON-LD 1.1: A JSON-based Serialization for Linked Data.* W3C Recommendation, 2020. https://www.w3.org/TR/json-ld11/
+
+> Luc Moreau and Paolo Missier. *PROV-DM: The PROV Data Model.* W3C Recommendation, 2013. https://www.w3.org/TR/prov-dm/
+
 ## License
 
 [MIT](./LICENSE)
