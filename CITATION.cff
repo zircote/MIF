@@ -1,0 +1,85 @@
+cff-version: 1.2.0
+message: "If you use this specification, please cite it using the metadata from this file."
+type: software
+title: "Memory Interchange Format (MIF)"
+abstract: >-
+  The Memory Interchange Format (MIF) is a proposed open standard for portable
+  AI memory representation. MIF defines a common data model with dual
+  representations: human-readable Markdown files and machine-processable JSON-LD
+  documents, enabling interoperability between AI memory providers.
+version: "0.1.0"
+date-released: "2026-01-23"
+license: MIT
+url: "https://mif-spec.dev"
+repository-code: "https://github.com/zircote/MIF"
+authors:
+  - family-names: Allen
+    given-names: Robert
+    email: zircote@gmail.com
+    orcid: "https://orcid.org/0009-0007-9691-004X"
+identifiers:
+  - type: url
+    value: "https://github.com/zircote/MIF"
+    description: "GitHub repository"
+keywords:
+  - ai-memory
+  - interoperability
+  - json-ld
+  - markdown
+  - open-standard
+  - w3c-prov
+  - semantic-web
+  - ontology
+  - specification
+  - obsidian
+preferred-citation:
+  type: software
+  title: "Memory Interchange Format (MIF)"
+  abstract: >-
+    The Memory Interchange Format (MIF) is a proposed open standard for portable
+    AI memory representation. MIF defines a common data model with dual
+    representations: human-readable Markdown files and machine-processable JSON-LD
+    documents, enabling interoperability between AI memory providers.
+  version: "0.1.0"
+  date-released: "2026-01-23"
+  license: MIT
+  url: "https://mif-spec.dev"
+  repository-code: "https://github.com/zircote/MIF"
+  authors:
+    - family-names: Allen
+      given-names: Robert
+      email: zircote@gmail.com
+      orcid: "https://orcid.org/0009-0007-9691-004X"
+references:
+  - type: software
+    title: "JSON-LD 1.1"
+    abstract: >-
+      A JSON-based serialization for Linked Data used by MIF for
+      machine-processable memory representation.
+    url: "https://www.w3.org/TR/json-ld11/"
+    authors:
+      - family-names: Sporny
+        given-names: Manu
+      - family-names: Longley
+        given-names: Dave
+      - family-names: Kellogg
+        given-names: Gregg
+      - family-names: Lanthaler
+        given-names: Markus
+      - family-names: Champin
+        given-names: Pierre-Antoine
+      - family-names: Lindstrom
+        given-names: Niklas
+    date-released: "2020-07-16"
+  - type: software
+    title: "PROV-DM: The PROV Data Model"
+    abstract: >-
+      W3C provenance data model used by MIF for tracking memory origin
+      and attribution.
+    url: "https://www.w3.org/TR/prov-dm/"
+    authors:
+      - family-names: Moreau
+        given-names: Luc
+      - family-names: Missier
+        given-names: Paolo
+    date-released: "2013-04-30"
