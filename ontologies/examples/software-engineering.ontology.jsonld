@@ -341,6 +341,7 @@
         "properties": {
           "severity": {
             "type": "string",
+            "description": "Incident severity level",
             "enum": [
               "critical",
               "high",

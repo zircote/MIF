@@ -114,10 +114,11 @@ entity_types:
 
 Rules (enforced by `scripts/validate-ontologies.py`):
 
-- A subtype's schema MUST remain compatible with each parent's (additive — it may add
-  fields, not remove or retype the parent's).
-- Every parent MUST resolve to a declared entity type, in the same ontology or one it
-  `extends`.
+- Every parent MUST resolve to a declared entity type — in this ontology, or in
+  one it `extends` (resolved across the full extends chain).
+- A subtype's `required` set MUST include every `required` field of each parent
+  (substitutability). A subtype SHOULD add, not retype, parent fields (retyping is
+  not machine-checked).
 - The `subtype_of` graph MUST be acyclic, and a type cannot be its own subtype.
 
 `subtype_of` is optional and additive; ontologies that omit it are unaffected. It
@@ -159,6 +160,7 @@ properties:
 ### Entity References in Memories
 
 **Markdown:**
+
 ```markdown
 ## Entities
 
@@ -168,6 +170,7 @@ properties:
 ```
 
 **JSON-LD:**
+
 ```json
 "entities": [
   {
