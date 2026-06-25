@@ -68,10 +68,12 @@ def _type_info(ontology: dict) -> dict[str, dict]:
             continue
         sch = et.get("schema")
         req = (sch.get("required") if isinstance(sch, dict) else None) or []
+        req = req if isinstance(req, list) else []
         sub = et.get("subtype_of") or []
         sub = sub if isinstance(sub, list) else [sub]
         info[name] = {
-            "required": set(req) if isinstance(req, list) else set(),
+            # string-only: hashable + fail-closed on malformed YAML (ajv reports the bad type).
+            "required": {r for r in req if isinstance(r, str)},
             # Only string parents: keeps `visible.get(p)` / `p in graph` hashable and
             # fail-closed when the YAML is malformed (the schema flags the bad type separately).
             "subtype_of": [s for s in sub if isinstance(s, str)],
