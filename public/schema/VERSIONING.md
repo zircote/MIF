@@ -50,7 +50,7 @@ hosts that can set it should serve `application/schema+json`.
 
 ## Cutting a new release
 
-1. Bump `VERSION.json` and tag the release (`vMAJOR.MINOR.PATCH`).
+1. Bump the repo-root `VERSION.json` and tag the release (`vMAJOR.MINOR.PATCH`).
 2. Snapshot that tag's schema set into `/schema/<version>/` (immutable; bytes
    taken from the tag, `$id` unchanged).
 3. Refresh `/schema/latest/` and the matching major alias (`/schema/vN/`); update
