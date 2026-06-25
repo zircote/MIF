@@ -5,6 +5,47 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+Work landed on `develop/v1.0.0` since the 1.0.0 release.
+
+### Added
+
+- **[Tooling]**: `scripts/okf_validate.py` gains a temporal-consistency check — a
+  `derived-from` / `supersedes` / `cites` target must not be `created` after the
+  concept that derives from it. Warns by default; `--strict-temporal` promotes it
+  to a failing check once a corpus is known clean. (#79)
+- **[Schema]**: first-class scalar `properties` field (string / number / boolean /
+  null) for literal-object knowledge-graph triples that have no concept `target`.
+  Additive and backward compatible. (#79)
+- **[Schema]**: additive versioned schema mirrors under `public/schema/` —
+  `1.0.0/` (immutable), `latest/`, major alias `v1/`, plus `index.json` (catalog)
+  and `VERSIONING.md`. Canonical `$id` values are unchanged (ADR-007). (#72)
+- **[Schema]**: immutable `0.1.0/` schema mirror and `v0/` alias snapshotted from
+  the v0.1.0 tag; `index.json` extended (`v0` → 0.1.0, `v1` → 1.0.0). (#73)
+- **[CI]**: `schema-check.yml` — meta-validates every schema set as JSON Schema
+  2020-12, parses all JSON-LD contexts, and verifies mirror alias consistency
+  (`latest` == canonical, `v1` == 1.0.0, `v0` == 0.1.0) as a required gate. (#75)
+- **[Brand]**: `mif-brand` applied to the spec site — chevron-M logos, two-accent
+  brand CSS, favicon. (#72)
+
+### Changed
+
+- **[Docs]**: ecosystem docs rehomed from the spec site to `doc-site`; the
+  Starlight spec site is trimmed to spec-only content (sidebar and index). (#72)
+- **[CI]**: `validate.yml` actions are SHA-pinned (org policy) and the workflow
+  runs on all pull requests (PR path filter removed) so it can serve as a required
+  gate. (#74)
+
+### Fixed
+
+- **[Tooling]**: `scripts/mif_convert.py` restores `compressedAt` and `memoryType`
+  to the round-trip passthrough; both were silently dropped on
+  `markdown → json-ld → markdown`, breaking the lossless invariant. A regression
+  test now enumerates every top-level schema field so a dropped field fails CI. (#79)
+- **[Tooling]**: the temporal check skips targets that resolve outside the bundle
+  (no out-of-bundle reads) and no longer crashes on a malformed-YAML target. (#79)
+
 ## [1.0.0] - 2026-06-18
 
 Major, breaking release. Repositions MIF as **MIF — Modeled Information Format**,
