@@ -136,6 +136,10 @@ def _temporal_findings(
         resolved = _resolve(target, md_path, bundle)
         if resolved is None or resolved.suffix != ".md" or not resolved.exists():
             continue
+        # Stay inside the bundle: a target that escapes (e.g. ``../other.md``)
+        # must not cause us to read an arbitrary file outside the bundle tree.
+        if not resolved.resolve().is_relative_to(bundle.resolve()):
+            continue
         if resolved.resolve() == md_path.resolve():
             continue
         try:

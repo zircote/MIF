@@ -7,13 +7,19 @@ Run: ``python -m pytest scripts/test_temporal_and_properties.py -q`` from the re
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 import jsonschema
 import pytest
 
-import mif_convert
-import okf_validate
+# ``mif_convert``/``okf_validate`` live in this scripts/ dir. pytest's default
+# (prepend) import mode already puts it on sys.path, but make it explicit so the
+# imports also work under importmode=importlib or direct execution.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import mif_convert  # noqa: E402
+import okf_validate  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 TEMPORAL = ROOT / "test" / "temporal"
@@ -118,6 +124,22 @@ def test_date_only_next_day_target_is_flagged(tmp_path):
         tmp_path, "derived-from", "2024-06-01", "2024-06-02T00:00:00Z"
     )
     assert len(findings) == 1
+
+
+def test_target_escaping_the_bundle_is_skipped(tmp_path):
+    # A target that resolves outside the bundle must NOT be read (no arbitrary
+    # file reads), so it produces no finding even with a future created.
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    (tmp_path / "outside.md").write_text(
+        "---\nid: o\ntype: semantic\ncreated: 2026-01-01T00:00:00Z\n---\nbody\n"
+    )
+    fm = {
+        "created": "2025-01-01T00:00:00Z",
+        "relationships": [{"type": "derived-from", "target": "../outside.md"}],
+    }
+    findings = okf_validate._temporal_findings(fm, bundle / "src.md", bundle, "src")
+    assert findings == []
 
 
 def test_naive_source_datetime_does_not_raise(tmp_path):
@@ -284,7 +306,9 @@ def test_every_schema_source_field_survives_round_trip():
     passthrough lists fails here instead of silently dropping."""
     schema = json.loads((ROOT / "schema" / "mif.schema.json").read_text())
     source_fields = set(schema["properties"]) - _PROJECTION_ONLY_KEYS
-    # memoryType maps to the same `type`/conceptType slot; one stands in for both.
+    # `type` is recovered from conceptType; every other source field (including
+    # memoryType, which is its own standalone passthrough key) must be present in
+    # FULL_FRONTMATTER and round-trip as itself.
     covered = set(FULL_FRONTMATTER)
     missing = source_fields - covered
     assert not missing, f"schema source field(s) not exercised by the chain: {missing}"
