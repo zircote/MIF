@@ -6,7 +6,7 @@ test/subtype_of/, supplying the `visible` type set (own ∪ extended-ancestor ty
 production corpus would resolve. Covers: a valid local subtype, a parent resolved from
 an ancestor, a parent that does NOT resolve even though the ontology `extends` something
 (the bug the global resolver fixes), a dangling parent, a cycle, a self-reference, and a
-schema-incompatible subtype (missing a parent's required field).
+substitutability-incompatible subtype (schema-valid, but missing a parent's required field).
 """
 import importlib.util
 import sys
@@ -36,7 +36,7 @@ CASES = [
     ("dangling parent rejected", "dangling.ontology.yaml", {}, False),
     ("cycle rejected", "cyclic.ontology.yaml", {}, False),
     ("self-reference rejected", "self.ontology.yaml", {}, False),
-    ("schema-incompatible subtype rejected", "incompatible.ontology.yaml", {}, False),
+    ("substitutability-incompatible subtype rejected", "incompatible.ontology.yaml", {}, False),
 ]
 
 

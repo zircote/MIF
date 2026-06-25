@@ -166,7 +166,11 @@ def check_subtype_of(ontology: dict, visible: dict[str, dict]) -> list[str]:
                     f"  - entity_type '{name}': subtype_of '{p}' but its required set is missing "
                     f"parent field(s) {sorted(missing)} (a subtype must require at least the parent's)"
                 )
-    errors.extend(_subtype_cycles(visible))
+    # Cycle detection over LOCAL types only: a cycle is attributed to the ontology that
+    # declares it, not re-reported by every descendant. (extends is one-way, so a cycle
+    # cannot span the ancestor boundary; an ancestor-internal cycle fails when the
+    # ancestor is itself validated.)
+    errors.extend(_subtype_cycles(local))
     return errors
 
 
