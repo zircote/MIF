@@ -9,6 +9,7 @@ import os
 import subprocess
 import sys
 import tempfile
+from graphlib import CycleError, TopologicalSorter
 from pathlib import Path
 
 import yaml
@@ -124,23 +125,18 @@ def visible_types(oid: str, corpus: dict[str, dict], _seen: set | None = None) -
 
 
 def _subtype_cycles(graph: dict[str, dict]) -> list[str]:
-    """Cycle detection over the subtype_of graph (Kahn-style settling — iterative, so a
-    deep chain cannot blow the recursion limit). Self-edges are handled by the caller."""
-    parents = {
-        n: [p for p in info.get("subtype_of", []) if p in graph and p != n]
-        for n, info in graph.items()
-    }
-    settled: set[str] = set()
-    changed = True
-    while changed:
-        changed = False
-        for n in graph.keys() - settled:
-            if all(p in settled for p in parents[n]):
-                settled.add(n)
-                changed = True
-    unsettled = graph.keys() - settled
-    if unsettled:
-        return [f"  - subtype_of cycle involving: {', '.join(sorted(unsettled))}"]
+    """Cycle detection over the subtype_of graph via graphlib.TopologicalSorter, which
+    reports the ACTUAL cycle nodes (not every type that merely depends on a cycle) and is
+    iterative (no recursion limit). Self-edges are handled by the caller."""
+    ts: TopologicalSorter = TopologicalSorter()
+    for n, info in graph.items():
+        preds = [p for p in info.get("subtype_of", []) if p in graph and p != n]
+        ts.add(n, *preds)
+    try:
+        ts.prepare()
+    except CycleError as e:
+        cycle = e.args[1] if len(e.args) > 1 else []
+        return [f"  - subtype_of cycle: {' -> '.join(str(c) for c in cycle)}"]
     return []
 
 
