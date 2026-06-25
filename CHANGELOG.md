@@ -75,6 +75,17 @@ See [MIGRATION.md](MIGRATION.md) and run
 
 ### Added
 
+- **[Schema]**: Entity-type subsumption — optional `subtype_of` field on entity types
+  - A type may declare `subtype_of: [parent, ...]`; a subtype is substitutable for any
+    of its supertypes wherever the supertype is admissible (e.g. a relationship endpoint
+    domain). Optional and additive — existing ontologies are unaffected.
+  - Projected to JSON-LD as `mif:subtypeOf` (`scripts/yaml2jsonld.py`,
+    `ontology.context.jsonld`).
+  - `scripts/validate-ontologies.py` enforces integrity: every parent resolves to a
+    declared type (locally or via `extends`), no self-reference, acyclic graph.
+    Covered by `scripts/test_subtype_of.py` (+ `test/subtype_of/` fixtures). Demonstrated
+    by `software-engineering` `security-incident` `subtype_of: [incident-report]`.
+
 - **[Schema]**: EntityData field for ontology-typed memories
   - New `entity` property with `name` (required), `entity_type`, and `entity_id` fields
   - Supports additional properties defined by ontology entity_type schemas

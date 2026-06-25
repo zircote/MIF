@@ -1,0 +1,9 @@
+# Valid: security-control is a declared subtype of a locally-declared control.
+ontology:
+  id: valid-subtype
+entity_types:
+  - name: control
+    base: semantic
+  - name: security-control
+    base: semantic
+    subtype_of: [control]
