@@ -46,11 +46,16 @@ def _ajv_validate(data: dict, schema_path: Path) -> list[str]:
 
 
 def _entity_types(ontology: dict) -> list[dict]:
-    """Normalize entity_types (list, or name-keyed dict) to a list of dicts."""
-    ets = ontology.get("entity_types", []) or []
+    """Normalize entity_types (list, or name-keyed dict) to a list of dicts. Tolerant of
+    schema-invalid input (non-dict ontology, scalar entity_types) — never raises."""
+    if not isinstance(ontology, dict):
+        return []
+    ets = ontology.get("entity_types")
     if isinstance(ets, dict):
-        return [{"name": k, **(v or {})} for k, v in ets.items()]
-    return [et for et in ets if isinstance(et, dict)]
+        return [{"name": k, **(v if isinstance(v, dict) else {})} for k, v in ets.items()]
+    if isinstance(ets, list):
+        return [et for et in ets if isinstance(et, dict)]
+    return []
 
 
 def _type_info(ontology: dict) -> dict[str, dict]:
@@ -81,7 +86,11 @@ def load_ontology_corpus(repo_root: Path) -> dict[str, dict]:
                 data = load_yaml(f)
             except Exception:
                 continue
-            ob = data.get("ontology") or {}
+            if not isinstance(data, dict):
+                continue
+            ob = data.get("ontology")
+            if not isinstance(ob, dict):
+                continue
             oid = ob.get("id")
             if not oid:
                 continue
@@ -164,7 +173,8 @@ def validate_ontology(ontology_path: Path, schema_path: Path, corpus: dict[str, 
     try:
         ontology = load_yaml(ontology_path)
         errors.extend(_ajv_validate(ontology, schema_path))
-        oid = (ontology.get("ontology") or {}).get("id")
+        ob = ontology.get("ontology") if isinstance(ontology, dict) else None
+        oid = ob.get("id") if isinstance(ob, dict) else None
         visible = visible_types(oid, corpus) if oid else _type_info(ontology)
         errors.extend(check_subtype_of(ontology, visible))
     except yaml.YAMLError as e:
