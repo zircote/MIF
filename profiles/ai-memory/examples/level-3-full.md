@@ -41,6 +41,7 @@ provenance:
   confidence: 0.98
   trustLevel: user_stated
   wasGeneratedBy:
+    '@id': urn:mif:activity:extraction:conv-2026-01-15-001
     '@type': prov:Activity
     wasAssociatedWith:
       '@id': urn:mif:agent:claude-3-opus

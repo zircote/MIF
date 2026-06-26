@@ -733,6 +733,7 @@ Implementations MAY apply compression when memories meet these criteria:
     "@type": "prov:Entity",
     "sourceType": "user_explicit",
     "wasGeneratedBy": {
+      "@id": "urn:mif:activity:extraction:mem-001",
       "@type": "prov:Activity",
       "wasAssociatedWith": {
         "@id": "urn:mif:agent:claude-3-opus",
@@ -1619,6 +1620,7 @@ provenance:
   confidence: 0.95
   trustLevel: user_stated
   wasGeneratedBy:                           # prov:wasGeneratedBy
+    '@id': urn:mif:activity:extraction:mem-001
     '@type': prov:Activity
     wasAssociatedWith:                      # prov:wasAssociatedWith
       '@id': urn:mif:agent:claude-3-opus
@@ -2095,11 +2097,11 @@ temporal:
   last_accessed: ISO-8601-datetime
 
 provenance:
-  source_type: user_explicit|user_implicit|agent_inferred|external_import|system_generated
-  source_ref: uri
+  sourceType: user_explicit|user_implicit|agent_inferred|external_import|system_generated
+  sourceRef: uri
   agent: string
   confidence: 0.0-1.0
-  trust_level: verified|user_stated|high_confidence|moderate_confidence|low_confidence|uncertain
+  trustLevel: verified|user_stated|high_confidence|moderate_confidence|low_confidence|uncertain
   # Optional W3C-PROV-aligned layer (see §12.3): wasGeneratedBy, wasAttributedTo, wasDerivedFrom
 
 embedding:
