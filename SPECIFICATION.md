@@ -335,8 +335,8 @@ namespace: semantic/knowledge
 ---
 ```
 
-An **Event** is an `episodic` memory — something that happened, bounded by
-`temporal` validity (see 9):
+An **Event** is an `episodic` memory — something that happened. Events MAY
+carry `temporal` validity to bound when they hold (see 9):
 
 ```yaml
 ---
@@ -348,10 +348,12 @@ temporal:
 ---
 ```
 
-Finer distinctions are added through the namespace (e.g. `episodic/incidents`)
-or a named ontology-extended type (e.g. an `incident` whose `base` is
-`episodic`), not through a new field. Implementations SHOULD express domain
-categories through `type` + `namespace` + ontology-extended types rather than
+Finer distinctions are added through the namespace (e.g. `episodic/incidents`),
+whose path MAY map to an ontology-extended type defined by a referenced ontology
+(e.g. an `incident` whose `base` is `episodic`) — not through a new unit-level
+field. Implementations SHOULD express domain categories through `type` +
+`namespace` (the namespace path mapping to an ontology-extended type where the
+referenced ontology defines one) rather than
 introducing a separate flat `category` (or `memoryCategory`) field: such a field
 would duplicate the `type` taxonomy, fork it across implementations, and break
 the interoperability the base types provide.
