@@ -4,7 +4,7 @@ diataxis_type: reference
 
 # MIF Ontologies
 
-This directory contains ontology definitions for the Memory Interchange Format.
+This directory contains ontology definitions for the Modeled Information Format.
 
 ## Base Ontology
 
