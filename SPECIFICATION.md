@@ -51,7 +51,7 @@ question OKF leaves open.
 | No concept-type taxonomy | `semantic` / `episodic` / `procedural` base types |
 | Untyped markdown-link edges | Typed relationships (overlay on OKF links) |
 | No merge / contradiction semantics | `Supersedes`, `ConflictsWith` |
-| No trust tiers | Provenance `source_type` + `trust_level` |
+| No trust tiers | Provenance `sourceType` + `trustLevel` |
 | Stale-vs-live left to process | Validity windows + TTL/freshness |
 | No provenance | Lightweight provenance core + optional W3C-PROV-aligned layer |
 | Markdown only | First-class JSON-LD projection |

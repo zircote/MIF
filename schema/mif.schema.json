@@ -434,6 +434,10 @@
         { "type": "string" },
         {
           "type": "object",
+          "anyOf": [
+            { "required": ["@id"] },
+            { "required": ["id"] }
+          ],
           "additionalProperties": true
         }
       ]
