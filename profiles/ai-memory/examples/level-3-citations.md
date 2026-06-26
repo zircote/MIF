@@ -4,7 +4,7 @@ type: semantic
 created: '2026-01-20T10:00:00Z'
 modified: '2026-01-22T15:30:00Z'
 namespace: _semantic/decisions
-title: Adopt MIF for AI Memory Interchange
+title: Adopt MIF for AI Memory Portability
 tags:
 - architecture
 - memory-systems
@@ -46,12 +46,12 @@ embedding:
   normalized: true
   '@type': EmbeddingReference
   modelVersion: 2024-01
-  sourceText: Decision to adopt MIF Memory Interchange Format for portable AI memory
-    representation
+  sourceText: Decision to adopt the Modeled Information Format (MIF) for portable AI
+    memory representation
 citations:
 - '@type': Citation
   citationType: specification
-  title: Memory Interchange Format (MIF) Specification
+  title: Modeled Information Format (MIF) Specification
   url: https://github.com/zircote/subcog/blob/main/SPECIFICATION.md
   citationRole: source
   author: '@[[Robert Allen|Person]]'
@@ -97,7 +97,7 @@ citations:
 documents:
 - '@type': DocumentReference
   documentType: markdown
-  title: Memory Interchange Format (MIF) Specification
+  title: Modeled Information Format (MIF) Specification
   url: https://github.com/zircote/subcog/blob/main/SPECIFICATION.md
   contentType: text/markdown
   byteLength: 48213
@@ -112,7 +112,7 @@ extensions:
     hash: sha256:7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a
 ---
 
-# Adopt MIF for AI Memory Interchange
+# Adopt MIF for AI Memory Portability
 
 ## Context
 
@@ -120,7 +120,7 @@ Our AI systems currently use proprietary memory formats that are incompatible ac
 
 ## Decision
 
-We will adopt the **Memory Interchange Format (MIF)** as our standard for AI memory representation and interchange. ^decision
+We will adopt the **Modeled Information Format (MIF)** as our standard for AI memory representation and portability. ^decision
 
 ### Key Factors
 
@@ -169,7 +169,7 @@ We will adopt the **Memory Interchange Format (MIF)** as our standard for AI mem
 
 ## Citations
 
-- [Memory Interchange Format (MIF) Specification](https://github.com/zircote/subcog/blob/main/SPECIFICATION.md) by @[[Robert Allen|Person]] (2026)
+- [Modeled Information Format (MIF) Specification](https://github.com/zircote/subcog/blob/main/SPECIFICATION.md) by @[[Robert Allen|Person]] (2026)
   - **Type**: specification
   - **Role**: source
   - **Relevance**: 1.0
