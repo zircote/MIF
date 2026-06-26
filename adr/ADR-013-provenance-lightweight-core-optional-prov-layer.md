@@ -222,3 +222,37 @@ schema-validation CI gates.
 - **Date:** 2026-06-26
 - **Source:** `schema/mif.schema.json` (`$defs.Provenance`, `$defs.ProvNode`); `schema/context.jsonld`; `SPECIFICATION.md §12`; `profiles/ai-memory/examples/level-3-full.md`.
 - **Related ADRs:** ADR-009, ADR-011, ADR-002
+
+## Audit
+
+### 2026-06-26
+
+**Status:** Compliant
+
+**Findings:**
+
+| Finding | Files | Lines | Assessment |
+|---------|-------|-------|------------|
+| Lightweight core (`sourceType` enum, `confidence` 0-1, `trustLevel` enum) preserved unchanged | `schema/mif.schema.json` | L375-L399 | compliant |
+| OPTIONAL core extensions `sourceRef` / `agent` / `agentVersion` (all `type: string`, no `required`) | `schema/mif.schema.json` | L401-L411 | compliant |
+| OPTIONAL PROV fields `wasGeneratedBy` / `wasAttributedTo` (`$ref` ProvNode) and `wasDerivedFrom` (oneOf ProvNode \| array of ProvNode) | `schema/mif.schema.json` | L413-L427 | compliant |
+| `$defs.Provenance` keeps `additionalProperties: true`; `$defs.ProvNode` is permissive (string \| open object) | `schema/mif.schema.json` | L429-L440 | compliant |
+| JSON-LD context maps `wasGeneratedBy` / `wasAttributedTo` / `wasDerivedFrom` / `wasAssociatedWith` to the `prov:` vocabulary (`prov` prefix defined `http://www.w3.org/ns/prov#`) | `schema/context.jsonld` | L6, L205-L219 | compliant |
+| Spec §12 describes the two-layer model and removes the blanket "MIF uses W3C PROV vocabulary" claim; §12.3 example reconciled to the real camelCase fields | `SPECIFICATION.md` | L1559-L1632 | compliant |
+| README badge reads "PROV-aligned"; OKF table + feature row read "lightweight core + optional W3C-PROV-aligned layer" | `README.md` | L11, L54, L115 | compliant |
+| `level-3-full` example exercises the new PROV fields; emitted JSON-LD projection carries them and passes strict schema validation; round-trip is byte-identical | `profiles/ai-memory/examples/level-3-full.md` | L35-L52 | compliant |
+| Converter unchanged — PROV fields nest under the passed-through `provenance` key (`git diff` of `scripts/mif_convert.py` is empty) | `scripts/mif_convert.py` | — | compliant |
+| Pre-existing snake_case provenance/temporal prose in the §18.3 quick-reference example and Appendix A (`source_type`, `trust_level`, `valid_from`, …) is a repo-wide doc convention gap predating this decision; not provenance-specific and out of this ADR's scope | `SPECIFICATION.md` | L54, L371-L376, L2098-L2102 | partial |
+
+**Summary:** The lightweight core is preserved, the OPTIONAL PROV-aligned fields
+and `ProvNode` are well-formed and additive, the JSON-LD context projects the
+plain keys to `prov:`, and the documentation no longer over-claims full PROV
+conformance. The round-trip, OKF-conformance, ajv compile, and strict
+projection-validation gates pass over all 13 bundles, with `level-3-full`
+exercising every new field. The one `partial` finding is pre-existing
+snake_case example prose that spans temporal as well as provenance and predates
+this ADR.
+
+**Action Required:** None for this decision. A separate cleanup could reconcile
+the remaining snake_case example prose (§18.3, Appendix A) to the schema's
+canonical camelCase.
