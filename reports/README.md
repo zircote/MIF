@@ -10,7 +10,6 @@ This directory contains market research reports generated using the sigint resea
 
 | Report | Topic | Status | Date |
 |--------|-------|--------|------|
-| [mif-memory-interchange-format](./mif-memory-interchange-format/) | Memory Interchange Format (MIF) - Open Standard for AI Memory Interoperability | Complete | 2026-01-23 |
 
 ## Report Structure
 

@@ -37,7 +37,7 @@ preferred-citation:
   type: software
   title: "MIF: Modeled Information Format"
   abstract: >-
-    The Memory Interchange Format (MIF) is a proposed open standard for portable
+    The Modeled Information Format (MIF) is a proposed open standard for portable
     AI memory representation. MIF defines a common data model with dual
     representations: human-readable Markdown files and machine-processable JSON-LD
     documents, enabling interoperability between AI memory providers.
