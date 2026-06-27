@@ -1761,8 +1761,26 @@ https://mif-spec.dev/schema/context.jsonld
     "sourceType": "mif:sourceType",
     "sourceRef": "mif:sourceRef",
     "agent": "mif:agent",
+    "agentVersion": "mif:agentVersion",
     "confidence": "mif:confidence",
     "trustLevel": "mif:trustLevel",
+
+    "wasGeneratedBy": {
+      "@id": "prov:wasGeneratedBy",
+      "@type": "@id"
+    },
+    "wasAttributedTo": {
+      "@id": "prov:wasAttributedTo",
+      "@type": "@id"
+    },
+    "wasDerivedFrom": {
+      "@id": "prov:wasDerivedFrom",
+      "@type": "@id"
+    },
+    "wasAssociatedWith": {
+      "@id": "prov:wasAssociatedWith",
+      "@type": "@id"
+    },
 
     "model": "mif:model",
     "modelVersion": "mif:modelVersion",
