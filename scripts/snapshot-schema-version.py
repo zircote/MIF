@@ -85,9 +85,20 @@ def _update_index(version: str, check: bool, problems: list[str]) -> None:
         for key, want in desired.items():
             if index.get(key) != want:
                 problems.append(f"index.json {key} is {index.get(key)!r}, expected {want!r}")
+        base = index["canonicalBase"].rstrip("/")
         for schema in index.get("schemas", []):
-            if version not in schema.get("versioned", {}):
-                problems.append(f"index.json schema {schema['id']!r} missing version {version}")
+            rel = schema["canonical"][len(base) + 1 :]
+            actual = schema.get("versioned", {}).get(version)
+            if (SCHEMA_ROOT / version / rel).is_file():
+                expected = f"{base}/{version}/{rel}"
+                if actual != expected:
+                    problems.append(
+                        f"index.json {schema['id']}: versioned[{version}] is {actual!r}, expected {expected!r}"
+                    )
+            elif actual is not None:
+                problems.append(
+                    f"index.json {schema['id']}: versioned[{version}] present but public/schema/{version}/{rel} is absent"
+                )
         return
 
     index.update(desired)
