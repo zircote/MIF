@@ -291,7 +291,7 @@ npx ajv validate -s schema/mif.schema.json -r "schema/definitions/*.schema.json"
 npx ajv validate -s schema/citation.schema.json -r "schema/definitions/*.schema.json" \
   -d citation.json --spec=draft2020 -c ajv-formats
 
-# Validate an ontology (ajv-cli does not read YAML; use the project validator)
+# Validate all ontology files (ajv-cli does not read YAML; use the project validator)
 python scripts/validate-ontologies.py
 ```
 
