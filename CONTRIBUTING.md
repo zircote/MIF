@@ -34,11 +34,13 @@ Help grow the ecosystem by building:
 Use the provided schemas to validate your implementations:
 
 ```bash
-# Validate MIF documents
-npx ajv validate -s schema/mif.schema.json -d your-memory.json
+# Validate the JSON-LD projection of a MIF document
+npx ajv validate -s schema/mif.schema.json -r "schema/definitions/*.schema.json" \
+  -d your-memory.json --spec=draft2020 -c ajv-formats
 
 # Validate citations
-npx ajv validate -s schema/citation.schema.json -d citation.json
+npx ajv validate -s schema/citation.schema.json -r "schema/definitions/*.schema.json" \
+  -d citation.json --spec=draft2020 -c ajv-formats
 ```
 
 ## Specification Change Guidelines

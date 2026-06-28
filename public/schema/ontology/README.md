@@ -27,8 +27,9 @@ JSON-LD context for semantic web compatibility. Maps ontology concepts to:
 ### Validating an ontology file
 
 ```bash
-# Using ajv-cli
-npx ajv validate -s ontology.schema.json -d ../../ontologies/mif-base.ontology.yaml
+# Using ajv-cli (ajv reads JSON, so convert the YAML first)
+yq -o=json '.' ../../ontologies/mif-base.ontology.yaml > /tmp/ontology.json
+npx ajv validate -s ontology.schema.json -d /tmp/ontology.json --spec=draft2020 -c ajv-formats
 
 # Using Python jsonschema
 python -c "

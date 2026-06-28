@@ -206,8 +206,9 @@ python scripts/okf_validate.py
 # Lossless markdown -> json-ld -> markdown round trip
 python scripts/mif_convert.py roundtrip examples profiles/ai-memory/examples
 
-# JSON Schema validation of the JSON-LD projection
-npx ajv validate -s schema/mif.schema.json -d your-concept.jsonld
+# JSON Schema validation of the JSON-LD projection (ajv-cli reads .json)
+npx ajv validate -s schema/mif.schema.json -r "schema/definitions/*.schema.json" \
+  -d your-concept.json --spec=draft2020 -c ajv-formats
 ```
 
 See [docs/okf-conformance.md](./docs/okf-conformance.md) for the pinned OKF v0.1

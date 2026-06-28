@@ -280,17 +280,19 @@ For machine processing, use JSON-LD:
 Validate MIF documents using JSON Schema:
 
 ```bash
-# Install ajv-cli
-npm install -g ajv-cli
+# Install ajv-cli + ajv-formats
+npm install -g ajv-cli ajv-formats
 
-# Validate a memory
-npx ajv validate -s schema/mif.schema.json -d my-memory.json
+# Validate the JSON-LD projection of a memory (ajv-cli reads .json)
+npx ajv validate -s schema/mif.schema.json -r "schema/definitions/*.schema.json" \
+  -d my-memory.json --spec=draft2020 -c ajv-formats
 
 # Validate a citation
-npx ajv validate -s schema/citation.schema.json -d citation.json
+npx ajv validate -s schema/citation.schema.json -r "schema/definitions/*.schema.json" \
+  -d citation.json --spec=draft2020 -c ajv-formats
 
-# Validate an ontology
-npx ajv validate -s schema/ontology/ontology.schema.json -d ontology.yaml
+# Validate an ontology (ajv-cli does not read YAML; use the project validator)
+python scripts/validate-ontologies.py
 ```
 
 ## Converting Ontologies
