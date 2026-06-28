@@ -45,7 +45,7 @@ jobs:
                      "$d"/ontology/*.schema.json; do
               [ -f "$r" ] && refs+=( -r "$r" )
             done
-            if npx ajv compile -s "$d/mif.schema.json" "${refs[@]}" \
+            if npx --no-install ajv compile -s "$d/mif.schema.json" "${refs[@]}" \
                  --spec=draft2020 -c ajv-formats --strict=false; then
               echo "ok: $d"
             else
