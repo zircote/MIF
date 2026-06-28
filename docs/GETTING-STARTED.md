@@ -283,7 +283,8 @@ Validate MIF documents using JSON Schema:
 # Install ajv-cli + ajv-formats
 npm install -g ajv-cli ajv-formats
 
-# Validate the JSON-LD projection of a memory (ajv-cli reads .json)
+# Validate the JSON-LD projection of a memory.
+# The converter emits .jsonld; ajv-cli reads .json, so validate a .json copy.
 npx ajv validate -s schema/mif.schema.json -r "schema/definitions/*.schema.json" \
   -d my-memory.json --spec=draft2020 -c ajv-formats
 

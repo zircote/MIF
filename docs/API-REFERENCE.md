@@ -357,8 +357,9 @@ for (const file of fs.readdirSync(defsDir)) {
 const validateMif = ajv.compile(JSON.parse(fs.readFileSync('schema/mif.schema.json')));
 const validateCitation = ajv.compile(JSON.parse(fs.readFileSync('schema/citation.schema.json')));
 
-// Validate a derived JSON-LD projection (produced by scripts/mif_convert.py emit-jsonld)
-const document = JSON.parse(fs.readFileSync('memory.json'));
+// Validate a derived JSON-LD projection (produced by scripts/mif_convert.py emit-jsonld).
+// Node reads .jsonld directly (unlike ajv-cli, which needs a .json file).
+const document = JSON.parse(fs.readFileSync('memory.jsonld'));
 if (!validateMif(document)) {
   console.log('MIF validation errors:', validateMif.errors);
 }
