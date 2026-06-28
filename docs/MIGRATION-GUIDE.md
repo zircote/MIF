@@ -683,9 +683,10 @@ def map_langmem_relation(relation: str) -> str:
 After migrating, validate your MIF documents:
 
 ```bash
-# Validate all migrated memories
+# Validate all migrated memories (requires: npm install -g ajv-cli ajv-formats)
 for f in memories/*.json; do
-  npx ajv validate -s schema/mif.schema.json -d "$f" || echo "FAILED: $f"
+  npx ajv validate -s schema/mif.schema.json -r "schema/definitions/*.schema.json" \
+    -d "$f" --spec=draft2020 -c ajv-formats || echo "FAILED: $f"
 done
 ```
 

@@ -28,6 +28,7 @@ JSON-LD context for semantic web compatibility. Maps ontology concepts to:
 
 ```bash
 # Using ajv-cli (ajv reads JSON, so convert the YAML first)
+# Requires: npm install -g ajv-cli ajv-formats
 yq -o=json '.' ../../../ontologies/mif-base.ontology.yaml > /tmp/ontology.json
 npx ajv validate -s ontology.schema.json -d /tmp/ontology.json --spec=draft2020 -c ajv-formats
 

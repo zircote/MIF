@@ -479,16 +479,19 @@ discovery:
 
 ```bash
 # Install
-npm install -g ajv-cli
+npm install -g ajv-cli ajv-formats
 
-# Validate MIF document
-npx ajv validate -s schema/mif.schema.json -d memory.json
+# Validate MIF document (ajv-cli reads .json)
+npx ajv validate -s schema/mif.schema.json -r "schema/definitions/*.schema.json" \
+  -d memory.json --spec=draft2020 -c ajv-formats
 
 # Validate with verbose output
-npx ajv validate -s schema/mif.schema.json -d memory.json --verbose
+npx ajv validate -s schema/mif.schema.json -r "schema/definitions/*.schema.json" \
+  -d memory.json --spec=draft2020 -c ajv-formats --verbose
 
 # Validate multiple files
-npx ajv validate -s schema/mif.schema.json -d "memories/*.json"
+npx ajv validate -s schema/mif.schema.json -r "schema/definitions/*.schema.json" \
+  -d "memories/*.json" --spec=draft2020 -c ajv-formats
 ```
 
 ### Using Python
