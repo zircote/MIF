@@ -19,12 +19,13 @@ The MIF vocabulary defines terms for portable AI memory representation.
 
 | Term | IRI | Description |
 |------|-----|-------------|
-| `Memory` | `mif:Memory` | A memory document |
+| `Concept` | `mif:Concept` | The concept document type; every concept declares `@type Concept` |
+| `Memory` | `mif:Memory` | Deprecated alias of `Concept` (v0.1 name) |
 | `Entity` | `mif:Entity` | A named entity |
-| `Relationship` | `mif:Relationship` | A typed relationship between memories or entities |
+| `Relationship` | `mif:Relationship` | A typed relationship between concepts or entities |
 | `TemporalMetadata` | `mif:TemporalMetadata` | Temporal validity and decay metadata |
 | `EmbeddingReference` | `mif:EmbeddingReference` | Reference to a vector embedding |
-| `EntityReference` | `mif:EntityReference` | A reference to an entity within a memory |
+| `EntityReference` | `mif:EntityReference` | A reference to an entity within a concept |
 | `OntologyReference` | `mif:OntologyReference` | A reference to an ontology definition |
 | `EntityData` | `mif:EntityData` | Structured entity data |
 | `Vector` | `mif:Vector` | An embedding vector |
@@ -40,7 +41,7 @@ The MIF vocabulary defines terms for portable AI memory representation.
 | `Concept` | `mif:Concept` | An abstract concept or idea |
 | `File` | `mif:File` | A file or document |
 
-### Memory Type Terms
+### Concept Type Terms
 
 | Term | IRI | Description |
 |------|-----|-------------|
@@ -52,8 +53,9 @@ The MIF vocabulary defines terms for portable AI memory representation.
 
 | Property | IRI | XSD Type | Description |
 |----------|-----|----------|-------------|
-| `content` | `mif:content` | `xsd:string` | The textual content of a memory |
-| `memoryType` | `mif:memoryType` | `@vocab` | The base memory type classification |
+| `content` | `mif:content` | `xsd:string` | The textual content of a concept |
+| `conceptType` | `mif:conceptType` | `@vocab` | The base concept type classification |
+| `memoryType` | `mif:memoryType` | `@vocab` | Deprecated alias of `conceptType` |
 | `title` | `dc:title` | -- | Human-readable title |
 | `namespace` | `mif:namespace` | -- | Hierarchical scope for categorization |
 | `tags` | `mif:tags` | `@set` | Classification tags |
@@ -62,7 +64,7 @@ The MIF vocabulary defines terms for portable AI memory representation.
 | `created` | `dc:created` | `xsd:dateTime` | Creation timestamp |
 | `modified` | `dc:modified` | `xsd:dateTime` | Last modification timestamp |
 | `name` | `schema:name` | -- | Display name (from Schema.org) |
-| `role` | `mif:role` | -- | Role in memory context |
+| `role` | `mif:role` | -- | Role in the concept context |
 | `version` | `mif:version` | -- | Version string |
 | `uri` | `mif:uri` | `@id` | URI reference |
 | `url` | `schema:url` | `@id` | URL (from Schema.org) |
@@ -77,13 +79,13 @@ The MIF vocabulary defines terms for portable AI memory representation.
 |------|-----|-------------|
 | `RelatesTo` | `mif:RelatesTo` | General relationship |
 | `DerivedFrom` | `mif:DerivedFrom` | Created based on a source |
-| `Supersedes` | `mif:Supersedes` | Replaces an older memory |
-| `ConflictsWith` | `mif:ConflictsWith` | Contradicts another memory |
+| `Supersedes` | `mif:Supersedes` | Replaces an older concept |
+| `ConflictsWith` | `mif:ConflictsWith` | Contradicts another concept |
 | `PartOf` | `mif:PartOf` | Component of a larger whole |
 | `Implements` | `mif:Implements` | Realizes a concept or pattern |
-| `Uses` | `mif:Uses` | Utilizes a technology or tool |
+| `Uses` | `mif:Uses` | Uses a technology or tool |
 | `Created` | `mif:Created` | Authored by an entity |
-| `MentionedIn` | `mif:MentionedIn` | Referenced in a memory |
+| `MentionedIn` | `mif:MentionedIn` | Referenced in a concept |
 
 ### Relationship Properties
 
@@ -98,6 +100,7 @@ The MIF vocabulary defines terms for portable AI memory representation.
 | `entity_type` | `mif:entity_type` | -- | Alias for entityType |
 | `entity_id` | `mif:entity_id` | -- | Entity identifier |
 | `relationships` | `mif:relationships` | `@set` | Relationship references |
+| `metadata` | `mif:metadata` | `@json` | Arbitrary relationship metadata, carried as a JSON literal |
 
 ### Citation Properties
 
@@ -105,18 +108,32 @@ The MIF vocabulary defines terms for portable AI memory representation.
 |----------|-----|----------|-------------|
 | `citations` | `mif:citations` | `@set` | Collection of citations |
 | `citationType` | `mif:citationType` | `@vocab` | Category of the citation source |
-| `citationRole` | `mif:citationRole` | `@vocab` | How the citation relates to the memory |
+| `citationRole` | `mif:citationRole` | `@vocab` | How the citation relates to the concept |
 | `accessed` | `mif:accessed` | `xsd:dateTime` | When the citation was last accessed |
 | `relevance` | `mif:relevance` | `xsd:decimal` | Relevance score (0.0-1.0) |
+
+### Document Reference Terms
+
+| Term | IRI | XSD Type | Description |
+|------|-----|----------|-------------|
+| `DocumentReference` | `mif:DocumentReference` | -- | A reference to an external document, by URI and hash, rather than embedded content |
+| `documents` | `mif:documents` | `@set` | Collection of external document references |
+| `documentType` | `mif:documentType` | `@vocab` | Category of the referenced document |
+| `contentType` | `mif:contentType` | -- | MIME type of the referenced document |
+| `byteLength` | `mif:byteLength` | `xsd:integer` | Size of the referenced document in bytes |
+| `retrievedAt` | `mif:retrievedAt` | `xsd:dateTime` | When the referenced document was retrieved |
+| `hash` | `mif:hash` | -- | Content hash of a referenced document |
+| `algorithm` | `mif:algorithm` | -- | Hash algorithm |
+| `value` | `mif:value` | -- | Hash value |
 
 ### Provenance Terms
 
 | Term | IRI | Description |
 |------|-----|-------------|
 | `provenance` | `mif:provenance` | Provenance metadata container |
-| `sourceType` | `mif:sourceType` | How the memory was created |
+| `sourceType` | `mif:sourceType` | How the concept was created |
 | `sourceRef` | `mif:sourceRef` | Reference to the original source |
-| `agent` | `mif:agent` | The agent that created the memory |
+| `agent` | `mif:agent` | The agent that created the concept |
 | `agentVersion` | `mif:agentVersion` | Version of the creating agent |
 | `confidence` | `mif:confidence` | Confidence score (0.0-1.0) |
 | `trustLevel` | `mif:trustLevel` | Trust classification level |
@@ -154,10 +171,10 @@ The MIF vocabulary defines terms for portable AI memory representation.
 | `decay` | `mif:decay` | -- | Decay model container |
 | `model` | `mif:model` | -- | Decay model type (none, linear, exponential, step) |
 | `halfLife` | `mif:halfLife` | `xsd:duration` | Decay half-life duration |
-| `currentStrength` | `mif:currentStrength` | `xsd:decimal` | Current memory strength (0.0-1.0) |
-| `lastReinforced` | `mif:lastReinforced` | `xsd:dateTime` | When memory was last reinforced |
+| `currentStrength` | `mif:currentStrength` | `xsd:decimal` | Current concept strength (0.0-1.0) |
+| `lastReinforced` | `mif:lastReinforced` | `xsd:dateTime` | When the concept was last reinforced |
 | `accessCount` | `mif:accessCount` | `xsd:integer` | Number of times accessed |
-| `lastAccessed` | `mif:lastAccessed` | `xsd:dateTime` | When memory was last accessed |
+| `lastAccessed` | `mif:lastAccessed` | `xsd:dateTime` | When the concept was last accessed |
 | `reinforcementHistory` | `mif:reinforcementHistory` | `@list` | Ordered list of reinforcement events |
 
 ### Embedding Properties
@@ -197,15 +214,15 @@ MIF reuses terms from established vocabularies:
 {
   "@context": {
     "mif": "https://mif-spec.dev/ns/",
-    "Memory": "mif:Memory",
-    "memoryType": "mif:memoryType"
+    "Concept": "mif:Concept",
+    "conceptType": "mif:conceptType"
   }
 }
 ```
 
 This creates IRIs like:
-- `https://mif-spec.dev/ns/Memory`
-- `https://mif-spec.dev/ns/memoryType`
+- `https://mif-spec.dev/ns/Concept`
+- `https://mif-spec.dev/ns/conceptType`
 
 For full context including all term definitions, reference the MIF context file:
 
@@ -217,4 +234,9 @@ For full context including all term definitions, reference the MIF context file:
 
 ## Note
 
-JSON-LD namespace prefixes are identifiers for vocabulary terms. While they form valid URLs, they don't need to resolve to actual content -- they serve as unique identifiers in the semantic web.
+The base IRI `https://mif-spec.dev/ns/` resolves: it serves this vocabulary as a
+human-readable page and as a machine-readable RDFS document at
+`https://mif-spec.dev/ns/vocabulary.jsonld`. Individual term IRIs (for example
+`https://mif-spec.dev/ns/Concept`) are identifiers for vocabulary terms; they
+resolve to the corresponding entry on the namespace page rather than to separate
+documents.
