@@ -34,6 +34,7 @@ Help grow the ecosystem by building:
 Use the provided schemas to validate your implementations:
 
 ```bash
+# Requires: npm install -g ajv-cli ajv-formats
 # Validate the JSON-LD projection of a MIF document
 npx ajv validate -s schema/mif.schema.json -r "schema/definitions/*.schema.json" \
   -d your-memory.json --spec=draft2020 -c ajv-formats

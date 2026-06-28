@@ -207,6 +207,7 @@ python scripts/okf_validate.py
 python scripts/mif_convert.py roundtrip examples profiles/ai-memory/examples
 
 # JSON Schema validation of the JSON-LD projection (ajv-cli reads .json)
+# Requires: npm install -g ajv-cli ajv-formats
 npx ajv validate -s schema/mif.schema.json -r "schema/definitions/*.schema.json" \
   -d your-concept.json --spec=draft2020 -c ajv-formats
 ```
