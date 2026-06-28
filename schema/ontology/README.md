@@ -41,9 +41,9 @@ with open('ontology.schema.json') as s, open('../../ontologies/mif-base.ontology
 print('Valid')
 "
 
-# ajv validation (requires JSON conversion)
+# ajv validation (requires JSON conversion; npm install -g ajv-cli ajv-formats)
 yq -o=json '.' ../../ontologies/mif-base.ontology.yaml | \
-  npx ajv validate -s ontology.schema.json -d /dev/stdin
+  npx ajv validate -s ontology.schema.json -d /dev/stdin --spec=draft2020 -c ajv-formats
 ```
 
 ### Converting to JSON-LD
