@@ -11,11 +11,13 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^7.0.2",
     "@astrojs/starlight": "^0.41.0",
+    "astro": "^7.0.2",
     "astro-mermaid": "^2.1.0"
   },
   "devDependencies": {
+    "ajv-cli": "5.0.0",
+    "ajv-formats": "3.0.1",
     "starlight-llms-txt": "^0.10.0"
   },
   "overrides": {
