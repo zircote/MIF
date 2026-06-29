@@ -36,7 +36,7 @@ jobs:
       contents: read
       security-events: write
       pull-requests: write
-    uses: modeled-information-format/.github/.github/workflows/reusable-sca-osv.yml@ff8adc6b1267c272beef916af851d9506160354f
+    uses: modeled-information-format/.github/.github/workflows/reusable-sca-osv.yml@08f06af29dfb1877e2dcfaaa90bf773a63261139
     with:
       fail-on-severity: high
 
