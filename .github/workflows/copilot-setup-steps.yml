@@ -7,6 +7,10 @@ on:
     paths:
       - .github/workflows/copilot-setup-steps.yml
 
+# Top-level least-privilege default (Checkov CKV2_GHA_1); the job narrows further.
+permissions:
+  contents: read
+
 jobs:
   # The job MUST be called 'copilot-setup-steps' to be recognized by GitHub Copilot Agent
   copilot-setup-steps:
