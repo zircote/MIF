@@ -477,10 +477,11 @@ Citations provide structured references to external sources that inform, support
 ```yaml
 # === OPTIONAL: Citations (Level 3) ===
 citations:
-  - type: article                          # REQUIRED: Source category
+  - "@type": Citation                      # REQUIRED: object type
+    citationType: article                  # REQUIRED: Source category
     title: "Memory Systems in AI Agents"   # REQUIRED: Citation title
     url: https://arxiv.org/abs/2024.12345  # REQUIRED: Valid URL
-    role: supports                         # REQUIRED: Relationship to memory
+    citationRole: supports                 # REQUIRED: Relationship to memory
     author: "Jane Smith"                   # OPTIONAL: EntityReference or text
     date: 2024-06-15                       # OPTIONAL: Publication date
     accessed: 2026-01-20                   # OPTIONAL: Access date
@@ -492,11 +493,12 @@ citations:
 
 | Field | Required | Type | Description |
 | --- | --- | --- | --- |
-| `type` | REQUIRED | Enum | Source category (see 5.4.3) |
+| `@type` | REQUIRED | Const | Always `Citation` |
+| `citationType` | REQUIRED | Enum | Source category (see 5.4.3) |
 | `title` | REQUIRED | String | Citation title |
 | `url` | REQUIRED | URI | Valid URL or URI |
-| `role` | REQUIRED | Enum | Relationship to memory (see 5.4.4) |
-| `author` | OPTIONAL | String | Entity reference or plain text |
+| `citationRole` | REQUIRED | Enum | Relationship to memory (see 5.4.4) |
+| `author` | OPTIONAL | EntityReference or String | Entity reference or plain text |
 | `date` | OPTIONAL | Date | Publication date (ISO 8601) |
 | `accessed` | OPTIONAL | Date | Access date (ISO 8601) |
 | `relevance` | OPTIONAL | Decimal | Relevance score (0.0-1.0) |
@@ -595,10 +597,11 @@ Implementations SHOULD validate citations according to these rules:
 
 | Field | Constraint |
 | --- | --- |
-| `type` | MUST be a value from Section 5.4.3 or a custom namespaced type (e.g., `acme:memo`) |
+| `@type` | MUST be `Citation` |
+| `citationType` | MUST be a value from Section 5.4.3 or a custom namespaced type (e.g., `acme:memo`) |
 | `title` | MUST be a non-empty string |
 | `url` | MUST be a valid URI (http, https, or custom schemes) |
-| `role` | MUST be a value from Section 5.4.4 or a custom namespaced role (e.g., `legal:precedent`) |
+| `citationRole` | MUST be a value from Section 5.4.4 or a custom namespaced role (e.g., `legal:precedent`) |
 
 ##### Optional Field Constraints
 
@@ -1835,18 +1838,14 @@ User prefers dark mode
 
 #### Markdown to JSON-LD
 
-1. Parse frontmatter `citations` array
-2. For each citation:
-   - Map `type` → `citationType` vocabulary term
-   - Map `role` → `citationRole` vocabulary term
-   - Resolve `EntityReference` author objects → entity URIs
-   - For multiple authors (an array), convert to an array of author objects
-   - Convert dates to ISO 8601 format
-3. If `## Citations` body section exists:
-   - Parse markdown links for title/url
-   - Extract metadata from `**Key**: value` patterns
-   - Merge with frontmatter (frontmatter takes precedence)
-4. Build `Citation` objects array
+1. Parse the frontmatter `citations` array. Each entry is already a `Citation`
+   object authored in its final shape (`@type: Citation`, `citationType`,
+   `citationRole`, `title`, `url`, ...).
+2. Pass each citation through to the JSON-LD projection verbatim — the converter
+   performs no field renaming. Author values are preserved as written (plain
+   text or an `EntityReference`).
+3. Any `## Citations` body section is authored content carried inside `content`;
+   the frontmatter `citations` array remains authoritative.
 
 #### JSON-LD to Markdown
 
@@ -1861,10 +1860,11 @@ User prefers dark mode
 ```yaml
 # Frontmatter
 citations:
-  - type: article
+  - "@type": Citation
+    citationType: article
     title: "Research Paper"
     url: https://example.com/paper
-    role: supports
+    citationRole: supports
     author:
       "@type": EntityReference
       entity: { "@id": urn:mif:entity:person:jane-smith }
@@ -2174,10 +2174,11 @@ entities:
 
 ```yaml
 citations:
-  - type: article              # REQUIRED
+  - "@type": Citation          # REQUIRED
+    citationType: article      # REQUIRED
     title: "Citation Title"    # REQUIRED
     url: https://example.com   # REQUIRED
-    role: supports             # REQUIRED
+    citationRole: supports     # REQUIRED
     author: "Author Name"      # OPTIONAL (string or EntityReference)
     date: 2024-06-15           # OPTIONAL
     accessed: 2026-01-20       # OPTIONAL

@@ -137,10 +137,11 @@ entities:
 
 ```yaml
 citations:
-  - type: article              # REQUIRED
+  - "@type": Citation          # REQUIRED
+    citationType: article      # REQUIRED
     title: "Citation Title"    # REQUIRED
     url: https://example.com   # REQUIRED
-    role: supports             # REQUIRED
+    citationRole: supports     # REQUIRED
     author: "Author Name"      # OPTIONAL (string or EntityReference)
     date: 2024-06-15           # OPTIONAL
     accessed: 2026-01-20       # OPTIONAL
