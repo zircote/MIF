@@ -85,7 +85,10 @@ def _sha256(path: Path) -> str:
 
 
 def _extends(name: str) -> list[str]:
-    """The ontology's `extends` closure parents, read from its canonical YAML."""
+    """The ontology's direct `extends` parents, read from its canonical YAML.
+
+    These are the immediate parents only; the harness fetcher walks the closure.
+    """
     data = yaml.safe_load((ROOT / f"{name}.ontology.yaml").read_text()) or {}
     ext = (data.get("ontology") or {}).get("extends") or []
     return [str(e) for e in ext]
