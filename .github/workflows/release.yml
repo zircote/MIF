@@ -204,7 +204,7 @@ jobs:
             --predicate-type https://cyclonedx.org/bom
 
       - name: Mint release app token (publish identity)
-        id: release-token
+        id: release_token
         if: github.event_name == 'release'
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
@@ -216,7 +216,7 @@ jobs:
       - name: Upload attested artifacts to the release
         if: github.event_name == 'release'
         env:
-          GH_TOKEN: ${{ steps.release-token.outputs.token }}
+          GH_TOKEN: ${{ steps.release_token.outputs.token }}
           TAG: ${{ steps.ver.outputs.tag }}
           SRC_ARTIFACT: ${{ steps.src.outputs.artifact }}
           SCHEMAS_ARTIFACT: ${{ steps.schemas.outputs.artifact }}
