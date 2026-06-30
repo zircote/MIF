@@ -15,6 +15,22 @@
     "v0": "0.2.0"
   },
   "ontologies": {
+    "agriculture": {
+      "version": "0.1.0",
+      "file": "agriculture.ontology.yaml",
+      "sha256": "8eba262f822bddfa44f3e0f76447eb99bdd84bb5d14f8561edcc0d65a9444780",
+      "extends": [
+        "mif-base",
+        "shared-traits"
+      ],
+      "canonical": "https://mif-spec.dev/ontologies/agriculture.ontology.jsonld",
+      "yaml": "https://mif-spec.dev/ontologies/agriculture.ontology.yaml",
+      "versioned": {
+        "0.2.0": "https://mif-spec.dev/ontologies/0.2.0/agriculture.ontology.jsonld",
+        "latest": "https://mif-spec.dev/ontologies/latest/agriculture.ontology.jsonld",
+        "v0": "https://mif-spec.dev/ontologies/v0/agriculture.ontology.jsonld"
+      }
+    },
     "biology-research-lab": {
       "version": "0.1.0",
       "file": "biology-research-lab.ontology.yaml",
@@ -163,10 +179,12 @@
       }
     },
     "regenerative-agriculture-research": {
-      "version": "0.3.1",
+      "version": "0.4.0",
       "file": "regenerative-agriculture-research.ontology.yaml",
-      "sha256": "2feafcf8c8b294aa18a846d3364ec0bab37caffa6aa5277ff799e80f4302559d",
+      "sha256": "5df0d93571b709f2420fda04a82a31ba12dea3a0f421bb7f5b4a0484cdb629f6",
       "extends": [
+        "research",
+        "agriculture",
         "engineering-base",
         "mif-generic"
       ],
@@ -180,12 +198,11 @@
       }
     },
     "regenerative-agriculture": {
-      "version": "0.1.0",
+      "version": "0.2.0",
       "file": "regenerative-agriculture.ontology.yaml",
-      "sha256": "f5c507a213c96d7aaac706cd0632a5b968d0d507fc10d0a9467757fc4355391b",
+      "sha256": "671e66775447a92ed768565ad691324f75ea6d5da9d410db02ff0b946b57631f",
       "extends": [
-        "mif-base",
-        "shared-traits"
+        "agriculture"
       ],
       "canonical": "https://mif-spec.dev/ontologies/regenerative-agriculture.ontology.jsonld",
       "yaml": "https://mif-spec.dev/ontologies/regenerative-agriculture.ontology.yaml",
@@ -213,13 +230,28 @@
         "v0": "https://mif-spec.dev/ontologies/v0/regulatory-legal.ontology.jsonld"
       }
     },
-    "scientific": {
-      "version": "0.2.0",
-      "file": "scientific.ontology.yaml",
-      "sha256": "41791b6cf14eb964762b76c56a4f5b4b2d096782fcfc51dbba8857d38c432868",
+    "research": {
+      "version": "0.1.0",
+      "file": "research.ontology.yaml",
+      "sha256": "1918677e62b0cd6e62de1e996e23d3adf2f903ff11bc65fb137fe65237e27e89",
       "extends": [
         "mif-base",
         "shared-traits"
+      ],
+      "canonical": "https://mif-spec.dev/ontologies/research.ontology.jsonld",
+      "yaml": "https://mif-spec.dev/ontologies/research.ontology.yaml",
+      "versioned": {
+        "0.2.0": "https://mif-spec.dev/ontologies/0.2.0/research.ontology.jsonld",
+        "latest": "https://mif-spec.dev/ontologies/latest/research.ontology.jsonld",
+        "v0": "https://mif-spec.dev/ontologies/v0/research.ontology.jsonld"
+      }
+    },
+    "scientific": {
+      "version": "0.2.1",
+      "file": "scientific.ontology.yaml",
+      "sha256": "91efe7a7d4d2f3952cc63fa9af1c47de6e763be585cf7ba83edb5e729bd79ac9",
+      "extends": [
+        "research"
       ],
       "canonical": "https://mif-spec.dev/ontologies/scientific.ontology.jsonld",
       "yaml": "https://mif-spec.dev/ontologies/scientific.ontology.yaml",

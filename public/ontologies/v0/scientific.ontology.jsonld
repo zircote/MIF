@@ -126,7 +126,7 @@
   "@id": "mif:ontology/scientific",
   "@type": "mif:Ontology",
   "identifier": "scientific",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Scientific research domain ontology \u2014 studies, methods, data, provenance",
   "namespaces": {
     "semantic": {
@@ -219,6 +219,9 @@
         "mif:trait/dated",
         "mif:trait/stakeholders"
       ],
+      "subtype_of": [
+        "mif:entityType/inquiry"
+      ],
       "schema": {
         "required": [
           "study_id",
@@ -280,6 +283,9 @@
         "mif:trait/dated",
         "mif:trait/stakeholders"
       ],
+      "subtype_of": [
+        "mif:entityType/inquiry"
+      ],
       "schema": {
         "required": [
           "investigation_id",
@@ -338,6 +344,9 @@
         "mif:trait/cited",
         "mif:trait/dated"
       ],
+      "subtype_of": [
+        "mif:entityType/inquiry"
+      ],
       "schema": {
         "required": [
           "cohort_id"
@@ -376,6 +385,9 @@
       "traits": [
         "mif:trait/cited",
         "mif:trait/versioned"
+      ],
+      "subtype_of": [
+        "mif:entityType/research-procedure"
       ],
       "schema": {
         "required": [
@@ -417,6 +429,9 @@
         "mif:trait/cited",
         "mif:trait/versioned",
         "mif:trait/dated"
+      ],
+      "subtype_of": [
+        "mif:entityType/research-procedure"
       ],
       "schema": {
         "required": [
@@ -502,6 +517,9 @@
         "mif:trait/cited",
         "mif:trait/dated"
       ],
+      "subtype_of": [
+        "mif:entityType/observation"
+      ],
       "schema": {
         "required": [
           "measurement_id",
@@ -541,6 +559,9 @@
       "description": "A falsifiable scientific hypothesis",
       "traits": [
         "mif:trait/cited"
+      ],
+      "subtype_of": [
+        "mif:entityType/proposition"
       ],
       "schema": {
         "required": [
@@ -591,6 +612,9 @@
       "traits": [
         "mif:trait/cited",
         "mif:trait/versioned"
+      ],
+      "subtype_of": [
+        "mif:entityType/apparatus"
       ],
       "schema": {
         "required": [
@@ -643,6 +667,9 @@
         "mif:trait/cited",
         "mif:trait/versioned",
         "mif:trait/documented"
+      ],
+      "subtype_of": [
+        "mif:entityType/scholarly-output"
       ],
       "schema": {
         "required": [
@@ -699,6 +726,9 @@
         "mif:trait/cited",
         "mif:trait/dated"
       ],
+      "subtype_of": [
+        "mif:entityType/funding-instrument"
+      ],
       "schema": {
         "required": [
           "grant_id",
@@ -744,6 +774,9 @@
         "mif:trait/cited",
         "mif:trait/versioned",
         "mif:trait/documented"
+      ],
+      "subtype_of": [
+        "mif:entityType/research-artifact"
       ],
       "schema": {
         "required": [
@@ -795,6 +828,9 @@
         "mif:trait/versioned",
         "mif:trait/documented"
       ],
+      "subtype_of": [
+        "mif:entityType/research-artifact"
+      ],
       "schema": {
         "required": [
           "access_url",
@@ -840,6 +876,9 @@
         "mif:trait/cited",
         "mif:trait/versioned",
         "mif:trait/documented"
+      ],
+      "subtype_of": [
+        "mif:entityType/research-artifact"
       ],
       "schema": {
         "required": [
@@ -890,6 +929,9 @@
         "mif:trait/versioned",
         "mif:trait/documented"
       ],
+      "subtype_of": [
+        "mif:entityType/research-artifact"
+      ],
       "schema": {
         "required": [
           "title"
@@ -932,6 +974,9 @@
         "mif:trait/cited",
         "mif:trait/versioned",
         "mif:trait/documented"
+      ],
+      "subtype_of": [
+        "mif:entityType/research-artifact"
       ],
       "schema": {
         "required": [
