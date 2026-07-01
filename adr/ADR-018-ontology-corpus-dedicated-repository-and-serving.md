@@ -37,20 +37,12 @@ related:
 
 ## Status
 
-Accepted
+Accepted (amended 2026-06-30 — see Amendment section)
 
 This ADR resolves the precursor recorded as org discussion #168
 ("House the Ontologies in a Dedicated modeled-information-format/ontologies
 Repository", status `proposed`). It records the architecture as built and
 answers that discussion's three open questions (scope, consumption, versioning).
-
-**Amendment (2026-06-30):** [ADR-019](ADR-019-deploy-time-attested-ontology-vendoring.md)
-(proposed) replaces the propagation mechanism named below as a follow-up
-(bot-opened PR mirroring into `public/ontologies/`, never built) with a
-deploy-time fetch of the `ontologies` repo's signed release tarball, verified
-fail-closed with `gh attestation verify`. Every other decision in this ADR
-(source of record, schema/context location, layout, URL patterns, identity
-invariant) is unchanged.
 
 ## Context
 
@@ -341,9 +333,32 @@ and mitigated by reusing the ADR-016 snapshot tooling and its fail-closed gate.
 
 ## More Information
 
-- **Date:** 2026-06-30
+- **Date:** 2026-06-30 (original); amended 2026-06-30
 - **Source:** org discussion #168; `public/ontologies/`; `scripts/snapshot-ontology-version.py`.
-- **Related ADRs:** ADR-004, ADR-005, ADR-007, ADR-011, ADR-016
+- **Related ADRs:** ADR-004, ADR-005, ADR-007, ADR-011, ADR-016, ADR-019
+
+## Amendment
+
+### 2026-06-30 — propagation mechanism replaced
+
+This ADR's Implementation section named a follow-up that was never built: "a
+release-propagation job in the `ontologies` repo that, on a `vX.Y.Z` tag,
+mirrors the released corpus into MIF's `public/ontologies/` and opens a PR;
+MIF merges and deploys." [ADR-019](ADR-019-deploy-time-attested-ontology-vendoring.md)
+(proposed) replaces that unbuilt mechanism with a deploy-time fetch of the
+`ontologies` repo's signed release tarball, verified fail-closed with
+`gh attestation verify`, in place of a committed mirror and a bot-opened PR.
+
+**Rationale for amendment:** the PR-propagation plan was never implemented,
+and in its absence the mirror was refreshed by hand and drifted from
+upstream. A PR merge is also a human trust decision, not a cryptographic one;
+fetching and verifying the tarball's attestation directly is a stronger
+admission gate than reviewing a diff.
+
+**Unchanged by this amendment:** every other decision recorded above — the
+`ontologies` repo as source of record, the normative schema and JSON-LD
+context staying in MIF, the flat layout, the served URL patterns, and the
+`id`/`version` identity invariant.
 
 ## Audit
 
