@@ -415,16 +415,21 @@ them at the vendored `public/ontologies/` corpus.
 
 **Status:** Merged and closed out.
 
-`MIF`#203 merged alongside the companion `ontologies`#25 and `.github`#44.
-Merging pushed a normal commit to `main`, which triggered `deploy.yml`'s
-existing `push` trigger without needing the `repository_dispatch` to fire
-first; that run vendored the corpus and redeployed successfully
-(`gh run list` confirms `conclusion: success` at the exact merge commit).
-Re-verified end to end against the live site, not just the local checkout:
-`https://mif-spec.dev/ontologies/index.json` returns HTTP 200 and matches
-`ontologies`' current `main` exactly on all 20 entries'
-`version`/`file`/`sha256`/`extends`. `ontologies`#6 (the issue this ADR
-pair exists to close) closed on this evidence.
+modeled-information-format/MIF#203 merged alongside the companion
+modeled-information-format/ontologies#25 and
+modeled-information-format/.github#44. Merging pushed a normal commit to
+`main`, which triggered `deploy.yml`'s existing `push` trigger without
+needing the `repository_dispatch` to fire first; that run vendored the
+corpus and redeployed successfully (`gh run list` confirms
+`conclusion: success` at the exact merge commit). Re-verified end to end
+against the live site, not just the local checkout:
+`https://mif-spec.dev/ontologies/index.json` returns HTTP 200, and every
+one of the 20 entries' `version`, `file`, `sha256`, and `extends` fields
+match `ontologies`' current `main` exactly.
+modeled-information-format/ontologies#6's own acceptance criterion, the
+index "served at `https://mif-spec.dev/ontologies/index.json`", stayed
+unmet until this work landed even though its local `index.json` half was
+already delivered by an earlier PR; closed on this evidence.
 
 Fixing the `--path` false-positive above (previous entry) surfaced a real
 regression: `.github/workflows/validate.yml`'s "Validate Ontology Files"
@@ -441,4 +446,5 @@ Running the fixed `validate-ontologies.py --path` against the `ontologies`
 repo's real corpus (rather than zero files) also surfaced genuine,
 pre-existing `subtype_of` substitutability violations in four ontologies
 that this check had never actually run against before. Filed as
-`ontologies`#26; out of scope for this ADR, tracked separately.
+modeled-information-format/ontologies#26; out of scope for this ADR,
+tracked separately.
