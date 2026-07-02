@@ -10,7 +10,7 @@ tags:
   - deployment
   - attestation
   - registry
-status: implemented
+status: accepted
 created: 2026-06-30
 updated: 2026-07-02
 author: MIF Maintainers
@@ -33,7 +33,7 @@ related:
 
 ## Status
 
-Implemented
+Accepted
 
 This ADR amends [ADR-018](ADR-018-ontology-corpus-dedicated-repository-and-serving.md).
 ADR-018 is unchanged and stays Accepted for everything it decided: the
@@ -413,6 +413,8 @@ them at the vendored `public/ontologies/` corpus.
 
 ### 2026-07-02 — Merged and closed out
 
+**Status:** Merged and closed out.
+
 `MIF`#203 merged alongside the companion `ontologies`#25 and `.github`#44.
 Merging pushed a normal commit to `main`, which triggered `deploy.yml`'s
 existing `push` trigger without needing the `repository_dispatch` to fire
@@ -427,7 +429,7 @@ pair exists to close) closed on this evidence.
 Fixing the `--path` false-positive above (previous entry) surfaced a real
 regression: `.github/workflows/validate.yml`'s "Validate Ontology Files"
 required check called `validate-ontologies.py`/`validate-namespaces.py`
-with no `--path`, so the newly-honest failure mode broke that check. Fixed
+with no `--path`, so the newly-accurate failure mode broke that check. Fixed
 by dropping both corpus-scanning steps from that job (nothing local to
 check now that ontology content lives entirely in the `ontologies` repo)
 and keeping only `test_subtype_of.py`. The job's `name:` was kept exactly

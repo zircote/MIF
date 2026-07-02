@@ -351,6 +351,10 @@ fail-closed with `gh attestation verify`, in place of a committed mirror and a
 bot-opened PR. The propagation mechanism recorded above remains this ADR's
 decision until ADR-019 is accepted.
 
+**Update, 2026-07-02:** ADR-019 is now Accepted and implemented; the
+deploy-time fetch/verify mechanism it describes has replaced the
+propagation mechanism recorded above.
+
 **Rationale for amendment:** the PR-propagation plan was never implemented,
 and in its absence the mirror was refreshed by hand and drifted from
 upstream. A PR merge is also a human trust decision, not a cryptographic one;
